@@ -42,7 +42,7 @@ const schema = [
         </div>
         <p class="kicker">Needle-Free Cosmetic Delivery System</p>
         <h1>바늘 없이 앰플을 전달하는<br /><span class="hl">니들프리 미용기기</span> 더셀젯</h1>
-        <p class="hero-lead">더셀젯은 솔레노이드 전자기 제트로 0.5cc 앰플을 피부에 고르게 전달하는 <strong>피부관리실 · 클리닉 전문가용 미용기기</strong>입니다.</p>
+        <p class="hero-lead">솔레노이드 전자기 제트로 0.5cc 앰플을 피부에 고르게 전달하는<br class="pc" /> 피부관리실과 클리닉을 위한 <strong>전문가용 미용기기</strong>입니다.</p>
         <ul class="checks hero-checks">
           <li>듀얼 펄스로 앰플 튐 · 손실 최소화</li>
           <li>0.5cc 끝까지 일정한 압력 (풀샷)</li>
@@ -89,20 +89,20 @@ const schema = [
       <div class="section-head reveal">
         <span class="eyebrow">About</span>
         <h2 class="section-title">더셀젯은 이런 기기입니다</h2>
-        <p class="section-lead">바늘 대신 짧고 강한 제트 압력으로 앰플을 피부에 전달합니다.<br />교육받은 전문가가 관리실에서 사용하는 미용기기입니다.</p>
+        <p class="section-lead">바늘 대신 짧고 강한 제트 압력으로 앰플을 피부에 전달합니다.<br /> 교육받은 전문가가 관리실에서 사용하는 미용기기입니다.</p>
       </div>
       <div class="about-grid">
         <div class="card about-card reveal">
           <h3>바늘 없는 전달 방식</h3>
-          <p>솔레노이드(전자석)가 만드는 약 20~25MPa의 순간 압력으로, 지름 약 130~150㎛ 노즐을 통해 앰플을 분사합니다.</p>
+          <p>솔레노이드(전자석)가 약 20~25MPa의 순간 압력을 만듭니다. 이 압력으로 지름 약 130~150㎛ 노즐을 통해 앰플을 분사합니다.</p>
         </div>
         <div class="card about-card reveal">
           <h3>전문가용 설계</h3>
-          <p>부위별 모드와 9단계 강도, 설정 저장, 사용 기록까지. 관리사가 고객마다 같은 조건으로 관리할 수 있게 만들었습니다.</p>
+          <p>부위별 모드, 9단계 강도, 설정 저장과 사용 기록을 갖췄습니다. 고객마다 같은 조건으로 관리할 수 있습니다.</p>
         </div>
         <div class="card about-card reveal">
           <h3>국내 제조 · 1년 보증</h3>
-          <p>아이레이저랩(I LASER LAB)이 국내에서 제조하고, 구입일로부터 1년간 주요 부품을 무상 보증합니다.</p>
+          <p>아이레이저랩(I LASER LAB)이 국내에서 제조합니다. 구입일로부터 1년간 주요 부품을 무상 보증합니다.</p>
         </div>
       </div>
     </div>
@@ -150,7 +150,7 @@ const schema = [
             <span class="cert-badge">{c.badge}</span>
             <h3>{c.title}</h3>
             <p class="cert-org">{c.org}</p>
-            <p class="cert-num">{c.num}</p>
+            <p class="cert-num">{c.num.split(' · ').map((x) => <span class="nw">{x}</span>)}</p>
             <p>{c.desc}</p>
           </div>
         ))}
@@ -160,7 +160,7 @@ const schema = [
         <ul class="checks">
           {safety.map((s) => <li>{s}</li>)}
         </ul>
-        <p class="note">※ 더셀젯은 미용 목적의 기기이며, 질병의 진단 · 치료를 위한 의료기기가 아닙니다.</p>
+        <p class="note">※ 더셀젯은 미용 목적의 기기이며, 질병의 진단이나 치료를 위한 의료기기가 아닙니다.</p>
       </div>
     </div>
   </section>
@@ -199,7 +199,7 @@ const schema = [
   .kicker { margin-top: 22px; font: 800 13px var(--font-latin); letter-spacing: .14em; text-transform: uppercase; color: var(--brand); }
   h1 { margin-top: 10px; font-size: clamp(32px, 4.6vw, 50px); font-weight: 900; line-height: 1.28; }
   .hl { display: inline-block; margin: 6px 0; padding: 2px 14px; border-radius: 12px; color: #fff; background: linear-gradient(90deg, var(--brand), #0284c7); }
-  .hero-lead { margin-top: 18px; font-size: 19px; color: var(--ink-2); max-width: 600px; }
+  .hero-lead { margin-top: 18px; font-size: 19px; color: var(--ink-2); max-width: 640px; }
   .hero-lead strong { color: var(--ink); }
   .hero-checks { grid-template-columns: 1fr 1fr; gap: 10px 18px; font-size: 15.5px; }
   .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
@@ -256,7 +256,8 @@ const schema = [
   .cert-badge { display: inline-block; padding: 5px 11px; border-radius: 8px; background: var(--navy); color: #7ff0e2; font: 800 13px var(--font-latin); }
   .cert h3 { font-size: 18px; margin-top: 14px; }
   .cert-org { font-size: 14px; color: var(--ink-3); }
-  .cert-num { margin: 10px 0; font: 700 13.5px var(--font-latin); color: var(--brand); word-break: break-all; }
+  .cert-num { margin: 10px 0; font: 700 13.5px var(--font-latin); color: var(--brand); display: grid; gap: 2px; }
+  .nw { white-space: nowrap; }
   .cert p:last-child { font-size: 15px; color: var(--ink-2); }
   .safety { margin-top: 24px; padding: 30px; }
   .safety h3 { font-size: 21px; }
@@ -272,7 +273,12 @@ const schema = [
   .faq[open] summary::after { content: '−'; }
   .faq p { padding: 0 0 20px; color: var(--ink-2); }
 
+  @media (max-width: 1240px) {
+    .hero-checks { grid-template-columns: 1fr; }
+    .stats, .cert-grid { grid-template-columns: 1fr 1fr; }
+  }
   @media (max-width: 1000px) {
+    .about-grid { grid-template-columns: 1fr; }
     .hero-in { grid-template-columns: 1fr; }
     .stats { grid-template-columns: 1fr 1fr; }
     .cert-grid { grid-template-columns: 1fr 1fr; }

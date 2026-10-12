@@ -6,8 +6,8 @@ const tabs = [
   { id: 'acc', label: '전용 부속품' },
 ];
 const keySpecs = [
-  { l: '분사 압력', v: '20~25 MPa', d: '솔레노이드 전자기 제트' },
-  { l: '연속 샷', v: '최대 5 Hz', d: '바디 모드는 1 Hz 단발' },
+  { l: '분사 압력', v: '20~25 MPa', d: '전자기 제트 방식' },
+  { l: '연속 샷', v: '최대 5 Hz', d: '바디 모드는 단발' },
   { l: '전용 카트리지', v: '0.5 cc', d: '끝까지 일정한 압력' },
   { l: '조작부', v: '10.1"', d: '컬러 LCD 터치스크린' },
 ];
@@ -49,10 +49,10 @@ const keySpecs = [
           </div>
           <p class="mini-h">이런 점이 다릅니다</p>
           <ul class="adv">
-            <li>듀얼 펄스로 한 번의 분사를 두 번에 나눠 앰플 튐 · 손실을 줄입니다</li>
+            <li>듀얼 펄스로 분사를 두 번에 나눠, 앰플이 튀거나 버려지는 양을 줄입니다</li>
             <li>얼굴·목 · 두피 · 바디 · 스페셜 4가지 모드 × 9단계 강도</li>
             <li>핸드피스 터치 센서로 진동 · 레드 LED를 손끝에서 켜고 끕니다</li>
-            <li>약 70℃ 과열 자동 정지, 압력 점검 화면, 사용 기록, PIN 잠금</li>
+            <li>약 70℃ 과열 자동 정지, 압력 점검, 사용 기록, PIN 잠금</li>
           </ul>
           <div class="chips-row">
             <span>KC 적합등록</span><span>CE (LVD · EMC)</span><span>RoHS</span><span>특허 3건</span><span>1년 보증</span>
@@ -82,7 +82,7 @@ const keySpecs = [
               <div class="amp-top">
                 <img class="vial-big" src={`/images/aton-${a.code.toLowerCase()}.webp`} alt={`아톤플러스 ${a.code} ${a.name} 앰플`} width="120" height="252" loading="lazy" />
                 <div>
-                  <p class="amp-line">SUMI CELL.REJUVE · ATON PLUS</p>
+                  <p class="amp-line">SUMI CELL.REJUVE</p>
                   <h3>ATON PLUS <span>{a.code}</span></h3>
                   <p class="amp-en">{a.name}</p>
                 </div>
@@ -90,7 +90,7 @@ const keySpecs = [
               <dl class="amp-dl">
                 <div><dt>관리 목적</dt><dd>{a.care}</dd></div>
                 <div><dt>용량</dt><dd>{a.vol}</dd></div>
-                <div><dt>주요 원료</dt><dd>{ampouleIngredients[a.code].join(' · ')}{ampouleIngredients[a.code].length === 1 && ' 외 (전 성분은 제품 표시 사항 참고)'}</dd></div>
+                <div><dt>주요 원료</dt><dd class="ingr">{ampouleIngredients[a.code].map((x) => <span>{x}</span>)}{ampouleIngredients[a.code].length === 1 && <span class="wrap">외 (전 성분은 제품 표시 사항 참고)</span>}</dd></div>
               </dl>
               <p class="amp-note">모든 아톤플러스 앰플에는 PDRN(Sodium DNA)이 들어 있습니다. 자세한 전 성분과 사용법은 제품 표시 사항을 확인해 주세요.</p>
             </article>
@@ -232,6 +232,9 @@ const keySpecs = [
   .amp-dl div { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 14px 16px; border-radius: 12px; background: #f8fafc; border: 1px solid var(--line); }
   .amp-dl dt { font-weight: 800; color: var(--ink-3); font-size: 14.5px; }
   .amp-dl dd { margin: 0; font-weight: 700; }
+  .ingr { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ingr span { white-space: nowrap; padding: 3px 10px; border-radius: 999px; background: #fff; border: 1px solid var(--line); font: 600 13.5px var(--font-latin); }
+  .ingr span.wrap { white-space: normal; padding: 3px 0; border: 0; background: none; font: 600 13.5px inherit; color: var(--ink-3); }
   .amp-note { margin-top: 18px; font-size: 14px; color: var(--ink-3); }
 
   /* 부속품 */
