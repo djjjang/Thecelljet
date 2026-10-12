@@ -1,0 +1,361 @@
+---
+import Base from '../layouts/Base.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { site } from '../data/site.js';
+import { stats, techs, modes, modeNotes, components, ampoules, safety, certs, faqs } from '../data/content.js';
+
+const description = '더셀젯(THE CELLJET)은 바늘 없이 솔레노이드 전자기 제트 방식으로 앰플을 피부에 전달하는 전문가용 미용기기입니다. 0.5cc 풀샷, 최대 5Hz, 4가지 모드 × 9단계. KC 적합등록 · 특허 3건. 시연 · 도입 상담 010-7781-6533';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: '더셀젯 (SUMI THE CELLJET) Cosmetic Delivery System',
+    alternateName: ['THE CELLJET', '더셀젯', '니들프리 앰플 전달 기기'],
+    description: '바늘 없이 솔레노이드 전자기 제트 방식으로 화장품 앰플을 피부에 전달하는 전문가용 미용기기',
+    image: new URL('/images/celljet-main.webp', site.url).href,
+    brand: { '@type': 'Brand', name: 'THE CELLJET' },
+    manufacturer: { '@type': 'Organization', name: 'I LASER LAB (아이레이저랩)' },
+    countryOfOrigin: 'KR',
+    category: '미용기기',
+    model: 'SUMI THE CELLJET',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+<Base description={description} schema={schema}>
+  <!-- 첫 화면 -->
+  <section class="hero">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap hero-in">
+      <div class="hero-copy">
+        <div class="badges">
+          <span class="badge teal">KC 적합등록 · 특허 3건</span>
+          <span class="badge">국내 제조 · 아이레이저랩</span>
+        </div>
+        <p class="kicker">Needle-Free Cosmetic Delivery System</p>
+        <h1>바늘 없이 앰플을 전달하는<br /><span class="hl">니들프리 미용기기</span> 더셀젯</h1>
+        <p class="hero-lead">더셀젯은 솔레노이드 전자기 제트로 0.5cc 앰플을 피부에 고르게 전달하는 <strong>피부관리실 · 클리닉 전문가용 미용기기</strong>입니다.</p>
+        <ul class="checks hero-checks">
+          <li>듀얼 펄스로 앰플 튐 · 손실 최소화</li>
+          <li>0.5cc 끝까지 일정한 압력 (풀샷)</li>
+          <li>얼굴·목 · 두피 · 바디 · 스페셜 4가지 모드</li>
+          <li>핸드피스에서 진동 · 레드 LED 터치 제어</li>
+        </ul>
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-primary">장비 시연 · 도입 상담 신청</a>
+          <a href={`tel:${site.phone}`} class="btn btn-ghost">전화 {site.phone}</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="device-card">
+          <div class="device-top">
+            <img src="/sumi-logo-white.svg" alt="" width="56" height="32" />
+            <span class="pill">THE CELLJET</span>
+          </div>
+          <img class="device-img" src="/images/celljet-main.webp" alt="더셀젯(SUMI THE CELLJET) 본체와 핸드피스 실물 사진" width="1000" height="800" fetchpriority="high" />
+          <div class="device-cap">
+            <span>Cosmetic Delivery System</span>
+            <strong>SUMI THE CELLJET</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="stats">
+        {stats.map((s) => (
+          <div class="stat">
+            <div class="stat-v">{s.value}<small>{s.unit}</small></div>
+            <div class="stat-l">{s.label}</div>
+            <div class="stat-s">{s.sub}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 제품 소개 -->
+  <section class="section soft" id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">About</span>
+        <h2 class="section-title">더셀젯은 이런 기기입니다</h2>
+        <p class="section-lead">바늘 대신 짧고 강한 제트 압력으로 앰플을 피부에 전달합니다.<br />교육받은 전문가가 관리실에서 사용하는 미용기기입니다.</p>
+      </div>
+      <div class="about-grid">
+        <div class="card about-card">
+          <h3>바늘 없는 전달 방식</h3>
+          <p>솔레노이드(전자석)가 만드는 약 20~25MPa의 순간 압력으로, 지름 약 130~150㎛ 노즐을 통해 앰플을 분사합니다.</p>
+        </div>
+        <div class="card about-card">
+          <h3>전문가용 설계</h3>
+          <p>부위별 모드와 9단계 강도, 설정 저장, 사용 기록까지. 관리사가 고객마다 같은 조건으로 관리할 수 있게 만들었습니다.</p>
+        </div>
+        <div class="card about-card">
+          <h3>국내 제조 · 1년 보증</h3>
+          <p>아이레이저랩(I LASER LAB)이 국내에서 제조하고, 구입일로부터 1년간 주요 부품을 무상 보증합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 핵심 기술 -->
+  <section class="section" id="technology">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Core Technology</span>
+        <h2 class="section-title">더셀젯 4가지 핵심 기술</h2>
+      </div>
+      <div class="tech-grid">
+        {techs.map((t) => (
+          <article class="card tech">
+            <div class="tech-img"><img src={t.img} alt={t.alt} loading="lazy" /></div>
+            <div class="tech-body">
+              <span class="tech-no">TECH {t.no}</span>
+              <h3>{t.title}</h3>
+              <p class="tech-en">{t.en}</p>
+              <p>{t.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 관리 모드 -->
+  <section class="section dark" id="modes">
+    <div class="wrap modes-in">
+      <div>
+        <span class="eyebrow on-dark">Treatment Area</span>
+        <h2 class="section-title">부위에 맞춘 4가지 모드</h2>
+        <p class="section-lead">관리 부위와 앰플 점도에 맞춰 모드를 고르고, 9단계로 강도를 조절합니다.</p>
+        <div class="mode-grid">
+          {modes.map((m) => (
+            <div class="mode">
+              <span class="mode-key">{m.key}</span>
+              <h3>{m.name}</h3>
+              <p>{m.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="ui-panel">
+        <img src="/images/celljet-ui.webp" alt="더셀젯 조작 화면: 모드 선택, 초당 샷 수, 강도, 메모리 1~5" loading="lazy" />
+        <ul class="checks">
+          {modeNotes.map((n) => <li>{n}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 구성품 · 앰플 -->
+  <section class="section" id="lineup">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Lineup</span>
+        <h2 class="section-title">구성품과 전용 앰플</h2>
+      </div>
+      <div class="comp-grid">
+        <div class="comp-photo card"><img src="/images/celljet-handpiece.webp" alt="더셀젯 핸드피스(자동 분사 건)" loading="lazy" /></div>
+        <div class="comp-list">
+          {components.map((c) => (
+            <div class="card comp">
+              <h3>{c.name}</h3>
+              <p>{c.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="amp-head">
+        <h3>아톤플러스 (ATON PLUS) 전용 앰플 6종</h3>
+        <p>더셀젯 관리에 맞춘 전용 앰플 라인입니다. 자세한 성분과 사용법은 제품 표시 사항을 확인해 주세요.</p>
+      </div>
+      <div class="amp-grid">
+        {ampoules.map((a) => (
+          <div class="card amp" style={`--c:${a.color}`}>
+            <div class="amp-code">ATON PLUS <b>{a.code}</b></div>
+            <div class="amp-name">{a.name}</div>
+            <div class="amp-care">{a.care}</div>
+            <div class="amp-vol">{a.vol}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 안전 · 인증 -->
+  <section class="section soft" id="certs">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Safety & Certification</span>
+        <h2 class="section-title">안전 기준과 인증 · 특허</h2>
+      </div>
+      <div class="cert-grid">
+        {certs.map((c) => (
+          <div class="card cert">
+            <span class="cert-badge">{c.badge}</span>
+            <h3>{c.title}</h3>
+            <p class="cert-org">{c.org}</p>
+            <p class="cert-num">{c.num}</p>
+            <p>{c.desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="card safety">
+        <h3>안전하게 사용하기 위해</h3>
+        <ul class="checks">
+          {safety.map((s) => <li>{s}</li>)}
+        </ul>
+        <p class="note">※ 더셀젯은 미용 목적의 기기이며, 질병의 진단 · 치료를 위한 의료기기가 아닙니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 자주 묻는 질문 -->
+  <section class="section" id="faq">
+    <div class="wrap faq-wrap">
+      <div class="section-head">
+        <span class="eyebrow">FAQ</span>
+        <h2 class="section-title">자주 묻는 질문</h2>
+      </div>
+      <div class="faq-list">
+        {faqs.map((f, i) => (
+          <details class="faq" open={i === 0}>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <LeadForm />
+</Base>
+
+<style>
+  /* 첫 화면 */
+  .hero { position: relative; overflow: hidden; padding: 64px 0 72px; }
+  .glow { position: absolute; inset: -120px 0 auto; height: 620px; z-index: -1;
+    background: radial-gradient(420px 320px at 12% 30%, rgba(0,196,180,.18), transparent 70%),
+                radial-gradient(460px 360px at 88% 20%, rgba(14,165,233,.16), transparent 70%); }
+  .hero-in { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; }
+  .badge { padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 800; background: #fff; border: 1px solid var(--line); color: var(--ink-2); }
+  .badge.teal { background: #d9f4f0; border-color: #9be3d9; color: #005049; }
+  .kicker { margin-top: 22px; font: 800 13px var(--font-latin); letter-spacing: .14em; text-transform: uppercase; color: var(--brand); }
+  h1 { margin-top: 10px; font-size: clamp(32px, 4.6vw, 50px); font-weight: 900; line-height: 1.28; }
+  .hl { display: inline-block; margin: 6px 0; padding: 2px 14px; border-radius: 12px; color: #fff; background: linear-gradient(90deg, var(--brand), #0284c7); }
+  .hero-lead { margin-top: 18px; font-size: 19px; color: var(--ink-2); max-width: 600px; }
+  .hero-lead strong { color: var(--ink); }
+  .hero-checks { grid-template-columns: 1fr 1fr; gap: 10px 18px; font-size: 15.5px; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .hero-cta .btn { padding: 16px 26px; font-size: 17px; }
+
+  .device-card { position: relative; border-radius: 24px; overflow: hidden; background: linear-gradient(180deg, #1c2333, var(--navy)); box-shadow: 0 30px 60px rgba(10,15,29,.28); }
+  .device-top { position: absolute; top: 18px; left: 18px; right: 18px; display: flex; align-items: center; justify-content: space-between; z-index: 2; }
+  .device-top img { height: 30px; width: auto; }
+  .pill { padding: 5px 12px; border-radius: 999px; background: var(--accent); color: #00201d; font: 800 12px var(--font-latin); letter-spacing: .1em; }
+  .device-img { width: 100%; aspect-ratio: 5 / 4; object-fit: cover; }
+  .device-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 22px 20px; background: linear-gradient(transparent, rgba(6,10,20,.9)); color: #fff; display: grid; }
+  .device-cap span { font: 700 12px var(--font-latin); letter-spacing: .12em; text-transform: uppercase; color: #7ff0e2; }
+  .device-cap strong { font: 800 20px var(--font-latin); }
+
+  .stats { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .stat { padding: 22px; border-radius: 16px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow); }
+  .stat-v { font: 800 32px/1.1 var(--font-latin); color: var(--brand); }
+  .stat-v small { font-size: 18px; margin-left: 3px; }
+  .stat-l { margin-top: 8px; font-weight: 800; }
+  .stat-s { font-size: 14px; color: var(--ink-3); }
+
+  /* 소개 */
+  .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .about-card { padding: 28px; }
+  .about-card h3 { font-size: 20px; margin-bottom: 10px; }
+  .about-card p { color: var(--ink-2); }
+
+  /* 기술 */
+  .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .tech { overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+  .tech-img { background: #1a1f2b; aspect-ratio: 16 / 9; overflow: hidden; }
+  .tech-img img { width: 100%; height: 100%; object-fit: cover; }
+  .tech-body { padding: 26px; }
+  .tech-no { font: 800 12px var(--font-latin); letter-spacing: .12em; color: var(--brand-2); }
+  .tech h3 { font-size: 21px; margin-top: 6px; }
+  .tech-en { font: 600 13px var(--font-latin); color: var(--ink-3); margin: 2px 0 12px; }
+  .tech p:last-child { color: var(--ink-2); }
+
+  /* 모드 */
+  .dark { background: var(--navy); color: #e2e8f0; }
+  .dark .section-title { color: #fff; }
+  .dark .section-lead { color: #94a3b8; }
+  .on-dark { background: rgba(0,196,180,.15); color: #7ff0e2; }
+  .modes-in { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+  .mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 32px; }
+  .mode { padding: 20px; border-radius: 16px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); }
+  .mode-key { font: 800 11.5px var(--font-latin); letter-spacing: .12em; color: #7ff0e2; }
+  .mode h3 { color: #fff; font-size: 18px; margin: 4px 0 6px; }
+  .mode p { font-size: 15px; color: #cbd5e1; }
+  .ui-panel img { border-radius: 16px; border: 1px solid rgba(255,255,255,.12); }
+  .ui-panel .checks { margin-top: 22px; color: #e2e8f0; }
+
+  /* 구성품 */
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+  .comp-photo { overflow: hidden; background: #1a1f2b; }
+  .comp-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .comp-list { display: grid; gap: 16px; }
+  .comp { padding: 24px; }
+  .comp h3 { font-size: 19px; margin-bottom: 6px; }
+  .comp p { color: var(--ink-2); }
+  .amp-head { margin: 64px 0 24px; text-align: center; }
+  .amp-head h3 { font-size: 24px; }
+  .amp-head p { color: var(--ink-3); margin-top: 8px; }
+  .amp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .amp { padding: 22px; border-top: 4px solid var(--c); }
+  .amp-code { font: 700 13px var(--font-latin); letter-spacing: .06em; color: var(--ink-3); }
+  .amp-code b { color: var(--c); font-size: 22px; margin-left: 4px; }
+  .amp-name { font: 700 15px var(--font-latin); margin-top: 4px; }
+  .amp-care { margin-top: 10px; font-weight: 800; }
+  .amp-vol { font-size: 14px; color: var(--ink-3); }
+
+  /* 인증 */
+  .cert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .cert { padding: 24px; }
+  .cert-badge { display: inline-block; padding: 5px 11px; border-radius: 8px; background: var(--navy); color: #7ff0e2; font: 800 13px var(--font-latin); }
+  .cert h3 { font-size: 18px; margin-top: 14px; }
+  .cert-org { font-size: 14px; color: var(--ink-3); }
+  .cert-num { margin: 10px 0; font: 700 13.5px var(--font-latin); color: var(--brand); word-break: break-all; }
+  .cert p:last-child { font-size: 15px; color: var(--ink-2); }
+  .safety { margin-top: 24px; padding: 30px; }
+  .safety h3 { font-size: 21px; }
+  .note { margin-top: 18px; font-size: 14.5px; color: var(--ink-3); }
+
+  /* FAQ */
+  .faq-wrap { max-width: 860px; }
+  .faq-list { display: grid; gap: 12px; }
+  .faq { border: 1px solid var(--line); border-radius: 14px; background: #fff; padding: 0 22px; }
+  .faq summary { cursor: pointer; padding: 18px 0; font-weight: 800; font-size: 17.5px; list-style: none; position: relative; padding-right: 30px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; position: absolute; right: 0; top: 14px; font-size: 24px; color: var(--brand); }
+  .faq[open] summary::after { content: '−'; }
+  .faq p { padding: 0 0 20px; color: var(--ink-2); }
+
+  @media (max-width: 1000px) {
+    .hero-in, .modes-in, .comp-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .cert-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 760px) {
+    .hero { padding: 36px 0 56px; }
+    .hero-lead { font-size: 17px; }
+    .hero-checks { grid-template-columns: 1fr; }
+    .hero-cta .btn { width: 100%; }
+    .about-grid, .tech-grid, .mode-grid, .amp-grid, .cert-grid { grid-template-columns: 1fr; }
+    .stat { padding: 16px; }
+    .stat-v { font-size: 26px; }
+  }
+</style>

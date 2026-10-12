@@ -1,0 +1,153 @@
+---
+import { site } from '../data/site.js';
+const types = ['피부관리실 · 에스테틱', '병원 · 의원 관리실', '두피 · 헤어 관리', '유통 · 대리점', '기타'];
+const interests = ['장비 시연 신청', '도입 · 가격 상담', '아톤플러스 앰플 문의', '교육 · A/S 문의', '기타'];
+---
+<section class="section lead" id="contact">
+  <div class="wrap lead-in">
+    <div class="lead-copy">
+      <span class="eyebrow">Contact</span>
+      <h2 class="section-title">더셀젯, 직접 보고<br />상담받아 보세요</h2>
+      <p class="section-lead">샵 · 클리닉 이름과 연락처를 남겨 주시면 담당자가 확인 후 연락드립니다.</p>
+      <ul class="checks">
+        <li>장비 시연 일정 안내</li>
+        <li>도입 조건 · 가격 상담</li>
+        <li>전용 앰플 · 부속품 안내</li>
+        <li>사용 교육 · A/S 안내</li>
+      </ul>
+      <p class="lead-phone">급하시면 전화 주세요<br /><a href={`tel:${site.phone}`}>{site.phone}</a></p>
+    </div>
+
+    <form class="card lead-form" data-endpoint={site.formEndpoint} novalidate>
+      <div class="row2">
+        <label>샵 · 클리닉 이름 <b>*</b>
+          <input name="shop" required autocomplete="organization" placeholder="예: OO 에스테틱" />
+        </label>
+        <label>성함 <b>*</b>
+          <input name="name" required autocomplete="name" placeholder="예: 홍길동" />
+        </label>
+      </div>
+      <div class="row2">
+        <label>연락처 <b>*</b>
+          <input name="phone" required type="tel" autocomplete="tel" inputmode="tel" placeholder="010-0000-0000" />
+        </label>
+        <label>지역 <span class="opt">(선택)</span>
+          <input name="region" autocomplete="address-level1" placeholder="예: 서울 강남구" />
+        </label>
+      </div>
+      <label>업종 <b>*</b>
+        <select name="type" required>
+          <option value="">선택해 주세요</option>
+          {types.map((t) => <option>{t}</option>)}
+        </select>
+      </label>
+      <fieldset>
+        <legend>문의 내용 <span class="opt">(여러 개 선택 가능)</span></legend>
+        <div class="chips">
+          {interests.map((i) => <label class="chip"><input type="checkbox" name="interest" value={i} /> <span>{i}</span></label>)}
+        </div>
+      </fieldset>
+      <label>남기실 말씀 <span class="opt">(선택)</span>
+        <textarea name="message" rows="3" placeholder="예: 다음 주 화요일 오후에 시연 가능할까요?"></textarea>
+      </label>
+      <input type="text" name="company_hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+      <div class="agree">
+        <label class="chk"><input type="checkbox" name="agree_privacy" required /> <span><b>[필수]</b> 개인정보 수집·이용에 동의합니다.</span></label>
+        <details>
+          <summary>내용 보기</summary>
+          <p>수집 항목: 샵·클리닉 이름, 성함, 연락처, 지역, 업종, 문의 내용 · 이용 목적: 시연·도입 상담 안내 · 보관 기간: 상담 종료 후 1년 또는 동의 철회 시까지. 동의를 거부하실 수 있으나, 이 경우 온라인 상담 신청이 어렵습니다. 자세한 내용은 <a href="/privacy">개인정보처리방침</a>을 확인해 주세요.</p>
+        </details>
+        <label class="chk"><input type="checkbox" name="agree_marketing" /> <span><b class="opt">[선택]</b> 신제품 · 교육 소식 안내 수신에 동의합니다.</span></label>
+      </div>
+
+      <button type="submit" class="btn btn-primary submit">상담 신청하기</button>
+      <p class="form-msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.lead-form').forEach((form) => {
+    const msg = form.querySelector<HTMLElement>('.form-msg')!;
+    const btn = form.querySelector<HTMLButtonElement>('.submit')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.className = 'form-msg';
+      const fd = new FormData(form);
+      if ((fd.get('company_hp') as string)?.length) return; // 스팸 방지
+      const missing = [...form.querySelectorAll<HTMLInputElement>('[required]')].find((el) =>
+        el.type === 'checkbox' ? !el.checked : !el.value.trim());
+      if (missing) {
+        msg.textContent = missing.type === 'checkbox' ? '개인정보 수집·이용에 동의해 주세요.' : '필수 항목(*)을 입력해 주세요.';
+        msg.classList.add('err');
+        missing.focus();
+        return;
+      }
+      const data = new URLSearchParams();
+      ['shop', 'name', 'phone', 'region', 'type', 'message'].forEach((k) => data.set(k, String(fd.get(k) || '').trim()));
+      data.set('interest', fd.getAll('interest').join(', '));
+      data.set('agree_privacy', 'Y');
+      data.set('agree_marketing', fd.get('agree_marketing') ? 'Y' : 'N');
+      data.set('page', location.pathname);
+      data.set('submitted_at', new Date().toLocaleString('ko-KR'));
+
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) {
+        msg.textContent = '온라인 접수를 준비하고 있습니다. 전화로 연락 주시면 바로 도와드리겠습니다.';
+        msg.classList.add('err');
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = '보내는 중...';
+      try {
+        await fetch(endpoint, { method: 'POST', mode: 'no-cors', body: data });
+        location.href = '/thanks';
+      } catch {
+        btn.disabled = false;
+        btn.textContent = '상담 신청하기';
+        msg.textContent = '전송에 실패했습니다. 잠시 후 다시 시도하시거나 전화로 연락 주세요.';
+        msg.classList.add('err');
+      }
+    });
+  });
+</script>
+
+<style>
+  .lead { background: linear-gradient(180deg, var(--brand-soft), #fff); }
+  .lead-in { display: grid; grid-template-columns: 1fr 1.15fr; gap: 56px; align-items: start; }
+  .lead-copy .section-title { margin-top: 16px; }
+  .lead-phone { margin-top: 28px; color: var(--ink-2); }
+  .lead-phone a { font: 800 26px/1.4 var(--font-latin); text-decoration: none; }
+  .lead-form { display: grid; gap: 16px; padding: 32px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .lead-form label, .lead-form legend { display: grid; gap: 6px; font-weight: 700; font-size: 15.5px; }
+  .lead-form b { color: #d4380d; }
+  .opt { color: var(--ink-3); font-weight: 500; font-size: 14px; }
+  input:not([type=checkbox]), select, textarea {
+    width: 100%; font: inherit; font-size: 16px; font-weight: 500; color: var(--ink);
+    padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 10px; background: #fff;
+  }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+  fieldset { border: 0; padding: 0; margin: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .chip { display: inline-flex !important; grid-template-columns: none; align-items: center; gap: 6px; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 999px; font-weight: 600 !important; font-size: 14.5px !important; cursor: pointer; }
+  .chip:has(input:checked) { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); }
+  .chip input { accent-color: var(--brand); }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
+  .agree { display: grid; gap: 8px; font-size: 14.5px; }
+  .chk { display: flex !important; align-items: flex-start; gap: 8px; font-weight: 600 !important; font-size: 14.5px !important; cursor: pointer; }
+  .chk input { margin-top: 5px; accent-color: var(--brand); width: 16px; height: 16px; }
+  details { color: var(--ink-3); font-size: 13.5px; }
+  summary { cursor: pointer; }
+  .submit { width: 100%; padding: 16px; font-size: 17px; }
+  .submit:disabled { opacity: .6; cursor: wait; }
+  .form-msg { font-weight: 700; font-size: 15px; min-height: 1px; }
+  .form-msg.err { color: #c2410c; }
+
+  @media (max-width: 900px) {
+    .lead-in { grid-template-columns: 1fr; gap: 32px; }
+    .lead-form { padding: 22px; }
+    .row2 { grid-template-columns: 1fr; }
+  }
+</style>
