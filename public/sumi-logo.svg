@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="100%" height="100%" fill="none">
+  <!-- Outer Rounded Frame with Open Center Bottom -->
+  <path d="M 100 460 L 50 460 C 32 460 18 446 18 428 L 18 50 C 18 32 32 18 50 18 L 950 18 C 968 18 982 32 982 50 L 982 428 C 982 446 968 460 950 460 L 900 460" 
+        stroke="#231815" stroke-width="16" stroke-linecap="square" stroke-linejoin="round"/>
+
+  <!-- Letters: 's', 'u', 'm', 'i' -->
+  <g stroke="#231815" stroke-width="28" fill="none" stroke-linecap="square" stroke-linejoin="miter">
+    <!-- 's' -->
+    <path d="M 158 190 L 260 190 C 290 190 306 208 306 238 C 306 280 200 292 200 340 C 200 388 232 414 274 414 C 292 414 300 404 306 390 M 274 414 C 256 442 212 444 178 444 L 158 444 L 158 375" />
+
+    <!-- 'u' -->
+    <path d="M 304 190 L 345 190 L 345 375 C 345 425 375 444 415 444 C 455 444 485 425 485 375 L 485 190" />
+
+    <!-- 'm' -->
+    <path d="M 485 240 C 485 190 520 172 560 172 C 600 172 630 190 630 240 L 630 430 M 630 240 C 630 190 665 172 705 172 C 745 172 775 190 775 240 L 775 390 C 775 425 790 444 820 444" />
+
+    <!-- 'i' -->
+    <path d="M 845 200 L 845 444" />
+  </g>
+
+  <!-- Square Dot above 'i' -->
+  <rect x="831" y="146" width="28" height="28" fill="#231815" />
+
+  <!-- B • E • A • U • T • Y -->
+  <g fill="#231815">
+    <!-- Using exact path/text for BEAUTY -->
+    <text x="500" y="538" text-anchor="middle" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="44" font-weight="800" letter-spacing="0.36em">B • E • A • U • T • Y</text>
+  </g>
+</svg>

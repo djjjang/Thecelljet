@@ -1,0 +1,6 @@
+{
+  "name": "SUMI Aesthetic Bio-Tech",
+  "description": "더셀젯(THE CELLJET) - 차세대 무통증·비침습 음파 마이크로젯 프리미엄 미용기기 브랜드. 병원 피부과 및 고급 피부 관리 센터를 위한 특허 기술 기반 스킨케어 솔루션.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
