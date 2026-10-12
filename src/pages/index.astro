@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import LeadForm from '../components/LeadForm.astro';
 import Simulator from '../components/Simulator.astro';
 import Lineup from '../components/Lineup.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
 import { site } from '../data/site.js';
 import { stats, techs, safety, certs, faqs } from '../data/content.js';
 
@@ -129,6 +130,8 @@ const schema = [
       </div>
     </div>
   </section>
+
+  <BeforeAfter />
 
   <Simulator />
 

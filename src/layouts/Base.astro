@@ -1,6 +1,11 @@
 ---
 import '../styles/global.css';
-import { site, nav } from '../data/site.js';
+import { site, nav as baseNav } from '../data/site.js';
+import { beforeAfter } from '../data/content.js';
+// 전후 사례가 있을 때만 메뉴에 '관리 사례' 표시
+const nav = beforeAfter.some((c) => c.consent === true)
+  ? [...baseNav.slice(0, 2), { label: '관리 사례', href: '/#cases' }, ...baseNav.slice(2)]
+  : baseNav;
 
 const {
   title,

@@ -122,7 +122,7 @@ const interests = ['장비 시연 신청', '도입 · 가격 상담', '아톤플
   .lead-form { display: grid; gap: 16px; padding: 32px; }
   .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .lead-form label, .lead-form legend { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 4px; font-weight: 700; font-size: 15.5px; }
-  .lead-form label > input, .lead-form label > select, .lead-form label > textarea { flex-basis: 100%; }
+  .lead-form label > input:not([type=checkbox]), .lead-form label > select, .lead-form label > textarea { flex-basis: 100%; }
   .lead-form b { color: #d4380d; }
   .opt { color: var(--ink-3); font-weight: 500; font-size: 14px; }
   input:not([type=checkbox]), select, textarea {

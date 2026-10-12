@@ -199,3 +199,20 @@ export const accessories = [
   { img: '/images/acc-adapter.webp', name: '전용 어댑터', desc: '더셀젯 맞춤 전용 부속품' },
   { img: '/images/acc-cap.webp', name: '전용 실린지 캡', desc: '더셀젯 맞춤 전용 부속품' },
 ];
+
+// 전후 비교 사례. ⚠️ 아래 항목이 모두 채워지고 consent가 true인 사례만 화면에 나온다
+// 사진은 public/images/ba/ 에 넣는다. 기준: 02_고객사/더셀젯/전후사진_가이드.md
+// 예시:
+// {
+//   area: '얼굴 (볼 · 턱선)',            // 관리 부위
+//   before: '/images/ba/case1-before.webp',
+//   after: '/images/ba/case1-after.webp',
+//   sessions: '1회',                      // 관리 횟수
+//   period: '관리 직후',                  // 전·후 촬영 간격 (예: 관리 직후, 4주 후)
+//   shotDate: '2026-10-20',               // 촬영일
+//   place: '',                            // 촬영 장소 (선택)
+//   ampoule: 'ATON PLUS MS',              // 사용 앰플 (선택)
+//   mode: 'FACE & NECK · 5단계',          // 모드·강도 (선택)
+//   consent: true,                        // 본인 사진 게재 동의서 받음
+// },
+export const beforeAfter = [];
