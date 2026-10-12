@@ -6,6 +6,7 @@ import {
 import { DEVICES, ATON_PLUS_SOLUTIONS } from '../data/mockData';
 import { DeviceSpec, AtonPlusSolution } from '../types';
 import { SumiLogo } from './SumiLogo';
+import { useAdminEdit } from '../context/AdminEditContext';
 
 const CLEAN_CLINIC_BG = '/clean_clinic_bg.jpg';
 
@@ -18,6 +19,7 @@ export const DeviceShowcase: React.FC<DeviceShowcaseProps> = ({
   onOpenDemoModal,
   onOpenDeviceDetailModal,
 }) => {
+  const { isEditMode } = useAdminEdit();
   const [activeDeviceIndex, setActiveDeviceIndex] = useState(0);
   const [selectedAmpouleId, setSelectedAmpouleId] = useState<string>(ATON_PLUS_SOLUTIONS[0].id);
   const [showcaseTab, setShowcaseTab] = useState<'device' | 'solutions' | 'accessories'>('device');
@@ -200,40 +202,42 @@ export const DeviceShowcase: React.FC<DeviceShowcaseProps> = ({
                     loading="eager"
                   />
 
-                  {/* Direct Image Replacement button in top right of photo */}
-                  <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5">
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      title={`${activeDevice.name} 장비 사진 직접 교체 (thecelljet1.png 등)`}
-                      className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white/95 hover:bg-white text-slate-800 shadow-sm transition-all flex items-center gap-1 cursor-pointer"
-                      aria-label="장비 사진 직접 교체"
-                    >
-                      <Camera className="w-3 h-3 text-teal-600" />
-                      <span className="hidden sm:inline">사진 직접 교체</span>
-                    </button>
-
-                    {isCustomImageActive && (
+                  {/* Direct Image Replacement button in top right of photo - ONLY in Edit Mode */}
+                  {isEditMode && (
+                    <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5">
                       <button
                         type="button"
-                        onClick={handleResetDeviceImage}
-                        title="기본 장비 그래픽으로 복원"
-                        className="p-1 rounded-lg text-[11px] bg-black/60 hover:bg-black/80 text-white/90 transition-colors"
-                        aria-label="기본 사진으로 복원"
+                        onClick={() => fileInputRef.current?.click()}
+                        title={`${activeDevice.name} 장비 사진 직접 교체 (thecelljet1.png 등)`}
+                        className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white/95 hover:bg-white text-slate-800 shadow-sm transition-all flex items-center gap-1 cursor-pointer"
+                        aria-label="장비 사진 직접 교체"
                       >
-                        <RefreshCw className="w-3 h-3" />
+                        <Camera className="w-3 h-3 text-teal-600" />
+                        <span className="hidden sm:inline">사진 직접 교체</span>
                       </button>
-                    )}
 
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      accept="image/*"
-                      onChange={handleDeviceImageUpload}
-                      className="hidden"
-                      aria-label="장비 사진 이미지 파일 선택"
-                    />
-                  </div>
+                      {isCustomImageActive && (
+                        <button
+                          type="button"
+                          onClick={handleResetDeviceImage}
+                          title="기본 장비 그래픽으로 복원"
+                          className="p-1 rounded-lg text-[11px] bg-black/60 hover:bg-black/80 text-white/90 transition-colors"
+                          aria-label="기본 사진으로 복원"
+                        >
+                          <RefreshCw className="w-3 h-3" />
+                        </button>
+                      )}
+
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleDeviceImageUpload}
+                        className="hidden"
+                        aria-label="장비 사진 이미지 파일 선택"
+                      />
+                    </div>
+                  )}
 
                   {/* Bottom Overlay Label */}
                   <div className="absolute bottom-3 left-4 right-4 text-white text-xs z-10 pointer-events-none flex items-center justify-between">

@@ -19,6 +19,7 @@ import { Certification, DeviceSpec } from './types';
 import { Sparkles, PhoneCall } from 'lucide-react';
 import { LogoProvider } from './context/LogoContext';
 import { LogoEditorModal } from './components/Modals/LogoEditorModal';
+import { AdminEditProvider } from './context/AdminEditContext';
 
 export default function App() {
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
@@ -45,7 +46,8 @@ export default function App() {
 
   return (
     <LogoProvider>
-      <div className="min-h-screen bg-[#faf8ff] text-[#131b2e] flex flex-col font-['Pretendard','Inter',sans-serif]">
+      <AdminEditProvider>
+        <div className="min-h-screen bg-[#faf8ff] text-[#131b2e] flex flex-col font-['Pretendard','Inter',sans-serif]">
         {/* Skip to Content Link for Keyboard Accessibility */}
         <a
           href="#main-content"
@@ -154,6 +156,7 @@ export default function App() {
         {/* Logo Customizer Modal */}
         <LogoEditorModal />
       </div>
+      </AdminEditProvider>
     </LogoProvider>
   );
 }

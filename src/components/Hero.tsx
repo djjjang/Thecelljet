@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { ArrowRight, CheckCircle2, ShieldCheck, Zap, Droplets, Sparkles, FileText, Play, Camera, RefreshCw, Layers, Image as ImageIcon } from 'lucide-react';
 import { CLINICAL_STATS } from '../data/mockData';
 import { SumiLogo } from './SumiLogo';
+import { useAdminEdit } from '../context/AdminEditContext';
 
 const DEFAULT_HERO_IMAGE = '/thecelljet1.svg';
 const STUDIO_BG_IMAGE = '/clean_clinic_bg.jpg';
@@ -17,6 +18,7 @@ export const Hero: React.FC<HeroProps> = ({
   onOpenWhitepaperModal,
   onScrollToSimulator,
 }) => {
+  const { isEditMode } = useAdminEdit();
   const [heroImage, setHeroImage] = useState<string>(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('sumi_custom_hero_image') || DEFAULT_HERO_IMAGE;
@@ -237,28 +239,32 @@ export const Hero: React.FC<HeroProps> = ({
                     </div>
 
                     <div className="flex items-center gap-1.5">
-                      {/* Direct Photo Upload / Replace button */}
-                      <button
-                        type="button"
-                        onClick={() => fileInputRef.current?.click()}
-                        title="thecelljet1.png 원본 사진 파일 직접 불러오기"
-                        className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white/95 hover:bg-white text-slate-800 shadow-sm transition-all flex items-center gap-1 cursor-pointer"
-                        aria-label="장비 원본 사진 직접 교체"
-                      >
-                        <Camera className="w-3 h-3 text-teal-600" />
-                        <span className="hidden sm:inline">thecelljet1.png 사진 교체</span>
-                      </button>
+                      {/* Direct Photo Upload / Replace button - Only visible to developer/admin in Edit Mode */}
+                      {isEditMode && (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => fileInputRef.current?.click()}
+                            title="thecelljet1.png 원본 사진 파일 직접 불러오기"
+                            className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white/95 hover:bg-white text-slate-800 shadow-sm transition-all flex items-center gap-1 cursor-pointer"
+                            aria-label="장비 원본 사진 직접 교체"
+                          >
+                            <Camera className="w-3 h-3 text-teal-600" />
+                            <span className="hidden sm:inline">thecelljet1.png 사진 교체</span>
+                          </button>
 
-                      {heroImage !== DEFAULT_HERO_IMAGE && (
-                        <button
-                          type="button"
-                          onClick={handleResetImage}
-                          title="기본 원본 그래픽으로 복원"
-                          className="p-1 rounded-lg text-[11px] bg-black/60 hover:bg-black/80 text-white/90 transition-colors"
-                          aria-label="기본 원본으로 복원"
-                        >
-                          <RefreshCw className="w-3 h-3" />
-                        </button>
+                          {heroImage !== DEFAULT_HERO_IMAGE && (
+                            <button
+                              type="button"
+                              onClick={handleResetImage}
+                              title="기본 원본 그래픽으로 복원"
+                              className="p-1 rounded-lg text-[11px] bg-black/60 hover:bg-black/80 text-white/90 transition-colors"
+                              aria-label="기본 원본으로 복원"
+                            >
+                              <RefreshCw className="w-3 h-3" />
+                            </button>
+                          )}
+                        </>
                       )}
 
                       <span className="px-2 py-0.5 rounded text-[11px] font-medium bg-black/60 text-white/90 backdrop-blur-md border border-white/20">
@@ -266,14 +272,16 @@ export const Hero: React.FC<HeroProps> = ({
                       </span>
                     </div>
 
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageUpload}
-                      className="hidden"
-                      aria-label="thecelljet1.png 원본 이미지 파일 선택"
-                    />
+                    {isEditMode && (
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        className="hidden"
+                        aria-label="thecelljet1.png 원본 이미지 파일 선택"
+                      />
+                    )}
                   </div>
 
                   {/* Bottom Image Info & View Mode Switcher */}

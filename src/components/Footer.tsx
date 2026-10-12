@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, ShieldCheck, Check, ArrowRight } from 'lucide-react';
 import { SumiLogo } from './SumiLogo';
+import { useAdminEdit } from '../context/AdminEditContext';
 
 interface FooterProps {
   onOpenDemoModal: () => void;
@@ -8,6 +9,7 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onOpenDemoModal, onOpenWhitepaperModal }) => {
+  const { isEditMode, toggleEditMode } = useAdminEdit();
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSent, setNewsletterSent] = useState(false);
 
@@ -232,8 +234,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDemoModal, onOpenWhitepape
             본 제품(더셀젯 THE CELLJET)은 비침습식 인체 유효성분 주입기로 피부 미용 및 스킨케어 관리를 위한 전문 미용기기이며, 병의원 및 프리미엄 피부 관리 센터에서 안전하게 사용 가능합니다. 질병의 예방 및 치료를 위한 의료기기가 아닙니다.
           </p>
           <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-slate-800/80 text-slate-400">
-            <div>
-              © 2026 I LASER LAB &amp; Chaeum Enterprise. All rights reserved.
+            <div className="flex items-center gap-2">
+              <span>© 2026 I LASER LAB &amp; Chaeum Enterprise. All rights reserved.</span>
+              <button
+                type="button"
+                onClick={toggleEditMode}
+                title={isEditMode ? '작업자 편집 모드 끄기 (일반 사용자 뷰로 전환)' : '작업자 편집 모드 활성화 (단축키: Alt + Shift + E)'}
+                className="text-xs text-slate-600 hover:text-slate-300 transition-colors p-0.5 rounded cursor-pointer"
+                aria-label="작업자 편집 모드 토글"
+              >
+                {isEditMode ? '🛠️' : '🔒'}
+              </button>
             </div>
             <div className="flex items-center gap-4">
               <a href="#" className="hover:text-white transition-colors">개인정보처리방침</a>

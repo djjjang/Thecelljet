@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Sparkles, Phone, Menu, X, ChevronRight, ShieldCheck, Sliders } from 'lucide-react';
 import { SumiLogo } from './SumiLogo';
 import { useLogo } from '../context/LogoContext';
+import { useAdminEdit } from '../context/AdminEditContext';
 
 interface NavbarProps {
   onOpenDemoModal: (defaultConcern?: string) => void;
@@ -10,6 +11,7 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal, onOpenWhitepaperModal }) => {
   const { openEditor } = useLogo();
+  const { isEditMode } = useAdminEdit();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -91,16 +93,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal, onOpenWhitepape
               </div>
             </a>
 
-            <button
-              type="button"
-              onClick={openEditor}
-              title="로고 파일 직접 업로드 / SVG 수정"
-              className="px-2.5 py-1 rounded-lg text-[11px] font-semibold text-slate-600 hover:text-[#006a61] bg-slate-100/80 hover:bg-teal-50 border border-slate-200 hover:border-teal-300 transition-all flex items-center gap-1.5 shadow-2xs group"
-              aria-label="로고 직접 수정 열기"
-            >
-              <Sliders className="w-3 h-3 text-teal-600 group-hover:rotate-45 transition-transform" />
-              <span className="hidden sm:inline">로고 직접 수정</span>
-            </button>
+            {isEditMode && (
+              <button
+                type="button"
+                onClick={openEditor}
+                title="로고 파일 직접 업로드 / SVG 수정"
+                className="px-2.5 py-1 rounded-lg text-[11px] font-semibold text-slate-600 hover:text-[#006a61] bg-slate-100/80 hover:bg-teal-50 border border-slate-200 hover:border-teal-300 transition-all flex items-center gap-1.5 shadow-2xs group"
+                aria-label="로고 직접 수정 열기"
+              >
+                <Sliders className="w-3 h-3 text-teal-600 group-hover:rotate-45 transition-transform" />
+                <span className="hidden sm:inline">로고 직접 수정</span>
+              </button>
+            )}
           </div>
 
           {/* Desktop Navigation Links */}
@@ -181,17 +185,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenDemoModal, onOpenWhitepape
               ))}
             </div>
             <div className="mt-4 pt-4 border-t border-slate-100 flex flex-col gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  openEditor();
-                }}
-                className="w-full py-2.5 text-sm font-semibold text-teal-800 bg-teal-50 border border-teal-200 rounded-lg text-center flex items-center justify-center gap-2"
-              >
-                <Sliders className="w-4 h-4 text-teal-600" />
-                <span>로고 직접 수정 & 커스텀 관리</span>
-              </button>
+              {isEditMode && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    openEditor();
+                  }}
+                  className="w-full py-2.5 text-sm font-semibold text-teal-800 bg-teal-50 border border-teal-200 rounded-lg text-center flex items-center justify-center gap-2"
+                >
+                  <Sliders className="w-4 h-4 text-teal-600" />
+                  <span>로고 직접 수정 & 커스텀 관리</span>
+                </button>
+              )}
               <button
                 type="button"
                 onClick={() => {
