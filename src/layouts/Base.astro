@@ -36,6 +36,7 @@ const org = {
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
+  <script is:inline>document.documentElement.classList.add('js');</script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
@@ -122,6 +123,23 @@ const org = {
       btn.setAttribute('aria-expanded', String(open));
     });
     gnb?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => gnb.classList.remove('open')));
+
+    // 스크롤하면 상단 메뉴를 얇게
+    const hd = document.querySelector('.hd');
+    const onScroll = () => hd?.classList.toggle('scrolled', scrollY > 40);
+    addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+    // 화면에 들어오는 요소 부드럽게 등장
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+    // 지금 보고 있는 섹션의 메뉴 강조
+    const links = [...document.querySelectorAll<HTMLAnchorElement>('.gnb a[href^="/#"]')];
+    const so = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      links.forEach((a) => a.classList.toggle('on', a.hash === '#' + e.target.id));
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    links.forEach((a) => { const s = document.getElementById(a.hash.slice(1)); if (s) so.observe(s); });
   </script>
 </body>
 </html>
@@ -133,13 +151,15 @@ const org = {
   .topbar a { color: #fff; text-decoration: none; font-weight: 700; }
 
   .hd { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-  .hd-in { display: flex; align-items: center; height: 74px; gap: 20px; }
+  .hd-in { display: flex; align-items: center; height: 74px; gap: 20px; transition: height .25s; }
+  .hd.scrolled { box-shadow: 0 6px 20px rgba(15,23,42,.07); }
+  .hd.scrolled .hd-in { height: 62px; }
   .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
   .logo img { height: 40px; width: auto; }
   .logo-text { font: 800 15px/1 var(--font-latin); letter-spacing: .08em; color: var(--brand); }
   .gnb { margin-left: auto; display: flex; align-items: center; gap: 2px; }
   .gnb a:not(.btn) { padding: 8px 12px; border-radius: 8px; color: var(--ink-2); font-weight: 700; font-size: 15px; text-decoration: none; }
-  .gnb a:not(.btn):hover { color: var(--brand); background: var(--brand-soft); }
+  .gnb a:not(.btn):hover, .gnb a.on { color: var(--brand); background: var(--brand-soft); }
   .gnb-cta { margin-left: 10px; padding: 11px 18px; font-size: 15px; }
   .menu-btn { display: none; margin-left: auto; width: 44px; height: 44px; border: 0; background: none; cursor: pointer; padding: 10px; }
   .menu-btn span { display: block; height: 2px; background: var(--ink); margin: 5px 0; border-radius: 2px; }

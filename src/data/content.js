@@ -158,3 +158,44 @@ export const faqs = [
     a: '네. 아래 문의 양식을 남기시거나 전화(010-7781-6533)로 연락 주시면, 장비 시연과 도입 상담 일정을 잡아 드립니다.',
   },
 ];
+
+// 전체 사양 (매뉴얼 Chapter 7 그대로)
+export const specSheet = [
+  ['제품명', 'Cosmetic Delivery System'],
+  ['모델', 'SUMI THE CELLJET'],
+  ['제조사 · 원산지', 'I LASER LAB (아이레이저랩) · 대한민국'],
+  ['작동 방식', '솔레노이드 구동 전자기 제트'],
+  ['분사 압력', '약 20~25 MPa'],
+  ['펄스 지속 시간', '7~17 ms (36단계 제어)'],
+  ['최대 연속 샷', '최대 5 Hz (바디 모드 1 Hz 단발)'],
+  ['노즐 지름', '약 130~150 ㎛'],
+  ['강도', '모드별 9단계'],
+  ['메모리', '5개 설정 저장'],
+  ['조작부', '10.1인치 컬러 LCD 터치스크린'],
+  ['전원 입력', 'AC 100~240V, 50/60Hz'],
+  ['최대 순간 소비전력', '360W'],
+  ['무게', '약 4kg'],
+  ['소음', '65dB 미만'],
+  ['사용 환경', '10~30℃, 습도 80% 이하'],
+  ['보호 기능', '스마트 안정화 · 온도 감시 (약 70℃ 자동 정지)'],
+  ['핸드피스 수명', '약 100만 샷'],
+  ['안전 등급', 'Class I / Type B'],
+  ['인증', 'KC 적합등록(R-R-IL6-SUMI THE CELLJET), CE(LVD·EMC), RoHS'],
+  ['보증', '구입일로부터 12개월 (소모품 제외)'],
+];
+
+// 앰플 주요 원료: 소개서 p.28~32에 적힌 원료명만 (효능 문구 없음). FS·MS는 소개서에 원료표가 없음
+export const ampouleIngredients = {
+  CS: ['PDRN (Sodium DNA)', 'Vitamin C Derivative', 'Niacinamide', 'Glutathione', 'Arbutin'],
+  FS: ['PDRN (Sodium DNA)'],
+  HS: ['PDRN (Sodium DNA)', 'PVM/MA Copolymer', 'Hydrolyzed Collagen', 'Acetyl Hexapeptide-8', 'Allantoin'],
+  LS: ['PDRN (Sodium DNA)', 'Acetyl Hexapeptide-8', 'Beta-Glucan', 'Bromelain', 'Carnitine'],
+  MS: ['PDRN (Sodium DNA)'],
+  RS: ['PDRN (Sodium DNA)', 'Centella Asiatica Extract', 'Chaenomeles Sinensis Extract', 'Paeonia Lactiflora Extract'],
+};
+
+export const accessories = [
+  { img: '/images/acc-syringe.webp', name: '전용 실린지 (0.5cc)', desc: '앰플을 담는 0.5cc 카트리지' },
+  { img: '/images/acc-adapter.webp', name: '전용 어댑터', desc: '더셀젯 맞춤 전용 부속품' },
+  { img: '/images/acc-cap.webp', name: '전용 실린지 캡', desc: '더셀젯 맞춤 전용 부속품' },
+];
