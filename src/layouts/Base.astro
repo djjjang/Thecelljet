@@ -12,7 +12,7 @@ const {
   description,
   noindex = false,
   schema = [],
-  ogImage = '/images/celljet-main.webp',
+  ogImage = '/images/og-celljet.jpg',
 } = Astro.props;
 
 const fullTitle = title ? `${title} | 더셀젯 THE CELLJET` : '더셀젯 THE CELLJET | 바늘 없는 앰플 전달 미용기기';
@@ -24,7 +24,7 @@ const org = {
   name: '더셀젯 (THE CELLJET)',
   alternateName: ['THE CELLJET', 'SUMI THE CELLJET', '더셀젯'],
   url: site.url,
-  logo: new URL('/sumi-logo.svg', site.url).href,
+  logo: new URL('/images/logo-sumi.png', site.url).href,
   telephone: site.phone,
   ...(site.email ? { email: site.email } : {}),
   address: {
@@ -55,10 +55,13 @@ const org = {
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={new URL(ogImage, site.url).href} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="ko_KR" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#006a61" />
-  <link rel="icon" href="/sumi-logo.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -77,7 +80,7 @@ const org = {
   <header class="hd">
     <div class="wrap hd-in">
       <a href="/" class="logo" aria-label="더셀젯 홈">
-        <img src="/sumi-logo.svg" alt="SUMI" width="78" height="44" />
+        <img src="/images/logo-sumi.webp" alt="SUMI BEAUTY" width="76" height="44" />
         <span class="logo-text">THE CELLJET</span>
       </a>
       <nav class="gnb" id="gnb" aria-label="주요 메뉴">
@@ -98,7 +101,7 @@ const org = {
     <div class="wrap ft-in">
       <div>
         <div class="ft-logo">
-          <img src="/sumi-logo-white.svg" alt="SUMI" width="70" height="40" />
+          <img src="/images/logo-sumi-white.webp" alt="SUMI BEAUTY" width="69" height="40" />
           <span>THE CELLJET</span>
         </div>
         <p class="ft-desc">바늘 없이 앰플을 전달하는 전문가용 미용기기, 더셀젯.<br />본 제품은 미용 목적의 기기이며, 질병의 진단·치료를 위한 의료기기가 아닙니다.</p>
@@ -160,7 +163,7 @@ const org = {
   .hd.scrolled { box-shadow: 0 6px 20px rgba(15,23,42,.07); }
   .hd.scrolled .hd-in { height: 62px; }
   .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
-  .logo img { height: 40px; width: auto; }
+  .logo img { height: 46px; width: auto; }
   .logo-text { font: 800 15px/1 var(--font-latin); letter-spacing: .08em; color: var(--brand); }
   .gnb { margin-left: auto; display: flex; align-items: center; gap: 2px; }
   .gnb a:not(.btn) { padding: 8px 12px; border-radius: 8px; color: var(--ink-2); font-weight: 700; font-size: 15px; text-decoration: none; }

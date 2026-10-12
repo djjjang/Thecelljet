@@ -81,12 +81,12 @@ export const components = [
 
 // 아톤플러스 앰플: 제품명·용량만 사실로 표기. 관리 목적은 순한 표현으로 (효능 주장 금지)
 export const ampoules = [
-  { code: 'CS', name: 'Clear Skin Solution', vol: '5ml × 6 vial', care: '맑은 피부톤 케어', color: '#0EA5E9' },
-  { code: 'FS', name: 'Firming & Elasticity Solution', vol: '2ml × 6 vial', care: '탄력 케어', color: '#00A396' },
-  { code: 'HS', name: 'Hair Strengthening Solution', vol: '2ml × 6 vial', care: '두피 · 모발 케어', color: '#B8892B' },
-  { code: 'LS', name: 'Lifting & Firming Solution', vol: '5ml × 6 vial', care: '바디 탄력 케어', color: '#C47A66' },
-  { code: 'MS', name: 'Moisturizing Glow Solution', vol: '3ml × 6 vial', care: '보습 · 윤기 케어', color: '#0284C7' },
-  { code: 'RS', name: 'Relief Solution', vol: '5ml × 6 vial', care: '민감 피부 진정 케어', color: '#10B981' },
+  { code: 'CS', name: 'Clear Skin Solution', vol: '5ml × 6 vial', care: '맑은 피부톤 케어', color: '#5B6472' },
+  { code: 'FS', name: 'Firming & Elasticity Solution', vol: '2ml × 6 vial', care: '탄력 케어', color: '#B08A2E' },
+  { code: 'HS', name: 'Hair Strengthening Solution', vol: '2ml × 6 vial', care: '두피 · 모발 케어', color: '#1E2A5E' },
+  { code: 'LS', name: 'Lifting & Firming Solution', vol: '5ml × 6 vial', care: '바디 탄력 케어', color: '#1F6FC5' },
+  { code: 'MS', name: 'Moisturizing Glow Solution', vol: '3ml × 6 vial', care: '보습 · 윤기 케어', color: '#D9622B' },
+  { code: 'RS', name: 'Relief Solution', vol: '5ml × 6 vial', care: '민감 피부 진정 케어', color: '#C62A35' },
 ];
 
 export const safety = [

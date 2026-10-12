@@ -16,7 +16,7 @@ const schema = [
     name: '더셀젯 (SUMI THE CELLJET) Cosmetic Delivery System',
     alternateName: ['THE CELLJET', '더셀젯', '니들프리 앰플 전달 기기'],
     description: '바늘 없이 솔레노이드 전자기 제트 방식으로 화장품 앰플을 피부에 전달하는 전문가용 미용기기',
-    image: new URL('/images/celljet-main.webp', site.url).href,
+    image: [new URL('/images/celljet-device.webp', site.url).href, new URL('/images/aton-plus-6.webp', site.url).href],
     brand: { '@type': 'Brand', name: 'THE CELLJET' },
     manufacturer: { '@type': 'Organization', name: 'I LASER LAB (아이레이저랩)' },
     countryOfOrigin: 'KR',
@@ -57,12 +57,12 @@ const schema = [
       <div class="hero-visual">
         <div class="device-card">
           <div class="device-top">
-            <img src="/sumi-logo-white.svg" alt="" width="56" height="32" />
+            <img src="/images/logo-sumi-white.webp" alt="" width="56" height="32" />
             <span class="pill">THE CELLJET</span>
           </div>
           <div class="float f1" aria-hidden="true"><b>최대 5 Hz</b><span>초당 연속 샷</span></div>
           <div class="float f2" aria-hidden="true"><b>0.5 cc</b><span>풀샷 카트리지</span></div>
-          <img class="device-img" src="/images/celljet-main.webp" alt="더셀젯(SUMI THE CELLJET) 본체와 핸드피스 실물 사진" width="1000" height="800" fetchpriority="high" />
+          <img class="device-img" src="/images/celljet-device.webp" alt="더셀젯(SUMI THE CELLJET) 본체와 핸드피스" width="1200" height="952" fetchpriority="high" />
           <div class="device-cap">
             <span>Cosmetic Delivery System</span>
             <strong>SUMI THE CELLJET</strong>
@@ -206,7 +206,7 @@ const schema = [
   .hero-cta .btn { padding: 16px 26px; font-size: 17px; }
 
   .hero-visual { position: relative; }
-  .device-card { position: relative; border-radius: 24px; overflow: hidden; background: linear-gradient(180deg, #1c2333, var(--navy)); box-shadow: 0 30px 60px rgba(10,15,29,.28); }
+  .device-card { position: relative; border-radius: 24px; overflow: hidden; background: radial-gradient(70% 60% at 50% 45%, #2a3a55 0%, #141b2d 55%, var(--navy) 100%); box-shadow: 0 30px 60px rgba(10,15,29,.28); }
   .device-top { position: absolute; top: 18px; left: 18px; right: 18px; display: flex; align-items: center; justify-content: space-between; z-index: 2; }
   .device-top img { height: 30px; width: auto; }
   .pill { padding: 5px 12px; border-radius: 999px; background: var(--accent); color: #00201d; font: 800 12px var(--font-latin); letter-spacing: .1em; }
@@ -220,7 +220,8 @@ const schema = [
   .tech:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(15,23,42,.12); }
   .tech:hover .tech-img img { transform: scale(1.05); }
   .tech-img img { transition: transform .6s; }
-  .device-img { width: 100%; aspect-ratio: 5 / 4; object-fit: cover; }
+  .device-img { width: 100%; aspect-ratio: 5 / 4; object-fit: contain; padding: 44px 14px 70px; filter: drop-shadow(0 26px 30px rgba(0,0,0,.55)); transition: transform .6s; }
+  .device-card:hover .device-img { transform: scale(1.03); }
   .device-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 22px 20px; background: linear-gradient(transparent, rgba(6,10,20,.9)); color: #fff; display: grid; }
   .device-cap span { font: 700 12px var(--font-latin); letter-spacing: .12em; text-transform: uppercase; color: #7ff0e2; }
   .device-cap strong { font: 800 20px var(--font-latin); }

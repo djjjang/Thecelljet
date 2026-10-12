@@ -63,11 +63,15 @@ const keySpecs = [
 
     <!-- 앰플 -->
     <div class="panel card" id="panel-ampoule" role="tabpanel" aria-labelledby="tab-ampoule" hidden>
+      <div class="amp-hero">
+        <img src="/images/aton-plus-6.webp" alt="아톤플러스(ATON PLUS) 앰플 6종: LS, MS, CS, RS, HS, FS" width="1212" height="396" loading="lazy" />
+        <p>더셀젯 전용 앰플 라인 · 6종 · 모든 제품 PDRN 함유</p>
+      </div>
       <div class="amp-wrap">
         <div class="amp-pick" role="radiogroup" aria-label="앰플 선택">
           {ampoules.map((a, i) => (
             <button type="button" class="amp-btn" role="radio" aria-checked={i === 0 ? 'true' : 'false'} data-amp={a.code} style={`--c:${a.color}`}>
-              <span class="vial" aria-hidden="true"><i></i></span>
+              <img class="vial-img" src={`/images/aton-${a.code.toLowerCase()}.webp`} alt="" width="40" height="84" loading="lazy" />
               <span class="amp-txt"><b>{a.code}</b><small>{a.care}</small></span>
             </button>
           ))}
@@ -76,7 +80,7 @@ const keySpecs = [
           {ampoules.map((a, i) => (
             <article class="amp-card" data-amp-panel={a.code} hidden={i !== 0} style={`--c:${a.color}`}>
               <div class="amp-top">
-                <span class="vial big" aria-hidden="true"><i></i></span>
+                <img class="vial-big" src={`/images/aton-${a.code.toLowerCase()}.webp`} alt={`아톤플러스 ${a.code} ${a.name} 앰플`} width="120" height="252" loading="lazy" />
                 <div>
                   <p class="amp-line">SUMI CELL.REJUVE · ATON PLUS</p>
                   <h3>ATON PLUS <span>{a.code}</span></h3>
@@ -207,6 +211,11 @@ const keySpecs = [
   .amp-txt { display: grid; }
   .amp-txt b { font: 800 18px var(--font-latin); color: var(--c); }
   .amp-txt small { font-size: 13.5px; color: var(--ink-2); font-weight: 600; }
+  .amp-hero { padding: 32px 32px 20px; text-align: center; background: linear-gradient(180deg, #fff, #f8fafc); border-bottom: 1px solid var(--line); }
+  .amp-hero img { max-width: 760px; width: 100%; margin: 0 auto; filter: drop-shadow(0 14px 18px rgba(15,23,42,.12)); }
+  .amp-hero p { margin-top: 10px; font-size: 14.5px; font-weight: 700; color: var(--ink-3); }
+  .vial-img { flex: none; width: 34px; height: auto; }
+  .vial-big { flex: none; width: 110px; height: auto; filter: drop-shadow(0 14px 16px rgba(15,23,42,.18)); }
   .vial { position: relative; flex: none; width: 26px; height: 40px; border-radius: 5px 5px 7px 7px; background: linear-gradient(90deg, rgba(255,255,255,.9), rgba(226,232,240,.9) 60%, #fff); border: 1px solid #cbd5e1; }
   .vial::before { content: ''; position: absolute; top: -7px; left: 3px; right: 3px; height: 9px; border-radius: 3px; background: var(--c); }
   .vial i { position: absolute; left: 3px; right: 3px; bottom: 3px; height: 55%; border-radius: 3px; background: color-mix(in srgb, var(--c) 25%, transparent); }
