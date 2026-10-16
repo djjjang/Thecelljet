@@ -7,8 +7,8 @@ export const site = {
   phone: '010-7781-6533',
   email: 'cuenter333@gmail.com',
   address: '경기도 성남시 중원구 둔촌대로80번길 3-10, 212호',
-  company: '', // TODO: 사업자 상호 (예: (주)채움엔터프라이즈 — 대표님 확인 후 입력)
-  ceo: '', // TODO: 대표자명 (대표님 확인 후 입력)
+  company: '(주)채움엔터프라이즈', // 브랜드는 더셀젯, 수미뷰티는 이수미 대표 퍼스널 브랜드
+  ceo: '이수미',
   bizNumber: '455-87-03095',
   manufacturer: '아이레이저랩(I LASER LAB)',
   // 카카오톡 채널 'THE CELLJET'
