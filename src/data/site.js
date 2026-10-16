@@ -5,12 +5,17 @@ export const site = {
   nameEn: 'THE CELLJET',
   url: 'https://thecelljet.com',
   phone: '010-7781-6533',
-  email: '', // TODO: 대표님 문의 메일 주소
+  email: 'cuenter333@gmail.com',
   address: '경기도 성남시 중원구 둔촌대로80번길 3-10, 212호',
   company: '', // TODO: 사업자 상호 (예: (주)채움엔터프라이즈 — 대표님 확인 후 입력)
   ceo: '', // TODO: 대표자명 (대표님 확인 후 입력)
-  bizNumber: '', // TODO: 사업자등록번호
+  bizNumber: '455-87-03095',
   manufacturer: '아이레이저랩(I LASER LAB)',
+  // 카카오톡 채널 'THE CELLJET'
+  kakao: 'https://pf.kakao.com/_euxdmX',
+  kakaoChat: 'https://pf.kakao.com/_euxdmX/chat',
+  // 문자 상담: 휴대폰에서 문자 앱이 열리며 첫 문장이 미리 채워짐
+  sms: 'sms:01077816533?body=' + encodeURIComponent('[더셀젯 홈페이지] 상담 문의드립니다. '),
   // 기존 워드프레스 사이트에서 쓰던 소유확인 코드 그대로 유지 (서치콘솔·서치어드바이저 기록 이어받기)
   naverVerification: 'ab99e58a809e48e8fccf8915daccfb7ce70cae73',
   googleVerification: 'CqDGLSCOlYhhkPwLYp1nUvhaD13Mc6iW-3p-4xY7J54',

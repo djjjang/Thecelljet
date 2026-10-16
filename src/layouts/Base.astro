@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { site, nav as baseNav } from '../data/site.js';
 import { beforeAfter } from '../data/content.js';
+import FloatingContact from '../components/FloatingContact.astro';
 // 전후 사례가 있을 때만 메뉴에 '관리 사례' 표시
 const nav = beforeAfter.some((c) => c.consent === true)
   ? [...baseNav.slice(0, 2), { label: '관리 사례', href: '/#cases' }, ...baseNav.slice(2)]
@@ -35,6 +36,8 @@ const org = {
     addressCountry: 'KR',
   },
   ...(site.company ? { legalName: site.company } : {}),
+  ...(site.bizNumber ? { taxID: site.bizNumber } : {}),
+  sameAs: [site.kakao],
 };
 ---
 <!doctype html>
@@ -111,6 +114,7 @@ const org = {
         {site.bizNumber && <p>사업자등록번호 {site.bizNumber}</p>}
         <p>{site.address}</p>
         <p>전화 <a href={`tel:${site.phone}`}>{site.phone}</a>{site.email && <> · 이메일 <a href={`mailto:${site.email}`}>{site.email}</a></>}</p>
+        <p>카카오톡 채널 <a href={site.kakao} target="_blank" rel="noopener">THE CELLJET</a></p>
         <p>제조 {site.manufacturer}</p>
         <p class="ft-links"><a href="/privacy">개인정보처리방침</a></p>
         <p class="copy">© {new Date().getFullYear()} THE CELLJET. All rights reserved.</p>
@@ -118,10 +122,7 @@ const org = {
     </div>
   </footer>
 
-  <div class="mbar" aria-label="빠른 연락">
-    <a href={`tel:${site.phone}`} class="btn btn-ghost">전화 상담</a>
-    <a href="/#contact" class="btn btn-primary">시연 · 도입 상담</a>
-  </div>
+  <FloatingContact />
 
   <script>
     const btn = document.querySelector('.menu-btn');
@@ -181,7 +182,6 @@ const org = {
   .ft a { color: #e2e8f0; }
   .copy { margin-top: 10px; color: #64748b; }
 
-  .mbar { display: none; }
 
   @media (max-width: 1080px) {
     .menu-btn { display: block; }
@@ -194,7 +194,5 @@ const org = {
     .topbar span { display: none; }
     .topbar-in { justify-content: center; }
     .ft-in { grid-template-columns: 1fr; }
-    .mbar { display: grid; grid-template-columns: 1fr 1.4fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: rgba(255,255,255,.96); border-top: 1px solid var(--line); }
-    .mbar .btn { padding: 13px 10px; }
   }
 </style>

@@ -15,7 +15,11 @@ const interests = ['장비 시연 신청', '도입 · 가격 상담', '아톤플
         <li>전용 앰플 · 부속품 안내</li>
         <li>사용 교육 · A/S 안내</li>
       </ul>
-      <p class="lead-phone">급하시면 전화 주세요<br /><a href={`tel:${site.phone}`}>{site.phone}</a></p>
+      <p class="lead-phone">급하시면 바로 연락 주세요<br /><a href={`tel:${site.phone}`}>{site.phone}</a></p>
+      <div class="quick">
+        <a class="q kakao" href={site.kakaoChat} target="_blank" rel="noopener">카카오톡 상담</a>
+        <a class="q sms" href={site.sms}>문자 상담</a>
+      </div>
     </div>
 
     <form class="card lead-form" data-endpoint={site.formEndpoint} novalidate>
@@ -119,6 +123,12 @@ const interests = ['장비 시연 신청', '도입 · 가격 상담', '아톤플
   .lead-copy .section-title { margin-top: 16px; }
   .lead-phone { margin-top: 28px; color: var(--ink-2); }
   .lead-phone a { font: 800 26px/1.4 var(--font-latin); text-decoration: none; }
+  .quick { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .q { padding: 11px 18px; border-radius: 12px; font-weight: 800; font-size: 15px; text-decoration: none; }
+  .q.kakao { background: #FEE500; color: #191919; }
+  .q.sms { background: #fff; color: var(--ink); border: 1px solid #cbd5e1; }
+  .q.sms { display: none; }
+  @media (max-width: 900px) { .q.sms { display: inline-block; } }
   .lead-form { display: grid; gap: 16px; padding: 32px; }
   .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .lead-form label, .lead-form legend { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 4px; font-weight: 700; font-size: 15.5px; }
