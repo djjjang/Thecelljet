@@ -1,4 +1,5 @@
 // 페이지 내용. 근거: 제조사 매뉴얼(SUMI THE CELLJET Cosmetic Delivery System User Manual 260613)
+// ※ 핸드피스 LED: 매뉴얼은 레드(630nm)지만 2026-10-16 대표님 확인으로 블루 LED로 변경됨 (파장 미확인이라 숫자 표기 안 함)
 // 표현 기준: 트렌드24 「더셀젯 표현 대조표」 — 질병·치료·의료 표현, 근거 없는 수치·후기 금지
 
 export const stats = [
@@ -27,9 +28,9 @@ export const techs = [
   },
   {
     no: '03',
-    title: '핸드피스 터치 센서 (진동 · 레드 LED)',
+    title: '핸드피스 터치 센서 (진동 · 블루 LED)',
     en: 'Vibration & LED Touch Control',
-    desc: '핸드피스의 터치 센서로 저주파 진동과 레드 LED를 각각 켜고 끌 수 있습니다. 진동은 분사 순간의 부담감을 덜어 주고, LED 빛은 핸드피스가 피부에 제대로 닿았는지 확인하는 가이드가 됩니다.',
+    desc: '핸드피스의 터치 센서로 저주파 진동과 블루 LED를 각각 켜고 끌 수 있습니다. 진동은 분사 순간의 부담감을 덜어 주고, LED 빛은 핸드피스가 피부에 제대로 닿았는지 확인하는 가이드가 됩니다.',
     img: '/images/celljet-touch.webp',
     alt: '더셀젯 핸드피스의 진동·LED 터치 센서',
   },
@@ -75,7 +76,7 @@ export const modeNotes = [
 
 export const components = [
   { name: '본체', desc: '10.1인치 터치스크린, 4가지 모드 · 9단계 강도 · 메모리 5개' },
-  { name: '핸드피스', desc: '자동 분사 건 타입, 진동 · 레드 LED 터치 센서, 수명 약 100만 샷' },
+  { name: '핸드피스', desc: '자동 분사 건 타입, 진동 · 블루 LED 터치 센서, 수명 약 100만 샷' },
   { name: '전용 부속품', desc: '0.5cc 전용 실린지 · 어댑터 · 실린지 캡 (시중 제품과 호환 가능)' },
 ];
 

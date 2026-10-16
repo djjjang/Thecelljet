@@ -2,7 +2,7 @@
  * 더셀젯 시연·도입 상담 신청 → 구글 시트 저장 + 메일 알림 + 카카오 알림톡(선택)
  * 사용법은 같은 폴더의 「문의폼-연결방법.md」를 보세요.
  */
-const NOTIFY_EMAILS = ''; // 알림 받을 메일 주소. 여러 개면 쉼표로 구분 (예: 'a@naver.com,b@gmail.com')
+const NOTIFY_EMAILS = 'cuenter333@gmail.com'; // 알림 받을 메일 주소. 여러 개면 쉼표로 구분 (예: 'a@naver.com,b@gmail.com')
 const SHEET_NAME = '상담신청';
 const COLUMNS = ['submitted_at', 'shop', 'name', 'phone', 'region', 'type', 'interest', 'message', 'agree_privacy', 'agree_marketing', 'page'];
 const HEADERS = ['신청일시', '샵·클리닉', '성함', '연락처', '지역', '업종', '문의 내용', '남기신 말씀', '개인정보 동의', '소식 수신 동의', '신청 페이지'];
