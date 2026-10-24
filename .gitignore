@@ -8,3 +8,7 @@ coverage/
 !.env.example
 .astro/
 .vercel/
+
+# 검토 중 전후 사진 (동의·원본 확인 전) — 절대 깃허브에 올리지 않음
+src/data/ba-draft.json
+public/images/ba-draft/
