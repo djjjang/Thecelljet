@@ -17,37 +17,42 @@ const cases = [...approved, ...drafts];
       <p class="section-lead">가운데 손잡이를 좌우로 움직여 비교해 보세요.</p>
     </div>
 
+    {cases.some((c) => c.draft) && <p class="draft-flag">시안 · 검토 중 — 내 컴퓨터 미리보기에서만 보이며 사이트에는 공개되지 않습니다</p>}
+
     {cases.length > 1 && (
       <div class="case-tabs reveal" role="tablist" aria-label="사례 선택">
         {cases.map((c, i) => (
-          <button type="button" role="tab" aria-selected={i === 0 ? 'true' : 'false'} data-case={i}>{c.area}</button>
+          <button type="button" role="tab" aria-selected={i === 0 ? 'true' : 'false'} data-case={i}>사례 {i + 1}. {c.title || c.area}</button>
         ))}
       </div>
     )}
 
     {cases.map((c, i) => (
       <div class="case reveal" data-case-panel={i} hidden={i !== 0}>
-        {c.draft && <p class="draft-flag">시안 · 검토 중 — 내 컴퓨터 미리보기에서만 보이며 사이트에는 공개되지 않습니다</p>}
         <div class="ba" style="--pos:50%">
           <img class="ba-img" src={c.after} alt={`${c.area} 더셀젯 관리 후`} loading="lazy" />
           <div class="ba-before">
             <img class="ba-img" src={c.before} alt={`${c.area} 더셀젯 관리 전`} loading="lazy" />
           </div>
-          <span class="ba-tag l">BEFORE</span>
-          <span class="ba-tag r">AFTER</span>
+          {!c.labeled && <span class="ba-tag l">BEFORE</span>}
+          {!c.labeled && <span class="ba-tag r">AFTER</span>}
           <div class="ba-line" aria-hidden="true"><span>◀ ▶</span></div>
           <input class="ba-range" type="range" min="0" max="100" value="50" aria-label={`${c.area} 관리 전후 비교 위치`} />
         </div>
+        <div class="case-info">
+        <p class="case-mode">{c.mode ? `${c.mode} MODE` : 'THE CELLJET'}</p>
+        <h3 class="case-title">{c.title || `${c.area} 관리`}</h3>
         <dl class="ba-meta">
           <div><dt>관리 부위</dt><dd>{c.area}</dd></div>
           <div><dt>관리 횟수</dt><dd>{c.sessions}</dd></div>
           <div><dt>전 · 후 촬영 간격</dt><dd>{c.period}</dd></div>
           {c.ampoule && <div><dt>사용 앰플</dt><dd>{c.ampoule}</dd></div>}
-          {c.mode && <div><dt>모드 · 강도</dt><dd>{c.mode}</dd></div>}
+          {c.mode && <div><dt>관리 모드</dt><dd>{c.mode}</dd></div>}
         </dl>
         {c.draft
           ? <p class="ba-note draft-note">검토 중인 사진입니다. 원본 · 보정 여부 · 촬영 정보 · 게재 동의를 확인한 뒤에만 공개됩니다.</p>
           : <p class="ba-note">본인 동의를 받아 게재한 실제 관리 사진이며, 사진은 보정하지 않았습니다. 관리 결과는 피부 상태와 관리 조건에 따라 개인차가 있습니다. (촬영 {c.shotDate}{c.place && ` · ${c.place}`})</p>}
+        </div>
       </div>
     ))}
   </div>
@@ -69,12 +74,19 @@ const cases = [...approved, ...drafts];
 </script>
 
 <style>
+  .draft-flag { max-width: 1100px; margin-left: auto; margin-right: auto; }
   .draft-flag { margin-bottom: 10px; padding: 8px 14px; border-radius: 10px; background: #fff7ed; border: 1px dashed #f97316; color: #c2410c; font-weight: 800; font-size: 14px; text-align: center; }
   .case-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 24px; }
   .case-tabs button { padding: 10px 18px; border-radius: 999px; border: 1px solid #cbd5e1; background: #fff; font: inherit; font-weight: 800; font-size: 15px; color: var(--ink-2); cursor: pointer; }
   .case-tabs button[aria-selected=true] { background: var(--brand); border-color: var(--brand); color: #fff; }
-  .case { max-width: 880px; margin: 0 auto; }
-  .ba { position: relative; overflow: hidden; border-radius: 20px; background: #0f172a; box-shadow: 0 20px 50px rgba(15,23,42,.18); aspect-ratio: 4 / 3; touch-action: pan-y; }
+  .case { display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; align-items: center; max-width: 1100px; margin: 0 auto; }
+  .case[hidden] { display: none; }
+  .case-info { padding: 28px; border-radius: 20px; background: var(--bg-soft); border: 1px solid var(--line); }
+  .case-mode { display: inline-block; padding: 5px 12px; border-radius: 999px; background: var(--brand-soft); color: var(--brand); font: 800 12px var(--font-latin); letter-spacing: .08em; }
+  .case-title { font-size: 24px; margin: 12px 0 18px; }
+  .case-info .ba-meta { grid-template-columns: 1fr 1fr; margin: 0; }
+  .case-info .ba-meta div { background: #fff; }
+  .ba { position: relative; overflow: hidden; border-radius: 20px; background: #0f172a; box-shadow: 0 20px 50px rgba(15,23,42,.18); aspect-ratio: 1 / 1; touch-action: pan-y; }
   .ba-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .ba-before { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
   .ba-tag { position: absolute; top: 14px; z-index: 2; padding: 5px 11px; border-radius: 8px; background: rgba(10,15,29,.7); color: #fff; font: 800 12px var(--font-latin); letter-spacing: .1em; pointer-events: none; }
@@ -90,4 +102,9 @@ const cases = [...approved, ...drafts];
   .ba-meta dd { margin: 2px 0 0; font-weight: 800; }
   .draft-note { color: #c2410c !important; font-weight: 700; }
   .ba-note { margin-top: 14px; font-size: 13.5px; color: var(--ink-3); }
+  @media (max-width: 900px) {
+    .case { grid-template-columns: 1fr; gap: 16px; }
+    .case-info { padding: 20px; }
+    .case-title { font-size: 20px; }
+  }
 </style>
