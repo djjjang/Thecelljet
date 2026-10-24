@@ -48,7 +48,7 @@ export default {
     desc: ['THE CELLJET — a professional cosmetic device that delivers ampoules without needles.', 'This product is a cosmetic device. It is not a medical device and is not intended to diagnose or treat any disease.'],
     company: 'Company', ceo: 'CEO', biz: 'Business Reg. No.', tel: 'Phone', email: 'Email', kakao: 'KakaoTalk channel', mfr: 'Manufacturer',
     privacy: 'Privacy Policy',
-    companyName: 'Chaeum Enterprise Co., Ltd.', ceoName: '', // TODO: 대표님 영문 이름 표기 확인 후 입력 (추측 금지)
+    companyName: 'Chaeum Enterprise Co., Ltd.', ceoName: 'Sumi Lee', // 카이 확인 2026-10-24
     address: 'Room 212, 3-10 Dunchon-daero 80beon-gil, Jungwon-gu, Seongnam-si, Gyeonggi-do, Republic of Korea',
     manufacturer: 'I LASER LAB (Republic of Korea)',
   },

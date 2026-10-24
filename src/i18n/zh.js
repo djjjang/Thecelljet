@@ -48,7 +48,7 @@ export default {
     desc: ['THE CELLJET —— 无需针头即可喷送安瓶的专业美容仪。', '本产品为美容仪器，非医疗器械，不用于任何疾病的诊断或治疗。'],
     company: '公司', ceo: '代表', biz: '营业执照号（韩国）', tel: '电话', email: '邮箱', kakao: 'KakaoTalk 频道', mfr: '制造商',
     privacy: '隐私政策',
-    companyName: 'Chaeum Enterprise Co., Ltd.', ceoName: '', // TODO: 대표님 중국어 이름 표기 확인 후 입력 (추측 금지)
+    companyName: 'Chaeum Enterprise Co., Ltd.', ceoName: 'Sumi Lee', // 중문 표기 없음 → 영문 표기 사용 (카이 확인 2026-10-24)
     address: '韩国 京畿道 城南市 中院区 遁村大路80号街 3-10, 212号',
     manufacturer: 'I LASER LAB（韩国）',
   },
