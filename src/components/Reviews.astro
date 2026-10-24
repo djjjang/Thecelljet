@@ -1,0 +1,49 @@
+---
+// 사용 후기. 동의·표시 방식·작성일이 있는 후기만, 해당 언어 문장이 있을 때만 보인다 (없으면 칸 자체가 숨겨짐)
+import { reviews } from '../data/content.js';
+import { getT } from '../i18n/index.js';
+const { lang = 'ko' } = Astro.props;
+const t = getT(lang);
+const V = t.rv;
+const textOf = (r) => (lang === 'ko' ? r.text : r[`text_${lang}`]);
+const list = reviews.filter((r) => r.consent === true && r.name && r.date && textOf(r));
+---
+{list.length > 0 && (
+<section class="section soft" id="reviews">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">{V.eyebrow}</span>
+      <h2 class="section-title">{V.title}</h2>
+      <p class="section-lead">{V.lead}</p>
+    </div>
+    <div class="rv-grid">
+      {list.map((r) => (
+        <figure class="card rv reveal">
+          <span class="rv-q" aria-hidden="true">“</span>
+          <blockquote>{textOf(r)}</blockquote>
+          <figcaption>
+            <b>{r.name}</b>
+            <span>{[r.shop, r.period].filter(Boolean).join(' · ')}</span>
+            <small>{r.date}</small>
+          </figcaption>
+          {r.paid && <p class="rv-paid">{V.paid}</p>}
+        </figure>
+      ))}
+    </div>
+    <p class="rv-note">{V.note}</p>
+  </div>
+</section>
+)}
+
+<style>
+  .rv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .rv { position: relative; margin: 0; padding: 30px 28px 24px; display: flex; flex-direction: column; }
+  .rv-q { position: absolute; top: 6px; left: 20px; font: 800 64px/1 var(--font-latin); color: var(--brand-soft); }
+  .rv blockquote { position: relative; margin: 12px 0 20px; font-size: 16.5px; color: var(--ink); line-height: 1.75; flex: 1; }
+  .rv figcaption { display: grid; gap: 2px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .rv figcaption b { font-size: 16px; }
+  .rv figcaption span { font-size: 14px; color: var(--ink-2); }
+  .rv figcaption small { font-size: 13px; color: var(--ink-3); }
+  .rv-paid { margin-top: 12px; padding: 6px 10px; border-radius: 8px; background: #fff7ed; color: #c2410c; font-size: 13px; font-weight: 700; }
+  .rv-note { margin-top: 18px; text-align: center; font-size: 14px; color: var(--ink-3); }
+</style>

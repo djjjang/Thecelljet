@@ -35,6 +35,8 @@ export default {
     { label: 'Certifications', hash: 'certs' },
     { label: 'FAQ', hash: 'faq' },
   ],
+  navReviews: 'Reviews',
+  navGuide: 'Care guide',
   navCases: 'Before & After',
   cta: 'Request a Demo',
   homeAria: 'THE CELLJET home',
@@ -257,6 +259,19 @@ export default {
     items: ['email', 'kakao', 'tel', 'form'],
   },
 
+  rv: {
+    eyebrow: 'Reviews', title: 'From professionals who use it',
+    lead: 'Reviews from skin care salon owners and therapists who use THE CELLJET.',
+    paid: 'This review was written in exchange for compensation such as a device.',
+    note: 'Actual user reviews published with consent. Results may vary by individual.',
+  },
+  guide: {
+    eyebrow: 'Care Guide', title: 'Care guide by area',
+    lead: 'Recommended mode, intensity, ampoule and steps for each area.',
+    mode: 'Mode', intensity: 'Intensity', hz: 'Shots/sec', ampoule: 'Ampoule', time: 'Time', steps: 'Steps', caution: 'Caution',
+    source: 'Source',
+    note: '※ General guidance only. Settings for each client should be decided by a trained professional.',
+  },
   thanks: {
     title: 'Inquiry received', desc: 'Your THE CELLJET inquiry has been received.',
     h: 'Thank you — your inquiry has been received',

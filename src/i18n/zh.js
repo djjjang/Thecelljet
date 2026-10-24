@@ -35,6 +35,8 @@ export default {
     { label: '认证与专利', hash: 'certs' },
     { label: '常见问题', hash: 'faq' },
   ],
+  navReviews: '用户评价',
+  navGuide: '护理指南',
   navCases: '护理前后',
   cta: '预约演示 · 咨询',
   homeAria: 'THE CELLJET 首页',
@@ -257,6 +259,19 @@ export default {
     items: ['email', 'kakao', 'tel', 'form'],
   },
 
+  rv: {
+    eyebrow: 'Reviews', title: '一线使用者的心声',
+    lead: '来自实际使用 THE CELLJET 的皮肤管理店院长与护理师的评价。',
+    paid: '本评价在获得设备提供等报酬后撰写。',
+    note: '经本人同意发布的真实使用评价，护理效果因人而异。',
+  },
+  guide: {
+    eyebrow: 'Care Guide', title: '分区护理指南',
+    lead: '各部位推荐的模式、强度、安瓶及护理步骤。',
+    mode: '模式', intensity: '强度', hz: '每秒喷射', ampoule: '安瓶', time: '所需时间', steps: '护理步骤', caution: '注意',
+    source: '来源',
+    note: '※ 以上为一般使用指南。具体设置请由受过培训的专业人员根据顾客肌肤状态判断。',
+  },
   thanks: {
     title: '咨询已提交', desc: '您的 THE CELLJET 咨询已提交。',
     h: '感谢您的咨询，我们已收到',

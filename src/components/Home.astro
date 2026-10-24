@@ -5,6 +5,8 @@ import LeadForm from './LeadForm.astro';
 import Simulator from './Simulator.astro';
 import Lineup from './Lineup.astro';
 import BeforeAfter from './BeforeAfter.astro';
+import Reviews from './Reviews.astro';
+import CareGuide from './CareGuide.astro';
 import { site } from '../data/site.js';
 import { getT, prefix } from '../i18n/index.js';
 
@@ -131,6 +133,8 @@ const schema = [
 
   <Simulator lang={lang} />
 
+  <CareGuide lang={lang} />
+
   <Lineup lang={lang} />
 
   <!-- 안전 · 인증 -->
@@ -160,6 +164,8 @@ const schema = [
       </div>
     </div>
   </section>
+
+  <Reviews lang={lang} />
 
   <!-- 자주 묻는 질문 -->
   <section class="section soft" id="faq">

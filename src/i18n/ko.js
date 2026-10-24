@@ -33,6 +33,8 @@ export default {
     { label: '인증·특허', hash: 'certs' },
     { label: '자주 묻는 질문', hash: 'faq' },
   ],
+  navReviews: '사용 후기',
+  navGuide: '관리 가이드',
   navCases: '관리 사례',
   cta: '시연 · 도입 상담',
   homeAria: '더셀젯 홈',
@@ -194,6 +196,19 @@ export default {
     items: ['kakao', 'sms', 'tel', 'form'],
   },
 
+  rv: {
+    eyebrow: 'Reviews', title: '현장에서 쓰는 분들의 이야기',
+    lead: '더셀젯을 실제로 사용하는 피부관리실 원장님과 관리사님의 후기입니다.',
+    paid: '장비 제공 등 대가를 받고 작성된 후기입니다.',
+    note: '본인 동의를 받아 게재한 실제 사용 후기이며, 관리 결과는 개인에 따라 다를 수 있습니다.',
+  },
+  guide: {
+    eyebrow: 'Care Guide', title: '부위별 관리 가이드',
+    lead: '부위마다 권장 모드와 강도, 앰플, 관리 순서를 안내합니다.',
+    mode: '모드', intensity: '강도', hz: '초당 샷', ampoule: '앰플', time: '소요 시간', steps: '관리 순서', caution: '주의',
+    source: '출처',
+    note: '※ 일반적인 사용 안내입니다. 고객의 피부 상태에 맞는 세팅은 교육받은 전문가가 판단해 주세요.',
+  },
   thanks: {
     title: '상담 신청 완료', desc: '더셀젯 시연·도입 상담 신청이 접수되었습니다.',
     h: '상담 신청이 접수되었습니다',

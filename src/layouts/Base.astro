@@ -4,7 +4,7 @@ import '@fontsource/plus-jakarta-sans/700.css';
 import '@fontsource/plus-jakarta-sans/800.css';
 import '../styles/global.css';
 import { site } from '../data/site.js';
-import { beforeAfter } from '../data/content.js';
+import { beforeAfter, reviews, careGuide } from '../data/content.js';
 import { getT, langs, prefix, dicts } from '../i18n/index.js';
 import FloatingContact from '../components/FloatingContact.astro';
 
@@ -25,9 +25,19 @@ const urlFor = (l) => new URL(pathFor(l), site.url).href;
 
 // 전후 사례가 있을 때만 메뉴에 '관리 사례' 표시
 const baseNav = t.nav.map((n) => ({ label: n.label, href: `${p}/#${n.hash}` }));
-const nav = beforeAfter.some((c) => c.consent === true)
-  ? [...baseNav.slice(0, 2), { label: t.navCases, href: `${p}/#cases` }, ...baseNav.slice(2)]
-  : baseNav;
+// 자료가 들어온 칸만 메뉴에 추가 (전후 사례 · 관리 가이드 · 후기)
+const hasCases = beforeAfter.some((c) => c.consent === true);
+const hasGuide = careGuide.some((g) => g.confirmed === true && (lang === 'ko' || g[`area_${lang}`]));
+const hasReviews = reviews.some((r) => r.consent === true && (lang === 'ko' ? r.text : r[`text_${lang}`]));
+const nav = [
+  ...baseNav.slice(0, 2),
+  ...(hasCases ? [{ label: t.navCases, href: `${p}/#cases` }] : []),
+  ...baseNav.slice(2, 3),
+  ...(hasGuide ? [{ label: t.navGuide, href: `${p}/#guide` }] : []),
+  ...baseNav.slice(3, 5),
+  ...(hasReviews ? [{ label: t.navReviews, href: `${p}/#reviews` }] : []),
+  ...baseNav.slice(5),
+];
 
 const fullTitle = title ? `${title}${t.meta.titleSuffix}` : t.meta.defaultTitle;
 const canonical = urlFor(lang);
@@ -185,7 +195,8 @@ const f = t.footer;
   .logo img { height: 46px; width: auto; }
   .logo-text { font: 800 15px/1 var(--font-latin); letter-spacing: .08em; color: var(--brand); }
   .gnb { margin-left: auto; display: flex; align-items: center; gap: 2px; }
-  .gnb a:not(.btn) { padding: 8px 12px; border-radius: 8px; color: var(--ink-2); font-weight: 700; font-size: 15px; text-decoration: none; }
+  .gnb a:not(.btn) { padding: 8px 10px; border-radius: 8px; color: var(--ink-2); font-weight: 700; font-size: 14.5px; text-decoration: none; white-space: nowrap; }
+  .gnb .btn { white-space: nowrap; }
   .gnb a:not(.btn):hover, .gnb a.on { color: var(--brand); background: var(--brand-soft); }
   .gnb-cta { margin-left: 10px; padding: 11px 18px; font-size: 15px; }
   .lang-sw { display: flex; gap: 2px; padding: 3px; border-radius: 10px; background: #f1f5f9; border: 1px solid var(--line); flex: none; }
@@ -205,7 +216,7 @@ const f = t.footer;
   .copy { margin-top: 10px; color: #64748b; }
 
 
-  @media (max-width: 1080px) {
+  @media (max-width: 1280px) {
     .menu-btn { display: block; margin-left: 4px; }
     .lang-sw { margin-left: auto; }
     .gnb { display: none; position: absolute; top: 74px; left: 0; right: 0; flex-direction: column; align-items: stretch; background: #fff; border-bottom: 1px solid var(--line); padding: 12px 20px 20px; gap: 4px; box-shadow: var(--shadow); }

@@ -1,0 +1,63 @@
+---
+// 부위별 관리 가이드. 대표님·제조사 교육 자료로 확인된 항목(confirmed: true)만 보인다 (없으면 칸 자체가 숨겨짐)
+import { careGuide } from '../data/content.js';
+import { getT } from '../i18n/index.js';
+const { lang = 'ko' } = Astro.props;
+const t = getT(lang);
+const G = t.guide;
+const tr = (g, k) => (lang === 'ko' ? g[k] : g[`${k}_${lang}`] || g[k]);
+// 영어·중국어판은 그 언어의 부위 이름(area_en, area_zh)이 있는 항목만 표시 (한국어가 섞이지 않게)
+const list = careGuide.filter((g) => g.confirmed === true && g.area && g.mode && g.source && (lang === 'ko' || g[`area_${lang}`]));
+---
+{list.length > 0 && (
+<section class="section" id="guide">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">{G.eyebrow}</span>
+      <h2 class="section-title">{G.title}</h2>
+      <p class="section-lead">{G.lead}</p>
+    </div>
+    <div class="cg-grid">
+      {list.map((g) => (
+        <article class="card cg reveal">
+          <div class="cg-head">
+            <span class="cg-mode">{g.mode}</span>
+            <h3>{tr(g, 'area')}</h3>
+          </div>
+          <dl class="cg-dl">
+            {g.intensity && <div><dt>{G.intensity}</dt><dd>{tr(g, 'intensity')}</dd></div>}
+            {g.hz && <div><dt>{G.hz}</dt><dd>{g.hz}</dd></div>}
+            {g.ampoule && <div><dt>{G.ampoule}</dt><dd>{g.ampoule}</dd></div>}
+            {g.time && <div><dt>{G.time}</dt><dd>{tr(g, 'time')}</dd></div>}
+          </dl>
+          {tr(g, 'steps')?.length > 0 && (
+            <>
+              <p class="cg-sub">{G.steps}</p>
+              <ol class="cg-steps">{tr(g, 'steps').map((s) => <li>{s}</li>)}</ol>
+            </>
+          )}
+          {g.caution && <p class="cg-caution"><b>{G.caution}</b> {tr(g, 'caution')}</p>}
+          <p class="cg-src">{G.source}: {g.source}</p>
+        </article>
+      ))}
+    </div>
+    <p class="cg-note">{G.note}</p>
+  </div>
+</section>
+)}
+
+<style>
+  .cg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .cg { padding: 26px; display: flex; flex-direction: column; }
+  .cg-mode { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--navy); color: #7ff0e2; font: 800 11.5px var(--font-latin); letter-spacing: .08em; }
+  .cg-head h3 { font-size: 21px; margin-top: 10px; }
+  .cg-dl { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 16px 0 0; }
+  .cg-dl div { padding: 10px 12px; border-radius: 10px; background: var(--bg-soft); border: 1px solid var(--line); }
+  .cg-dl dt { font-size: 12.5px; color: var(--ink-3); font-weight: 700; }
+  .cg-dl dd { margin: 2px 0 0; font-weight: 800; font-size: 15px; }
+  .cg-sub { margin-top: 18px; font-weight: 800; font-size: 15px; }
+  .cg-steps { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 4px; color: var(--ink-2); font-size: 15px; }
+  .cg-caution { margin-top: 14px; padding: 10px 12px; border-radius: 10px; background: #fff7ed; color: #9a3412; font-size: 14px; }
+  .cg-src { margin-top: auto; padding-top: 14px; font-size: 12.5px; color: var(--ink-3); }
+  .cg-note { margin-top: 18px; text-align: center; font-size: 14px; color: var(--ink-3); }
+</style>

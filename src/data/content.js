@@ -217,3 +217,35 @@ export const accessories = [
 //   consent: true,                        // 본인 사진 게재 동의서 받음
 // },
 export const beforeAfter = [];
+
+// 사용 후기. ⚠️ consent: true + 이름 표시 방식 + 작성일이 모두 있어야 화면에 나온다 (없으면 칸 자체가 숨겨짐)
+// 받는 방법: 02_고객사/더셀젯/더셀젯_후기·관리가이드_요청서 (거래처 원장님·관리사 대상, 의사 추천 후기는 받지 않음)
+// 예시:
+// {
+//   name: '김OO 원장',                     // 동의한 표시 방식 그대로 (실명 / 이니셜 / 익명)
+//   shop: 'OO 피부관리실 · 서울',          // 공개 동의한 경우만
+//   period: '6개월 사용',                  // 사용 기간
+//   text: '앰플이 덜 튀어서 ...',          // 받은 문장 그대로 (효과 단정·질병 표현은 대표님 확인 후 수정)
+//   text_en: '', text_zh: '',              // 번역 (번역 게재 동의한 경우만)
+//   date: '2026-11',                       // 작성 시기
+//   paid: false,                           // 장비 무상 제공·할인 등 대가가 있었으면 true → "대가를 받은 후기" 표시
+//   consent: true,                         // 게재 동의서 받음
+// },
+export const reviews = [];
+
+// 관리 가이드 (부위별 사용 안내). ⚠️ 대표님·제조사 교육 자료로 확인된 내용만. confirmed: true 인 항목만 화면에 나온다
+// 효과·횟수 약속 금지 (예: "주 2회면 탄력 +40%" ✕) — 사용 방법만
+// 예시:
+// {
+//   area: '얼굴 · 목', area_en: 'Face & Neck', area_zh: '面颈',
+//   mode: 'FACE & NECK',
+//   intensity: '3~5단계',  intensity_en: 'Level 3–5', intensity_zh: '3~5 档',
+//   hz: '3 Hz',
+//   ampoule: 'ATON PLUS MS',
+//   steps: ['세안 후 피부 정돈', '...'], steps_en: [...], steps_zh: [...],
+//   time: '약 10분', time_en: 'About 10 min', time_zh: '约 10 分钟',
+//   caution: '눈 주위·눈꺼풀 사용 금지', caution_en: '...', caution_zh: '...',
+//   source: '제조사 교육 자료 (2026-11)',
+//   confirmed: true,
+// },
+export const careGuide = [];
