@@ -128,10 +128,10 @@ const f = t.footer;
         <p class="ft-desc">{f.desc[0]}<br />{f.desc[1]}</p>
       </div>
       <div class="ft-info">
-        {f.companyName && <p>{f.company} {f.companyName}{f.ceoName && <> · {f.ceo} {f.ceoName}</>}</p>}
+        {f.companyName && <p>{`${f.company} ${f.companyName}${f.ceoName ? ` · ${f.ceo} ${f.ceoName}` : ''}`}</p>}
         {site.bizNumber && <p>{f.biz} {site.bizNumber}</p>}
         <p>{f.address}</p>
-        <p>{f.tel} <a href={t.tel}>{t.phone}</a>{site.email && <> · {f.email} <a href={`mailto:${site.email}`}>{site.email}</a></>}</p>
+        <p>{f.tel} <a href={t.tel}>{t.phone}</a>{site.email && <>{` · ${f.email} `}<a href={`mailto:${site.email}`}>{site.email}</a></>}</p>
         <p>{f.kakao} <a href={site.kakao} target="_blank" rel="noopener">THE CELLJET</a></p>
         <p>{f.mfr} {f.manufacturer}</p>
         <p class="ft-links"><a href={`${p}/privacy`}>{f.privacy}</a></p>
