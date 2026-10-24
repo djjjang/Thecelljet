@@ -4,6 +4,8 @@
 - 프로젝트 문서: `C:\Users\A\OneDrive\바탕 화면\트렌드24\01_전략\프로젝트\더셀젯_리뉴얼.md`
 - 표현 기준: `...\트렌드24\02_고객사\더셀젯\표현_대조표.md` — **문구를 바꾸기 전에 반드시 확인**
 - 구조: Astro 정적 사이트. 내용은 `src/data/content.js`, 공통 정보는 `src/data/site.js`
+- **다국어 (2026-10-24):** 한국어 `/`, 영어 `/en`, 중국어 간체 `/zh`. 문장은 `src/i18n/ko.js · en.js · zh.js`, 화면 부품은 공용(`components/Home.astro` 등, lang 받음). **문구를 고치면 세 언어 파일을 같이 고칠 것**
+- 전후 사례: 공개분은 `content.js`의 beforeAfter(동의·촬영정보 필수), 검토 중은 `src/data/ba-draft.json` + `public/images/ba-draft/` (깃허브 제외, 내 컴퓨터 미리보기에서만 보임)
 - 미리보기: `npm run dev` → http://localhost:4322
 - 문의 폼: 구글 앱스 스크립트 (`docs/문의폼-연결방법.md`)
 - 옛 AI 스튜디오 초안은 `ai-studio-draft` 브랜치에 보관
