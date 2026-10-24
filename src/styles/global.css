@@ -92,3 +92,12 @@ p, li, dd, summary { text-wrap: pretty; }
   .section-head { margin-bottom: 32px; }
   .section-lead { font-size: 16.5px; }
 }
+
+/* 중국어: 한국어용 keep-all은 한자 줄바꿈을 막아 글자가 넘치므로 일반 규칙 사용 + 중국어 글꼴 */
+:lang(zh) body, body:lang(zh) {
+  word-break: normal;
+  line-break: strict;
+  font-family: 'Pretendard Variable', Pretendard, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+}
+/* 영어: 단어 단위 줄바꿈 */
+:lang(en) body, body:lang(en) { word-break: normal; }

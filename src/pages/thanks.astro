@@ -1,20 +1,4 @@
 ---
-import Base from '../layouts/Base.astro';
-import { site } from '../data/site.js';
+import ThanksPage from '../components/ThanksPage.astro';
 ---
-<Base title="상담 신청 완료" description="더셀젯 시연·도입 상담 신청이 접수되었습니다." noindex>
-  <section class="section">
-    <div class="wrap thanks">
-      <div class="ok">✓</div>
-      <h1 class="section-title">상담 신청이 접수되었습니다</h1>
-      <p class="section-lead">담당자가 확인 후 남겨 주신 연락처로 연락드리겠습니다.<br />급하신 경우 <a href={`tel:${site.phone}`}>{site.phone}</a>로 전화 주세요.</p>
-      <div class="back"><a href="/" class="btn btn-ghost">처음으로</a></div>
-    </div>
-  </section>
-</Base>
-
-<style>
-  .thanks { text-align: center; padding: 40px 20px; }
-  .ok { width: 72px; height: 72px; margin: 0 auto 8px; border-radius: 50%; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; font-size: 34px; font-weight: 900; }
-  .back { margin-top: 32px; }
-</style>
+<ThanksPage lang="ko" />

@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import { getT, prefix } from '../i18n/index.js';
+const { lang = 'ko' } = Astro.props;
+const t = getT(lang);
+const T = t.thanks;
+const html = T.p.replace('{tel}', `<a href="${t.tel}">${t.phone}</a>`);
+---
+<Base title={T.title} description={T.desc} noindex lang={lang} path="/thanks">
+  <section class="section">
+    <div class="wrap thanks">
+      <div class="ok">✓</div>
+      <h1 class="section-title">{T.h}</h1>
+      <p class="section-lead" set:html={html} />
+      <div class="back"><a href={prefix(lang) || '/'} class="btn btn-ghost">{T.back}</a></div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .thanks { text-align: center; padding: 40px 20px; }
+  .ok { width: 72px; height: 72px; margin: 0 auto 8px; border-radius: 50%; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; font-size: 34px; font-weight: 900; }
+  .back { margin-top: 32px; }
+</style>

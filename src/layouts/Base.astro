@@ -1,12 +1,12 @@
 ---
+import '@fontsource/plus-jakarta-sans/600.css';
+import '@fontsource/plus-jakarta-sans/700.css';
+import '@fontsource/plus-jakarta-sans/800.css';
 import '../styles/global.css';
-import { site, nav as baseNav } from '../data/site.js';
+import { site } from '../data/site.js';
 import { beforeAfter } from '../data/content.js';
+import { getT, langs, prefix, dicts } from '../i18n/index.js';
 import FloatingContact from '../components/FloatingContact.astro';
-// 전후 사례가 있을 때만 메뉴에 '관리 사례' 표시
-const nav = beforeAfter.some((c) => c.consent === true)
-  ? [...baseNav.slice(0, 2), { label: '관리 사례', href: '/#cases' }, ...baseNav.slice(2)]
-  : baseNav;
 
 const {
   title,
@@ -14,19 +14,31 @@ const {
   noindex = false,
   schema = [],
   ogImage = '/images/og-celljet.jpg',
+  lang = 'ko',
+  path = '/', // 언어 앞부분을 뺀 주소 (예: '/', '/privacy')
 } = Astro.props;
+const t = getT(lang);
+const p = prefix(lang);
+const home = p || '/';
+const pathFor = (l) => (prefix(l) + (path === '/' ? '' : path)) || '/';
+const urlFor = (l) => new URL(pathFor(l), site.url).href;
 
-const fullTitle = title ? `${title} | 더셀젯 THE CELLJET` : '더셀젯 THE CELLJET | 바늘 없는 앰플 전달 미용기기';
-const canonical = new URL(Astro.url.pathname === '/index' ? '/' : Astro.url.pathname, site.url).href;
+// 전후 사례가 있을 때만 메뉴에 '관리 사례' 표시
+const baseNav = t.nav.map((n) => ({ label: n.label, href: `${p}/#${n.hash}` }));
+const nav = beforeAfter.some((c) => c.consent === true)
+  ? [...baseNav.slice(0, 2), { label: t.navCases, href: `${p}/#cases` }, ...baseNav.slice(2)]
+  : baseNav;
 
+const fullTitle = title ? `${title}${t.meta.titleSuffix}` : t.meta.defaultTitle;
+const canonical = urlFor(lang);
 const org = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: '더셀젯 (THE CELLJET)',
+  name: t.meta.orgName,
   alternateName: ['THE CELLJET', 'SUMI THE CELLJET', '더셀젯'],
   url: site.url,
   logo: new URL('/images/logo-sumi.png', site.url).href,
-  telephone: site.phone,
+  telephone: '+82-10-7781-6533',
   ...(site.email ? { email: site.email } : {}),
   address: {
     '@type': 'PostalAddress',
@@ -39,9 +51,10 @@ const org = {
   ...(site.bizNumber ? { taxID: site.bizNumber } : {}),
   sameAs: [site.kakao],
 };
+const f = t.footer;
 ---
 <!doctype html>
-<html lang="ko">
+<html lang={t.htmlLang}>
 <head>
   <meta charset="utf-8" />
   <script is:inline>document.documentElement.classList.add('js');</script>
@@ -49,48 +62,53 @@ const org = {
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
+  {!noindex && langs.map((l) => <link rel="alternate" hreflang={dicts[l].hreflang} href={urlFor(l)} />)}
+  {!noindex && <link rel="alternate" hreflang="x-default" href={urlFor('ko')} />}
   <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
   <meta name="naver-site-verification" content={site.naverVerification} />
   <meta name="google-site-verification" content={site.googleVerification} />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="더셀젯 THE CELLJET" />
+  <meta property="og:site_name" content={t.meta.siteName} />
   <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={new URL(ogImage, site.url).href} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:locale" content={t.ogLocale} />
+  {langs.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={dicts[l].ogLocale} />)}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#006a61" />
   <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" />
   <script type="application/ld+json" set:html={JSON.stringify(org)} />
   {schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
 </head>
 <body>
   <div class="topbar">
     <div class="wrap topbar-in">
-      <span><b>KC 적합등록</b> 전문가용 니들프리 앰플 전달 미용기기</span>
-      <a href={`tel:${site.phone}`}>도입 상담 {site.phone}</a>
+      <span><b>{t.topbar.badge}</b> {t.topbar.text}</span>
+      <a href={t.tel}>{t.topbar.call} {t.phone}</a>
     </div>
   </div>
   <header class="hd">
     <div class="wrap hd-in">
-      <a href="/" class="logo" aria-label="더셀젯 홈">
+      <a href={home} class="logo" aria-label={t.homeAria}>
         <img src="/images/logo-sumi.webp" alt="SUMI BEAUTY" width="76" height="44" />
         <span class="logo-text">THE CELLJET</span>
       </a>
-      <nav class="gnb" id="gnb" aria-label="주요 메뉴">
+      <nav class="gnb" id="gnb" aria-label={t.menuAria}>
         {nav.map((n) => <a href={n.href}>{n.label}</a>)}
-        <a href="/#contact" class="btn btn-primary gnb-cta">시연 · 도입 상담</a>
+        <a href={`${p}/#contact`} class="btn btn-primary gnb-cta">{t.cta}</a>
       </nav>
-      <button class="menu-btn" aria-label="메뉴 열기" aria-controls="gnb" aria-expanded="false">
+      <div class="lang-sw" role="navigation" aria-label={t.langAria}>
+        {langs.map((l) => (
+          <a href={pathFor(l)} hreflang={dicts[l].hreflang} lang={dicts[l].htmlLang} aria-current={l === lang ? 'true' : undefined} title={dicts[l].langName}>{dicts[l].langShort}</a>
+        ))}
+      </div>
+      <button class="menu-btn" aria-label={t.menuOpen} aria-controls="gnb" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -107,22 +125,22 @@ const org = {
           <img src="/images/logo-sumi-white.webp" alt="SUMI BEAUTY" width="69" height="40" />
           <span>THE CELLJET</span>
         </div>
-        <p class="ft-desc">바늘 없이 앰플을 전달하는 전문가용 미용기기, 더셀젯.<br />본 제품은 미용 목적의 기기이며, 질병의 진단이나 치료를 위한 의료기기가 아닙니다.</p>
+        <p class="ft-desc">{f.desc[0]}<br />{f.desc[1]}</p>
       </div>
       <div class="ft-info">
-        {site.company && <p>상호 {site.company}{site.ceo && <> · 대표 {site.ceo}</>}</p>}
-        {site.bizNumber && <p>사업자등록번호 {site.bizNumber}</p>}
-        <p>{site.address}</p>
-        <p>전화 <a href={`tel:${site.phone}`}>{site.phone}</a>{site.email && <> · 이메일 <a href={`mailto:${site.email}`}>{site.email}</a></>}</p>
-        <p>카카오톡 채널 <a href={site.kakao} target="_blank" rel="noopener">THE CELLJET</a></p>
-        <p>제조 {site.manufacturer}</p>
-        <p class="ft-links"><a href="/privacy">개인정보처리방침</a></p>
+        {f.companyName && <p>{f.company} {f.companyName}{f.ceoName && <> · {f.ceo} {f.ceoName}</>}</p>}
+        {site.bizNumber && <p>{f.biz} {site.bizNumber}</p>}
+        <p>{f.address}</p>
+        <p>{f.tel} <a href={t.tel}>{t.phone}</a>{site.email && <> · {f.email} <a href={`mailto:${site.email}`}>{site.email}</a></>}</p>
+        <p>{f.kakao} <a href={site.kakao} target="_blank" rel="noopener">THE CELLJET</a></p>
+        <p>{f.mfr} {f.manufacturer}</p>
+        <p class="ft-links"><a href={`${p}/privacy`}>{f.privacy}</a></p>
         <p class="copy">© {new Date().getFullYear()} THE CELLJET. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
-  <FloatingContact />
+  <FloatingContact lang={lang} />
 
   <script>
     const btn = document.querySelector('.menu-btn');
@@ -143,7 +161,7 @@ const org = {
     document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
     // 지금 보고 있는 섹션의 메뉴 강조
-    const links = [...document.querySelectorAll<HTMLAnchorElement>('.gnb a[href^="/#"]')];
+    const links = [...document.querySelectorAll<HTMLAnchorElement>('.gnb a[href*="#"]')];
     const so = new IntersectionObserver((es) => es.forEach((e) => {
       if (!e.isIntersecting) return;
       links.forEach((a) => a.classList.toggle('on', a.hash === '#' + e.target.id));
@@ -170,6 +188,10 @@ const org = {
   .gnb a:not(.btn) { padding: 8px 12px; border-radius: 8px; color: var(--ink-2); font-weight: 700; font-size: 15px; text-decoration: none; }
   .gnb a:not(.btn):hover, .gnb a.on { color: var(--brand); background: var(--brand-soft); }
   .gnb-cta { margin-left: 10px; padding: 11px 18px; font-size: 15px; }
+  .lang-sw { display: flex; gap: 2px; padding: 3px; border-radius: 10px; background: #f1f5f9; border: 1px solid var(--line); flex: none; }
+  .lang-sw a { padding: 5px 9px; border-radius: 7px; font: 800 12.5px/1 var(--font-latin); color: var(--ink-3); text-decoration: none; }
+  .lang-sw a:hover { color: var(--brand); }
+  .lang-sw a[aria-current] { background: #fff; color: var(--brand); box-shadow: 0 1px 4px rgba(15,23,42,.1); }
   .menu-btn { display: none; margin-left: auto; width: 44px; height: 44px; border: 0; background: none; cursor: pointer; padding: 10px; }
   .menu-btn span { display: block; height: 2px; background: var(--ink); margin: 5px 0; border-radius: 2px; }
 
@@ -184,11 +206,16 @@ const org = {
 
 
   @media (max-width: 1080px) {
-    .menu-btn { display: block; }
+    .menu-btn { display: block; margin-left: 4px; }
+    .lang-sw { margin-left: auto; }
     .gnb { display: none; position: absolute; top: 74px; left: 0; right: 0; flex-direction: column; align-items: stretch; background: #fff; border-bottom: 1px solid var(--line); padding: 12px 20px 20px; gap: 4px; box-shadow: var(--shadow); }
     .gnb.open { display: flex; }
     .gnb a:not(.btn) { padding: 12px; font-size: 16px; }
     .gnb-cta { margin: 8px 0 0; }
+  }
+  @media (max-width: 560px) {
+    .logo-text { display: none; }
+    .lang-sw a { padding: 6px 8px; }
   }
   @media (max-width: 900px) {
     .topbar span { display: none; }

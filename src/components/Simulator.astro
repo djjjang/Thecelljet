@@ -1,5 +1,10 @@
 ---
-import { modes, modeNotes } from '../data/content.js';
+import { getT } from '../i18n/index.js';
+const { lang = 'ko' } = Astro.props;
+const t = getT(lang);
+const s = t.sim;
+const modes = t.modes;
+const modeNotes = t.modeNotes;
 // 실제 장비 화면 순서: SPECIAL, SCALP / FACE & NECK, BODY
 const order = ['SPECIAL', 'SCALP', 'FACE & NECK', 'BODY'];
 const sorted = order.map((k) => modes.find((m) => m.key === k));
@@ -13,13 +18,13 @@ const icons = {
 <section class="section dark" id="modes">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow on-dark">Treatment Area · 화면 체험</span>
-      <h2 class="section-title">부위에 맞춘 4가지 모드,<br /> 직접 눌러 보세요</h2>
-      <p class="section-lead">더셀젯 10.1인치 터치스크린을 본뜬 체험 화면입니다.<br /> 모드를 고르고, 샷 수와 강도를 조절한 뒤 START를 눌러 보세요.</p>
+      <span class="eyebrow on-dark">{s.eyebrow}</span>
+      <h2 class="section-title" set:html={s.title} />
+      <p class="section-lead" set:html={s.lead} />
     </div>
 
     <div class="sim-grid">
-      <div class="screen reveal" id="sim" aria-label="더셀젯 조작 화면 체험">
+      <div class="screen reveal" id="sim" aria-label={s.aria} data-i18n={JSON.stringify(s.js)}>
         <div class="scr-top">
           <img src="/images/logo-sumi-white.webp" alt="" width="52" height="30" />
           <span class="scr-status" data-status>READY</span>
@@ -40,21 +45,21 @@ const icons = {
             <div class="ctrl-row">
               <span class="ctrl-l">Shot / Second</span>
               <output class="ctrl-v" data-hz>3</output><span class="unit">Hz</span>
-              <div class="ud"><button type="button" data-hz-up aria-label="초당 샷 수 올리기">▲</button><button type="button" data-hz-down aria-label="초당 샷 수 내리기">▼</button></div>
+              <div class="ud"><button type="button" data-hz-up aria-label={s.hzUp}>▲</button><button type="button" data-hz-down aria-label={s.hzDown}>▼</button></div>
             </div>
             <div class="ctrl-row">
               <span class="ctrl-l">Intensity</span>
               <output class="ctrl-v" data-int>5</output><span class="unit">/ 9</span>
-              <div class="ud"><button type="button" data-int-up aria-label="강도 올리기">▲</button><button type="button" data-int-down aria-label="강도 내리기">▼</button></div>
+              <div class="ud"><button type="button" data-int-up aria-label={s.intUp}>▲</button><button type="button" data-int-down aria-label={s.intDown}>▼</button></div>
             </div>
             <div class="bars" aria-hidden="true">{Array.from({ length: 9 }).map(() => <i></i>)}</div>
           </div>
         </div>
         <div class="scr-bottom">
-          <button type="button" class="mem save" data-save aria-label="현재 설정 저장">SAVE</button>
-          {[1, 2, 3, 4, 5].map((n) => <button type="button" class="mem" data-mem={n} aria-label={`메모리 ${n}`}>{n}<small>Memory</small></button>)}
+          <button type="button" class="mem save" data-save aria-label={s.save}>SAVE</button>
+          {[1, 2, 3, 4, 5].map((n) => <button type="button" class="mem" data-mem={n} aria-label={`${s.mem} ${n}`}>{n}<small>Memory</small></button>)}
           <div class="count"><span>SHOT<br />COUNT</span><output data-count>000000</output></div>
-          <button type="button" class="start" data-start aria-label="분사 시작">▶<small>START</small></button>
+          <button type="button" class="start" data-start aria-label={s.start}>▶<small>START</small></button>
         </div>
         <div class="pulse" aria-hidden="true"></div>
       </div>
@@ -67,11 +72,11 @@ const icons = {
             <p>{m.desc}</p>
           </div>
         ))}
-        <p class="sim-msg" data-msg role="status" aria-live="polite">현재 설정: 얼굴 · 목 모드 · 초당 3회 · 강도 5단계</p>
+        <p class="sim-msg" data-msg role="status" aria-live="polite"></p>
         <ul class="checks">
           {modeNotes.map((n) => <li>{n}</li>)}
         </ul>
-        <p class="sim-note">※ 실제 장비 화면을 단순화한 체험용 화면입니다. 실제 사용 조건은 교육 시 안내해 드립니다.</p>
+        <p class="sim-note">{s.note}</p>
       </div>
     </div>
   </div>
@@ -81,7 +86,9 @@ const icons = {
   const root = document.getElementById('sim');
   if (root) {
     const $ = <T extends Element>(s: string) => root.querySelector<T>(s)!;
-    const names: Record<string, string> = { 'SPECIAL': '스페셜', 'SCALP': '두피', 'FACE & NECK': '얼굴 · 목', 'BODY': '바디' };
+    const L = JSON.parse(root.dataset.i18n || '{}');
+    const names: Record<string, string> = L.names;
+    const fmt = (s: string, v: Record<string, string | number>) => s.replace(/\{(\w+)\}/g, (_, k) => String(v[k] ?? ''));
     const st = { mode: 'FACE & NECK', hz: 3, int: 5, count: 0, saving: false, timer: 0 as number | undefined, mem: {} as Record<string, { mode: string; hz: number; int: number }> };
     const msg = document.querySelector<HTMLElement>('[data-msg]')!;
     const status = $<HTMLElement>('[data-status]');
@@ -98,7 +105,7 @@ const icons = {
       document.querySelectorAll<HTMLElement>('[data-info]').forEach((p) => (p.hidden = p.dataset.info !== st.mode));
       root.querySelectorAll<HTMLElement>('[data-mem]').forEach((b) => b.classList.toggle('filled', !!st.mem[b.dataset.mem!]));
       root.style.setProperty('--hz', String(hz));
-      msg.textContent = note || `현재 설정: ${names[st.mode]} 모드 · ${body ? '트리거 1회 단발' : `초당 ${hz}회`} · 강도 ${st.int}단계`;
+      msg.textContent = note || fmt(L.current, { mode: names[st.mode], rate: body ? L.trigger : fmt(L.perSec, { hz }), int: st.int });
     };
     const stop = () => { clearInterval(st.timer); st.timer = undefined; root.classList.remove('firing'); status.textContent = 'READY'; };
 
@@ -107,18 +114,18 @@ const icons = {
     $('[data-hz-down]').addEventListener('click', () => { st.hz = Math.max(1, st.hz - 1); render(); });
     $('[data-int-up]').addEventListener('click', () => { st.int = Math.min(9, st.int + 1); render(); });
     $('[data-int-down]').addEventListener('click', () => { st.int = Math.max(1, st.int - 1); render(); });
-    $('[data-save]').addEventListener('click', () => { st.saving = !st.saving; $('[data-save]').classList.toggle('armed', st.saving); render(st.saving ? '저장할 메모리 번호(1~5)를 눌러 주세요.' : undefined); });
+    $('[data-save]').addEventListener('click', () => { st.saving = !st.saving; $('[data-save]').classList.toggle('armed', st.saving); render(st.saving ? L.saveAsk : undefined); });
     root.querySelectorAll<HTMLButtonElement>('[data-mem]').forEach((b) => b.addEventListener('click', () => {
       const k = b.dataset.mem!;
       if (st.saving) {
         st.mem[k] = { mode: st.mode, hz: st.hz, int: st.int };
         st.saving = false; $('[data-save]').classList.remove('armed');
-        render(`메모리 ${k}에 저장했습니다: ${names[st.mode]} · ${st.mode === 'BODY' ? 1 : st.hz}Hz · 강도 ${st.int}`);
+        render(fmt(L.saved, { k, mode: names[st.mode], hz: st.mode === 'BODY' ? 1 : st.hz, int: st.int }));
       } else if (st.mem[k]) {
         stop(); Object.assign(st, st.mem[k]);
-        render(`메모리 ${k}를 불러왔습니다: ${names[st.mode]} · ${st.mode === 'BODY' ? 1 : st.hz}Hz · 강도 ${st.int}`);
+        render(fmt(L.loaded, { k, mode: names[st.mode], hz: st.mode === 'BODY' ? 1 : st.hz, int: st.int }));
       } else {
-        render(`메모리 ${k}는 비어 있습니다. SAVE를 누른 뒤 번호를 눌러 저장해 보세요.`);
+        render(fmt(L.empty, { k }));
       }
     }));
     $('[data-start]').addEventListener('click', () => {

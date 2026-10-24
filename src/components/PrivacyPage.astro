@@ -1,0 +1,86 @@
+---
+// 개인정보처리방침. 한국 개인정보 보호법 기준 문서이며, 영어·중국어는 번역본 (내용이 다르면 한국어판 우선)
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site.js';
+import { getT } from '../i18n/index.js';
+const { lang = 'ko' } = Astro.props;
+const t = getT(lang);
+// TODO(대표님 확인): 개인정보 보호책임자, 시행일(실제 오픈일). 정식 운영 전 전문가 검토 권장.
+const owner = site.company || '더셀젯';
+
+const docs = {
+  ko: {
+    title: '개인정보처리방침',
+    desc: '더셀젯 홈페이지의 시연·도입 상담 신청 때 수집하는 개인정보 항목, 이용 목적, 보관 기간과 이용자의 권리를 안내합니다.',
+    intro: `${owner}(이하 "회사")는 「개인정보 보호법」에 따라 이용자의 개인정보를 보호하고, 이와 관련한 고충을 원활하게 처리하기 위해 다음과 같이 개인정보처리방침을 둡니다.`,
+    sections: [
+      ['1. 수집하는 개인정보 항목과 방법', '회사는 시연·도입 상담 신청을 위해 홈페이지 신청 양식을 통해 다음 정보를 수집합니다.', ['필수: 샵·클리닉 이름, 성함, 연락처, 업종', '선택: 지역, 문의 내용', '자동 수집: 신청 일시, 신청한 페이지 주소']],
+      ['2. 개인정보의 이용 목적', '', ['장비 시연 및 도입 상담 진행', '견적·계약·교육·A/S 관련 연락', '(선택 동의 시) 신제품·교육 소식 안내']],
+      ['3. 보유 및 이용 기간', '상담 종료 후 1년간 보관한 뒤 지체 없이 파기합니다. 이용자가 동의를 철회하거나 삭제를 요청하면 즉시 파기합니다. 다만 관계 법령에 따라 보관이 필요한 경우 해당 기간 동안 보관합니다.', []],
+      ['4. 개인정보 처리 위탁 및 국외 이전', '회사는 신청 정보의 저장과 알림 발송을 위해 아래와 같이 개인정보 처리 업무를 위탁하며, 이 과정에서 개인정보가 국외 서버에 저장될 수 있습니다.', ['수탁자: Google LLC (Google 스프레드시트 · Gmail) / 이전 국가: 미국 등 Google 데이터센터 소재 국가', '이전 항목: 1항의 수집 항목 전체 / 이전 시기 및 방법: 신청서 제출 시 네트워크를 통해 전송', '보유 기간: 3항의 보유 기간과 같음'], '이용자는 국외 이전을 거부할 수 있으나, 이 경우 온라인 신청이 어려우며 전화로 상담을 신청하실 수 있습니다. 홈페이지는 Vercel Inc.의 서버를 통해 제공되며, 접속 기록 등이 해당 서버에 처리될 수 있습니다.'],
+      ['5. 개인정보의 제3자 제공', '회사는 이용자의 동의 없이 개인정보를 제3자에게 제공하지 않습니다. 다만 법령에 따라 요구되는 경우는 예외로 합니다.', []],
+      ['6. 개인정보의 파기', '보유 기간이 끝나거나 처리 목적이 달성된 개인정보는 복구할 수 없는 방법으로 삭제합니다.', []],
+      ['7. 이용자의 권리', '이용자는 언제든지 자신의 개인정보 열람, 정정, 삭제, 처리 정지 및 소식 수신 동의 철회를 요청할 수 있습니다. 아래 연락처로 요청하시면 지체 없이 처리합니다.', []],
+      ['8. 개인정보 보호책임자', '', [`책임자: ${site.ceo || `${owner} 대표`}`, `전화: ${site.phone}`, `이메일: ${site.email}`], '개인정보 침해에 대한 신고나 상담은 개인정보침해신고센터(국번 없이 118, privacy.kisa.or.kr)에 문의하실 수 있습니다.'],
+      ['9. 시행일', '이 개인정보처리방침은 2026년 10월 22일부터 적용됩니다.', []],
+    ],
+  },
+  en: {
+    title: 'Privacy Policy',
+    desc: 'How THE CELLJET collects and uses personal information submitted through demo and partnership inquiries, retention periods and your rights.',
+    intro: 'Chaeum Enterprise Co., Ltd. (the "Company") protects your personal information in accordance with the Personal Information Protection Act of the Republic of Korea and sets out this Privacy Policy. This is a translation; if there is any difference, the Korean version prevails.',
+    sections: [
+      ['1. Information we collect', 'We collect the following through the inquiry form on this website.', ['Required: company/clinic name, name, phone, business type', 'Optional: country/city, message', 'Collected automatically: date and time of submission, page address']],
+      ['2. Purpose of use', '', ['Arranging demos and consultations', 'Contact regarding quotes, contracts, training and service', '(If you agree) news about new products and training']],
+      ['3. Retention period', 'We keep your information for 1 year after the consultation ends and then delete it without delay. If you withdraw consent or request deletion, we delete it immediately, unless retention is required by law.', []],
+      ['4. Processing by third parties and international transfer', 'To store inquiries and send notifications, we entrust processing as follows, and your information may be stored on servers outside Korea.', ['Processor: Google LLC (Google Sheets · Gmail) / Countries: the United States and other countries where Google data centers are located', 'Items: all items in Section 1 / Timing and method: transmitted over the network when the form is submitted', 'Retention: same as Section 3'], 'You may refuse the international transfer; in that case online inquiries are not possible, and you can contact us by email or phone instead. This website is served through Vercel Inc. servers, which may process access logs.'],
+      ['5. Provision to third parties', 'We do not provide your personal information to third parties without your consent, except where required by law.', []],
+      ['6. Deletion', 'When the retention period ends or the purpose is fulfilled, we delete the information in a way that cannot be recovered.', []],
+      ['7. Your rights', 'You may request access, correction, deletion or suspension of processing of your personal information, and withdraw consent to receive news, at any time. Contact us below and we will act without delay.', []],
+      ['8. Privacy officer', '', ['Officer: Representative Director, Chaeum Enterprise Co., Ltd.', `Phone: ${t.phone}`, `Email: ${site.email}`], 'You may also contact the Korea Personal Information Infringement Report Center (privacy.kisa.or.kr).'],
+      ['9. Effective date', 'This Privacy Policy is effective from October 22, 2026.', []],
+    ],
+  },
+  zh: {
+    title: '隐私政策',
+    desc: 'THE CELLJET 在设备演示及合作咨询中收集的个人信息项目、使用目的、保存期限及您的权利。',
+    intro: 'Chaeum Enterprise Co., Ltd.（以下简称"公司"）依据韩国《个人信息保护法》保护用户的个人信息，并制定本隐私政策。本文为译文，如有不一致，以韩文版本为准。',
+    sections: [
+      ['1. 收集的个人信息', '公司通过本网站咨询表单收集以下信息。', ['必填：公司/门店名称、姓名、电话、行业类型', '选填：国家/城市、留言', '自动收集：提交时间、提交页面地址']],
+      ['2. 使用目的', '', ['安排设备演示与咨询', '有关报价、合同、培训及售后的联系', '（同意时）新品及培训资讯']],
+      ['3. 保存期限', '咨询结束后保存 1 年，之后立即销毁。如您撤回同意或要求删除，我们将立即删除；法律另有规定需保存的除外。', []],
+      ['4. 委托处理及境外传输', '为保存咨询信息并发送通知，公司委托以下机构处理个人信息，您的信息可能被存储在韩国境外的服务器上。', ['受托方：Google LLC（Google 表格 · Gmail）/ 传输国家：美国等 Google 数据中心所在国家', '传输项目：第 1 条全部项目 / 传输时间及方式：提交表单时通过网络传输', '保存期限：与第 3 条相同'], '您可以拒绝境外传输，但此时将无法在线提交咨询，您可通过邮箱或电话联系我们。本网站通过 Vercel Inc. 的服务器提供，访问记录等可能在该服务器上处理。'],
+      ['5. 向第三方提供', '未经您同意，公司不会向第三方提供您的个人信息，法律要求的情况除外。', []],
+      ['6. 销毁', '保存期限届满或目的达成后，以无法恢复的方式删除。', []],
+      ['7. 您的权利', '您可随时要求查阅、更正、删除或停止处理您的个人信息，以及撤回接收资讯的同意。请通过以下方式联系我们，我们将及时处理。', []],
+      ['8. 个人信息保护负责人', '', ['负责人：Chaeum Enterprise Co., Ltd. 代表', `电话：${t.phone}`, `邮箱：${site.email}`], '您也可以联系韩国个人信息侵害举报中心（privacy.kisa.or.kr）。'],
+      ['9. 生效日期', '本隐私政策自 2026 年 10 月 22 日起生效。', []],
+    ],
+  },
+};
+const d = docs[lang] || docs.ko;
+---
+<Base title={d.title} description={d.desc} lang={lang} path="/privacy">
+  <section class="section">
+    <div class="wrap prose">
+      <h1 class="section-title">{d.title}</h1>
+      <p>{d.intro}</p>
+      {d.sections.map(([h, p1, items, p2]) => (
+        <>
+          <h2>{h}</h2>
+          {p1 && <p>{p1}</p>}
+          {items.length > 0 && <ul>{items.map((x) => <li>{x}</li>)}</ul>}
+          {p2 && <p>{p2}</p>}
+        </>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .prose { max-width: 820px; }
+  .prose h2 { font-size: 20px; margin: 36px 0 10px; }
+  .prose p, .prose li { color: var(--ink-2); }
+  .prose > p:first-of-type { margin-top: 16px; }
+  .prose ul { padding-left: 20px; display: grid; gap: 4px; }
+</style>

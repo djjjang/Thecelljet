@@ -1,41 +1,63 @@
 ---
 // 오른쪽 아래 상담 버튼. PC: 항상 펼침 / 휴대폰: 카톡 버튼 + "상담" 버튼(누르면 펼침)
 import { site } from '../data/site.js';
+import { getT, prefix } from '../i18n/index.js';
+const { lang = 'ko' } = Astro.props;
+const t = getT(lang);
+const F = t.fc;
+const p = prefix(lang);
+const mailIcon = '<rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>';
 const kakaoIcon = '<path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/>';
 ---
 <div class="fc" id="fc">
-  <button type="button" class="fc-top" aria-label="맨 위로" data-top>
+  <button type="button" class="fc-top" aria-label={F.top} data-top>
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
   </button>
 
-  <div class="fc-panel" id="fc-panel" role="group" aria-label="상담 방법">
-    <a class="fc-item kakao" href={site.kakaoChat} target="_blank" rel="noopener" data-track="kakao">
-      <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" set:html={kakaoIcon} /></span>
-      <span class="tx"><b>카카오톡 상담</b><small>채팅으로 편하게 문의</small></span>
-    </a>
-    <a class="fc-item m-only" href={site.sms} data-track="sms">
-      <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" /><path d="M7 10h10M7 13h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg></span>
-      <span class="tx"><b>문자 상담</b><small>{site.phone}</small></span>
-    </a>
-    <a class="fc-item" href={`tel:${site.phone}`} data-track="tel">
-      <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" /></svg></span>
-      <span class="tx"><b>전화 상담</b><small>{site.phone}</small></span>
-    </a>
-    <a class="fc-item primary" href="/#contact" data-track="form" data-close>
-      <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5z M8 9h8M8 13h8M8 17h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
-      <span class="tx"><b>상담 신청</b><small>남겨 주시면 연락드려요</small></span>
-    </a>
+  <div class="fc-panel" id="fc-panel" role="group" aria-label={F.group}>
+    {F.items.map((k) => {
+      if (k === 'kakao') return (
+        <a class={`fc-item kakao${F.roundQuick === 'kakao' ? ' dup' : ''}`} href={site.kakaoChat} target="_blank" rel="noopener" data-track="kakao">
+          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" set:html={kakaoIcon} /></span>
+          <span class="tx"><b>{F.kakao[0]}</b><small>{F.kakao[1]}</small></span>
+        </a>);
+      if (k === 'sms') return (
+        <a class="fc-item m-only" href={site.sms} data-track="sms">
+          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" /><path d="M7 10h10M7 13h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg></span>
+          <span class="tx"><b>{F.sms[0]}</b><small>{t.phone}</small></span>
+        </a>);
+      if (k === 'email') return (
+        <a class={`fc-item mail${F.roundQuick === 'email' ? ' dup' : ''}`} href={`mailto:${site.email}`} data-track="email">
+          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" set:html={mailIcon} /></span>
+          <span class="tx"><b>{F.email[0]}</b><small>{F.email[1]}</small></span>
+        </a>);
+      if (k === 'tel') return (
+        <a class="fc-item" href={t.tel} data-track="tel">
+          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" /></svg></span>
+          <span class="tx"><b>{F.tel[0]}</b><small>{t.phone}</small></span>
+        </a>);
+      return (
+        <a class="fc-item primary" href={`${p}/#contact`} data-track="form" data-close>
+          <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5z M8 9h8M8 13h8M8 17h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+          <span class="tx"><b>{F.form[0]}</b><small>{F.form[1]}</small></span>
+        </a>);
+    })}
   </div>
 
   <div class="fc-mobile">
-    <a class="fc-round kakao" href={site.kakaoChat} target="_blank" rel="noopener" aria-label="카카오톡 상담" data-track="kakao">
-      <svg viewBox="0 0 24 24" aria-hidden="true" set:html={kakaoIcon} />
-      <span>카톡</span>
-    </a>
+    {F.roundQuick === 'kakao'
+      ? <a class="fc-round kakao" href={site.kakaoChat} target="_blank" rel="noopener" aria-label={F.roundQuickAria} data-track="kakao">
+          <svg viewBox="0 0 24 24" aria-hidden="true" set:html={kakaoIcon} />
+          <span>{F.roundQuickLabel}</span>
+        </a>
+      : <a class="fc-round mail" href={`mailto:${site.email}`} aria-label={F.roundQuickAria} data-track="email">
+          <svg viewBox="0 0 24 24" aria-hidden="true" set:html={mailIcon} />
+          <span>{F.roundQuickLabel}</span>
+        </a>}
     <button type="button" class="fc-round toggle" aria-expanded="false" aria-controls="fc-panel" data-toggle>
       <svg class="i-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" /></svg>
       <svg class="i-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" /></svg>
-      <span>상담</span>
+      <span>{F.toggle}</span>
     </button>
   </div>
 </div>
@@ -73,10 +95,11 @@ const kakaoIcon = '<path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9
   .fc-item b { font-size: 15px; }
   .fc-item small { font-size: 12.5px; color: var(--ink-3); font-weight: 600; }
   /* PC에서는 짧게: 전화번호만 보조 문구 표시 */
-  @media (min-width: 901px) { .fc-item.kakao small, .fc-item.primary small { display: none; } }
+  @media (min-width: 901px) { .fc-item.kakao small, .fc-item.primary small, .fc-item.mail small { display: none; } }
   .fc-item.kakao { background: #FEE500; border-color: #FEE500; color: #191919; }
   .fc-item.kakao .ic { background: #191919; color: #FEE500; }
   .fc-item.kakao small { color: #3c3a1e; }
+  .fc-item.mail .ic { background: #e0f2fe; color: #0369a1; }
   .fc-item.primary { background: linear-gradient(135deg, var(--brand), #0284c7); border-color: transparent; color: #fff; }
   .fc-item.primary .ic { background: rgba(255,255,255,.18); color: #fff; }
   .fc-item.primary small { color: #d7fbf6; }
@@ -87,7 +110,7 @@ const kakaoIcon = '<path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9
   @media (max-width: 900px) {
     .fc { right: 14px; bottom: calc(14px + env(safe-area-inset-bottom)); }
     .m-only { display: flex; }
-    .fc-panel .fc-item.kakao { display: none; }
+    .fc-panel .fc-item.dup { display: none; }
     .fc-panel { display: none; }
     .fc.open .fc-panel { display: grid; animation: pop .2s ease; }
     .fc-item { min-width: 220px; }
@@ -95,6 +118,7 @@ const kakaoIcon = '<path fill="currentColor" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9
     .fc-round { width: 58px; height: 58px; border-radius: 50%; border: 0; display: grid; place-content: center; justify-items: center; gap: 1px; cursor: pointer; text-decoration: none; box-shadow: 0 8px 22px rgba(15,23,42,.28); font: 800 11px/1 inherit; }
     .fc-round span { font-size: 11px; font-weight: 800; }
     .fc-round.kakao { background: #FEE500; color: #191919; }
+    .fc-round.mail { background: #fff; color: #0369a1; border: 1px solid var(--line); }
     .fc-round.toggle { background: linear-gradient(135deg, var(--brand), #0284c7); color: #fff; }
     .fc-round .i-close { display: none; }
     .fc.open .fc-round .i-open { display: none; }

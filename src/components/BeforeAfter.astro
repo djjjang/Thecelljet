@@ -1,6 +1,12 @@
 ---
 // 전후 비교 슬라이더. 근거가 모두 채워진 사례만 화면에 나온다 (content.js의 beforeAfter)
 import { beforeAfter } from '../data/content.js';
+import { getT, fill } from '../i18n/index.js';
+const { lang = 'ko' } = Astro.props;
+const t = getT(lang);
+const B = t.ba;
+// 언어별 문구: 사례에 title_en, area_zh 같은 칸이 있으면 그걸 쓰고, 없으면 기본(한국어)
+const tr = (c, k) => c[`${k}_${lang}`] || c[k];
 const required = ['before', 'after', 'area', 'sessions', 'period', 'shotDate', 'consent'];
 const approved = beforeAfter.filter((c) => required.every((k) => c[k]) && c.consent === true);
 // 검토 중 사례: src/data/ba-draft.json (깃허브에 안 올라감). 내 컴퓨터 미리보기(npm run dev)에서만 보임
@@ -13,16 +19,16 @@ const cases = [...approved, ...drafts];
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Before & After</span>
-      <h2 class="section-title">더셀젯 관리 전 · 후</h2>
-      <p class="section-lead">가운데 손잡이를 좌우로 움직여 비교해 보세요.</p>
+      <h2 class="section-title">{B.title}</h2>
+      <p class="section-lead">{B.lead}</p>
     </div>
 
-    {cases.some((c) => c.draft) && <p class="draft-flag">시안 · 검토 중 — 내 컴퓨터 미리보기에서만 보이며 사이트에는 공개되지 않습니다</p>}
+    {cases.some((c) => c.draft) && <p class="draft-flag">{B.draftFlag}</p>}
 
     {cases.length > 1 && (
-      <div class="case-tabs reveal" role="tablist" aria-label="사례 선택">
+      <div class="case-tabs reveal" role="tablist" aria-label={B.tabsAria}>
         {cases.map((c, i) => (
-          <button type="button" role="tab" aria-selected={i === 0 ? 'true' : 'false'} data-case={i}>사례 {i + 1}. {c.title || c.area}</button>
+          <button type="button" role="tab" aria-selected={i === 0 ? 'true' : 'false'} data-case={i}>{B.case} {i + 1}. {tr(c, 'title') || tr(c, 'area')}</button>
         ))}
       </div>
     )}
@@ -30,28 +36,28 @@ const cases = [...approved, ...drafts];
     {cases.map((c, i) => (
       <div class="case reveal" data-case-panel={i} hidden={i !== 0}>
         <div class="ba" style="--pos:50%">
-          <img class="ba-img" src={c.after} alt={`${c.area} 더셀젯 관리 후`} loading="lazy" />
+          <img class="ba-img" src={c.after} alt={fill(B.afterAlt, { area: tr(c, 'area') })} loading="lazy" />
           <div class="ba-before">
-            <img class="ba-img" src={c.before} alt={`${c.area} 더셀젯 관리 전`} loading="lazy" />
+            <img class="ba-img" src={c.before} alt={fill(B.beforeAlt, { area: tr(c, 'area') })} loading="lazy" />
           </div>
           {!c.labeled && <span class="ba-tag l">BEFORE</span>}
           {!c.labeled && <span class="ba-tag r">AFTER</span>}
           <div class="ba-line" aria-hidden="true"><span>◀ ▶</span></div>
-          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label={`${c.area} 관리 전후 비교 위치`} />
+          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label={fill(B.rangeAria, { area: tr(c, 'area') })} />
         </div>
         <div class="case-info">
         <p class="case-mode">{c.mode ? `${c.mode} MODE` : 'THE CELLJET'}</p>
-        <h3 class="case-title">{c.title || `${c.area} 관리`}</h3>
+        <h3 class="case-title">{tr(c, 'title') || `${tr(c, 'area')}${B.careSuffix}`}</h3>
         <dl class="ba-meta">
-          <div><dt>관리 부위</dt><dd>{c.area}</dd></div>
-          <div><dt>관리 횟수</dt><dd>{c.sessions}</dd></div>
-          <div><dt>전 · 후 촬영 간격</dt><dd>{c.period}</dd></div>
-          {c.ampoule && <div><dt>사용 앰플</dt><dd>{c.ampoule}</dd></div>}
-          {c.mode && <div><dt>관리 모드</dt><dd>{c.mode}</dd></div>}
+          <div><dt>{B.area}</dt><dd>{tr(c, 'area')}</dd></div>
+          <div><dt>{B.sessions}</dt><dd>{tr(c, 'sessions')}</dd></div>
+          <div><dt>{B.period}</dt><dd>{tr(c, 'period')}</dd></div>
+          {c.ampoule && <div><dt>{B.ampoule}</dt><dd>{tr(c, 'ampoule')}</dd></div>}
+          {c.mode && <div><dt>{B.mode}</dt><dd>{c.mode}</dd></div>}
         </dl>
         {c.draft
-          ? <p class="ba-note draft-note">검토 중인 사진입니다. 원본 · 보정 여부 · 촬영 정보 · 게재 동의를 확인한 뒤에만 공개됩니다.</p>
-          : <p class="ba-note">본인 동의를 받아 게재한 실제 관리 사진이며, 사진은 보정하지 않았습니다. 관리 결과는 피부 상태와 관리 조건에 따라 개인차가 있습니다. (촬영 {c.shotDate}{c.place && ` · ${c.place}`})</p>}
+          ? <p class="ba-note draft-note">{B.draftNote}</p>
+          : <p class="ba-note">{B.note} ({B.shot} {c.shotDate}{c.place && ` · ${c.place}`})</p>}
         </div>
       </div>
     ))}

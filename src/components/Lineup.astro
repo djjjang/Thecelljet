@@ -1,26 +1,21 @@
 ---
-import { ampoules, ampouleIngredients, accessories, specSheet } from '../data/content.js';
-const tabs = [
-  { id: 'device', label: '본체 & 핸드피스' },
-  { id: 'ampoule', label: '아톤플러스 앰플 6종' },
-  { id: 'acc', label: '전용 부속품' },
-];
-const keySpecs = [
-  { l: '분사 압력', v: '20~25 MPa', d: '전자기 제트 방식' },
-  { l: '연속 샷', v: '최대 5 Hz', d: '바디 모드는 단발' },
-  { l: '전용 카트리지', v: '0.5 cc', d: '끝까지 일정한 압력' },
-  { l: '조작부', v: '10.1"', d: '컬러 LCD 터치스크린' },
-];
+import { getT, prefix, fill } from '../i18n/index.js';
+const { lang = 'ko' } = Astro.props;
+const t = getT(lang);
+const L = t.lineup;
+const { ampoules, ampouleIngredients, accessories, specSheet } = t;
+const tabs = ['device', 'ampoule', 'acc'].map((id, i) => ({ id, label: L.tabs[i] }));
+const keySpecs = L.keySpecs.map(([l, v, d]) => ({ l, v, d }));
 ---
 <section class="section soft" id="lineup">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Lineup</span>
-      <h2 class="section-title">더셀젯 장비 · 전용 앰플 · 부속품</h2>
-      <p class="section-lead">탭을 눌러 구성품을 하나씩 살펴보세요.</p>
+      <h2 class="section-title">{L.title}</h2>
+      <p class="section-lead">{L.lead}</p>
     </div>
 
-    <div class="tabs reveal" role="tablist" aria-label="구성품 보기">
+    <div class="tabs reveal" role="tablist" aria-label={L.tabsAria}>
       {tabs.map((t, i) => (
         <button type="button" role="tab" id={`tab-${t.id}`} aria-controls={`panel-${t.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{t.label}</button>
       ))}
@@ -30,32 +25,29 @@ const keySpecs = [
     <div class="panel card" id="panel-device" role="tabpanel" aria-labelledby="tab-device">
       <div class="dev-grid">
         <div class="dev-visual">
-          <div class="dev-tags"><span class="tag teal">전문가용 미용기기</span><span class="tag mono">KC R-R-IL6-SUMI THE CELLJET</span></div>
+          <div class="dev-tags"><span class="tag teal">{L.devTag}</span><span class="tag mono">KC R-R-IL6-SUMI THE CELLJET</span></div>
           <h3>SUMI THE CELLJET</h3>
           <p class="mono-sub">Cosmetic Delivery System · Needle-Free</p>
           <div class="dev-photo">
-            <img src="/images/celljet-handpiece-use.webp" alt="더셀젯 본체와 자동 분사 핸드피스" loading="lazy" />
-            <div class="dev-photo-cap"><b>본체 + 자동 분사 핸드피스</b><span>Made in Korea · I LASER LAB</span></div>
+            <img src="/images/celljet-handpiece-use.webp" alt={L.devPhotoAlt} loading="lazy" />
+            <div class="dev-photo-cap"><b>{L.devPhotoCap}</b><span>Made in Korea · I LASER LAB</span></div>
           </div>
           <div class="dev-btns">
-            <button type="button" class="btn btn-ghost sm" data-open="spec-dialog">전체 사양 보기</button>
-            <a href="#contact" class="btn btn-primary sm">장비 시연 신청</a>
+            <button type="button" class="btn btn-ghost sm" data-open="spec-dialog">{L.specBtn}</button>
+            <a href="#contact" class="btn btn-primary sm">{L.demoBtn}</a>
           </div>
         </div>
         <div class="dev-info">
-          <p class="mini-h">주요 사양</p>
+          <p class="mini-h">{L.keyTitle}</p>
           <div class="ks-grid">
             {keySpecs.map((k) => <div class="ks"><span>{k.l}</span><b>{k.v}</b><small>{k.d}</small></div>)}
           </div>
-          <p class="mini-h">이런 점이 다릅니다</p>
+          <p class="mini-h">{L.advTitle}</p>
           <ul class="adv">
-            <li>듀얼 펄스로 분사를 두 번에 나눠, 앰플이 튀거나 버려지는 양을 줄입니다</li>
-            <li>얼굴·목 · 두피 · 바디 · 스페셜 4가지 모드 × 9단계 강도</li>
-            <li>핸드피스 터치 센서로 진동 · 블루 LED를 손끝에서 켜고 끕니다</li>
-            <li>약 70℃ 과열 자동 정지, 압력 점검, 사용 기록, PIN 잠금</li>
+            {L.adv.map((x) => <li>{x}</li>)}
           </ul>
           <div class="chips-row">
-            <span>KC 적합등록</span><span>CE (LVD · EMC)</span><span>RoHS</span><span>특허 3건</span><span>1년 보증</span>
+            {L.chips.map((x) => <span>{x}</span>)}
           </div>
         </div>
       </div>
@@ -64,11 +56,11 @@ const keySpecs = [
     <!-- 앰플 -->
     <div class="panel card" id="panel-ampoule" role="tabpanel" aria-labelledby="tab-ampoule" hidden>
       <div class="amp-hero">
-        <img src="/images/aton-plus-6.webp" alt="아톤플러스(ATON PLUS) 앰플 6종: LS, MS, CS, RS, HS, FS" width="1212" height="396" loading="lazy" />
-        <p>더셀젯 전용 앰플 라인 · 6종 · 모든 제품 PDRN 함유</p>
+        <img src="/images/aton-plus-6.webp" alt={L.ampHeroAlt} width="1212" height="396" loading="lazy" />
+        <p>{L.ampHero}</p>
       </div>
       <div class="amp-wrap">
-        <div class="amp-pick" role="radiogroup" aria-label="앰플 선택">
+        <div class="amp-pick" role="radiogroup" aria-label={L.ampPickAria}>
           {ampoules.map((a, i) => (
             <button type="button" class="amp-btn" role="radio" aria-checked={i === 0 ? 'true' : 'false'} data-amp={a.code} style={`--c:${a.color}`}>
               <img class="vial-img" src={`/images/aton-${a.code.toLowerCase()}.webp`} alt="" width="40" height="84" loading="lazy" />
@@ -80,7 +72,7 @@ const keySpecs = [
           {ampoules.map((a, i) => (
             <article class="amp-card" data-amp-panel={a.code} hidden={i !== 0} style={`--c:${a.color}`}>
               <div class="amp-top">
-                <img class="vial-big" src={`/images/aton-${a.code.toLowerCase()}.webp`} alt={`아톤플러스 ${a.code} ${a.name} 앰플`} width="120" height="252" loading="lazy" />
+                <img class="vial-big" src={`/images/aton-${a.code.toLowerCase()}.webp`} alt={fill(L.ampAlt, { code: a.code, name: a.name })} width="120" height="252" loading="lazy" />
                 <div>
                   <p class="amp-line">SUMI CELL.REJUVE</p>
                   <h3>ATON PLUS <span>{a.code}</span></h3>
@@ -88,11 +80,11 @@ const keySpecs = [
                 </div>
               </div>
               <dl class="amp-dl">
-                <div><dt>관리 목적</dt><dd>{a.care}</dd></div>
-                <div><dt>용량</dt><dd>{a.vol}</dd></div>
-                <div><dt>주요 원료</dt><dd class="ingr">{ampouleIngredients[a.code].map((x) => <span>{x}</span>)}{ampouleIngredients[a.code].length === 1 && <span class="wrap">외 (전 성분은 제품 표시 사항 참고)</span>}</dd></div>
+                <div><dt>{L.ampCare}</dt><dd>{a.care}</dd></div>
+                <div><dt>{L.ampVol}</dt><dd>{a.vol}</dd></div>
+                <div><dt>{L.ampIngr}</dt><dd class="ingr">{ampouleIngredients[a.code].map((x) => <span>{x}</span>)}{ampouleIngredients[a.code].length === 1 && <span class="wrap">{L.ampMore}</span>}</dd></div>
               </dl>
-              <p class="amp-note">모든 아톤플러스 앰플에는 PDRN(Sodium DNA)이 들어 있습니다. 자세한 전 성분과 사용법은 제품 표시 사항을 확인해 주세요.</p>
+              <p class="amp-note">{L.ampNote}</p>
             </article>
           ))}
         </div>
@@ -110,22 +102,22 @@ const keySpecs = [
           </div>
         ))}
       </div>
-      <p class="acc-note">※ 전용 실린지 · 어댑터 · 실린지 캡은 시중 제품과도 호환됩니다. 카트리지 · 앰플 · 케이블 등 소모품은 보증 대상에서 제외됩니다.</p>
+      <p class="acc-note">{L.accNote}</p>
     </div>
   </div>
 </section>
 
 <dialog id="spec-dialog" class="dlg" aria-labelledby="spec-title">
   <div class="dlg-head">
-    <h3 id="spec-title">더셀젯 전체 사양</h3>
-    <button type="button" class="dlg-x" data-close aria-label="닫기">✕</button>
+    <h3 id="spec-title">{L.specTitle}</h3>
+    <button type="button" class="dlg-x" data-close aria-label={L.close}>✕</button>
   </div>
   <table class="spec-tbl">
     <tbody>
       {specSheet.map(([k, v]) => <tr><th scope="row">{k}</th><td>{v}</td></tr>)}
     </tbody>
   </table>
-  <p class="dlg-src">출처: 제조사 사용 설명서 (SUMI THE CELLJET Cosmetic Delivery System User Manual)</p>
+  <p class="dlg-src">{L.specSrc}</p>
 </dialog>
 
 <script>

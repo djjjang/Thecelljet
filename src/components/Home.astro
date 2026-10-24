@@ -1,0 +1,294 @@
+---
+// 메인 페이지 본문. 언어별 페이지(/, /en, /zh)가 lang만 바꿔서 같이 쓴다
+import Base from '../layouts/Base.astro';
+import LeadForm from './LeadForm.astro';
+import Simulator from './Simulator.astro';
+import Lineup from './Lineup.astro';
+import BeforeAfter from './BeforeAfter.astro';
+import { site } from '../data/site.js';
+import { getT, prefix } from '../i18n/index.js';
+
+const { lang = 'ko' } = Astro.props;
+const t = getT(lang);
+const p = prefix(lang);
+const h = t.hero;
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: t.meta.productName,
+    alternateName: t.meta.productAlt,
+    description: t.meta.productDesc,
+    image: [new URL('/images/celljet-device.webp', site.url).href, new URL('/images/aton-plus-6.webp', site.url).href],
+    brand: { '@type': 'Brand', name: 'THE CELLJET' },
+    manufacturer: { '@type': 'Organization', name: t.meta.manufacturerName },
+    countryOfOrigin: 'KR',
+    category: t.meta.productCategory,
+    model: 'SUMI THE CELLJET',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    inLanguage: t.htmlLang,
+    mainEntity: t.faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+<Base description={t.meta.homeDesc} schema={schema} lang={lang} path="/">
+  <!-- 첫 화면 -->
+  <section class="hero">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap hero-in">
+      <div class="hero-copy">
+        <div class="badges">
+          <span class="badge teal">{h.badges[0]}</span>
+          <span class="badge">{h.badges[1]}</span>
+        </div>
+        <p class="kicker">Needle-Free Cosmetic Delivery System</p>
+        <h1>{h.h1a}<br /><span class="hl">{h.h1hl}</span> <span class="nobr">{h.h1b}</span></h1>
+        <p class="hero-lead" set:html={h.lead} />
+        <ul class="checks hero-checks">
+          {h.checks.map((x) => <li>{x}</li>)}
+        </ul>
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-primary">{h.cta}</a>
+          <a href={t.tel} class="btn btn-ghost">{h.call} {t.phone}</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="device-card">
+          <div class="device-top">
+            <img src="/images/logo-sumi-white.webp" alt="" width="56" height="32" />
+            <span class="pill">THE CELLJET</span>
+          </div>
+          <div class="float f1" aria-hidden="true"><b>{h.f1[0]}</b><span>{h.f1[1]}</span></div>
+          <div class="float f2" aria-hidden="true"><b>{h.f2[0]}</b><span>{h.f2[1]}</span></div>
+          <img class="device-img" src="/images/celljet-device.webp" alt={h.deviceAlt} width="1200" height="952" fetchpriority="high" />
+          <div class="device-cap">
+            <span>Cosmetic Delivery System</span>
+            <strong>SUMI THE CELLJET</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="stats">
+        {t.stats.map((s) => (
+          <div class="stat reveal">
+            <div class="stat-v">{s.value}<small>{s.unit}</small></div>
+            <div class="stat-l">{s.label}</div>
+            <div class="stat-s">{s.sub}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 제품 소개 -->
+  <section class="section soft" id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">About</span>
+        <h2 class="section-title">{t.about.title}</h2>
+        <p class="section-lead" set:html={t.about.lead} />
+      </div>
+      <div class="about-grid">
+        {t.about.cards.map(([title, desc]) => (
+          <div class="card about-card reveal">
+            <h3>{title}</h3>
+            <p>{desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 핵심 기술 -->
+  <section class="section" id="technology">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Core Technology</span>
+        <h2 class="section-title">{t.techTitle}</h2>
+      </div>
+      <div class="tech-grid">
+        {t.techs.map((x) => (
+          <article class="card tech reveal">
+            <div class="tech-img"><img src={x.img} alt={x.alt} loading="lazy" /></div>
+            <div class="tech-body">
+              <span class="tech-no">TECH {x.no}</span>
+              <h3>{x.title}</h3>
+              {x.en !== x.title && <p class="tech-en">{x.en}</p>}
+              <p>{x.desc}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <BeforeAfter lang={lang} />
+
+  <Simulator lang={lang} />
+
+  <Lineup lang={lang} />
+
+  <!-- 안전 · 인증 -->
+  <section class="section" id="certs">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Safety & Certification</span>
+        <h2 class="section-title">{t.certTitle}</h2>
+      </div>
+      <div class="cert-grid">
+        {t.certs.map((c) => (
+          <div class="card cert reveal">
+            <span class="cert-badge">{c.badge}</span>
+            <h3>{c.title}</h3>
+            <p class="cert-org">{c.org}</p>
+            <p class="cert-num">{c.num.split(' · ').map((x) => <span class="nw">{x}</span>)}</p>
+            <p>{c.desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="card safety reveal">
+        <h3>{t.safetyTitle}</h3>
+        <ul class="checks">
+          {t.safety.map((s) => <li>{s}</li>)}
+        </ul>
+        <p class="note">{t.medNote}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 자주 묻는 질문 -->
+  <section class="section soft" id="faq">
+    <div class="wrap faq-wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">FAQ</span>
+        <h2 class="section-title">{t.faqTitle}</h2>
+      </div>
+      <div class="faq-list">
+        {t.faqs.map((f, i) => (
+          <details class="faq" open={i === 0}>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <LeadForm lang={lang} />
+</Base>
+
+<style>
+  /* 첫 화면 */
+  .hero { position: relative; overflow: hidden; padding: 64px 0 72px; }
+  .glow { position: absolute; inset: -120px 0 auto; height: 620px; z-index: -1;
+    background: radial-gradient(420px 320px at 12% 30%, rgba(0,196,180,.18), transparent 70%),
+                radial-gradient(460px 360px at 88% 20%, rgba(14,165,233,.16), transparent 70%); }
+  .hero-in { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; }
+  .badge { padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 800; background: #fff; border: 1px solid var(--line); color: var(--ink-2); }
+  .badge.teal { background: #d9f4f0; border-color: #9be3d9; color: #005049; }
+  .kicker { margin-top: 22px; font: 800 13px var(--font-latin); letter-spacing: .14em; text-transform: uppercase; color: var(--brand); }
+  h1 { margin-top: 10px; font-size: clamp(32px, 4.6vw, 50px); font-weight: 900; line-height: 1.28; }
+  .nobr { white-space: nowrap; }
+  .hl { display: inline-block; margin: 6px 0; padding: 2px 14px; border-radius: 12px; color: #fff; background: linear-gradient(90deg, var(--brand), #0284c7); }
+  .hero-lead { margin-top: 18px; font-size: 19px; color: var(--ink-2); max-width: 640px; }
+  .hero-lead strong { color: var(--ink); }
+  .hero-checks { grid-template-columns: 1fr 1fr; gap: 10px 18px; font-size: 15.5px; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .hero-cta .btn { padding: 16px 26px; font-size: 17px; }
+
+  .hero-visual { position: relative; }
+  .device-card { position: relative; border-radius: 24px; overflow: hidden; background: radial-gradient(70% 60% at 50% 45%, #2a3a55 0%, #141b2d 55%, var(--navy) 100%); box-shadow: 0 30px 60px rgba(10,15,29,.28); }
+  .device-top { position: absolute; top: 18px; left: 18px; right: 18px; display: flex; align-items: center; justify-content: space-between; z-index: 2; }
+  .device-top img { height: 30px; width: auto; }
+  .pill { padding: 5px 12px; border-radius: 999px; background: var(--accent); color: #00201d; font: 800 12px var(--font-latin); letter-spacing: .1em; }
+  .float { position: absolute; z-index: 3; display: grid; padding: 10px 14px; border-radius: 14px; background: rgba(255,255,255,.95); box-shadow: 0 12px 30px rgba(0,0,0,.25); animation: bob 5s ease-in-out infinite; }
+  .float b { font: 800 18px/1.2 var(--font-latin); color: var(--brand); }
+  .float span { font-size: 12px; font-weight: 700; color: var(--ink-3); }
+  .f1 { top: 64px; left: 16px; }
+  .f2 { bottom: 92px; right: 16px; animation-delay: -2.5s; }
+  @keyframes bob { 50% { transform: translateY(-8px); } }
+  .tech { transition: transform .25s, box-shadow .25s; }
+  .tech:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(15,23,42,.12); }
+  .tech:hover .tech-img img { transform: scale(1.05); }
+  .tech-img img { transition: transform .6s; }
+  .device-img { width: 100%; aspect-ratio: 5 / 4; object-fit: contain; padding: 44px 14px 70px; filter: drop-shadow(0 26px 30px rgba(0,0,0,.55)); transition: transform .6s; }
+  .device-card:hover .device-img { transform: scale(1.03); }
+  .device-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 22px 20px; background: linear-gradient(transparent, rgba(6,10,20,.9)); color: #fff; display: grid; }
+  .device-cap span { font: 700 12px var(--font-latin); letter-spacing: .12em; text-transform: uppercase; color: #7ff0e2; }
+  .device-cap strong { font: 800 20px var(--font-latin); }
+
+  .stats { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .stat { padding: 22px; border-radius: 16px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow); }
+  .stat-v { font: 800 32px/1.1 var(--font-latin); color: var(--brand); }
+  .stat-v small { font-size: 18px; margin-left: 3px; }
+  .stat-l { margin-top: 8px; font-weight: 800; }
+  .stat-s { font-size: 14px; color: var(--ink-3); }
+
+  /* 소개 */
+  .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .about-card { padding: 28px; }
+  .about-card h3 { font-size: 20px; margin-bottom: 10px; }
+  .about-card p { color: var(--ink-2); }
+
+  /* 기술 */
+  .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .tech { overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+  .tech-img { background: #1a1f2b; aspect-ratio: 16 / 9; overflow: hidden; }
+  .tech-img img { width: 100%; height: 100%; object-fit: cover; }
+  .tech-body { padding: 26px; }
+  .tech-no { font: 800 12px var(--font-latin); letter-spacing: .12em; color: var(--brand-2); }
+  .tech h3 { font-size: 21px; margin-top: 6px; }
+  .tech-en { font: 600 13px var(--font-latin); color: var(--ink-3); margin: 2px 0 12px; }
+  .tech p:last-child { color: var(--ink-2); }
+
+  /* 인증 */
+  .cert-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .cert { padding: 24px; }
+  .cert-badge { display: inline-block; padding: 5px 11px; border-radius: 8px; background: var(--navy); color: #7ff0e2; font: 800 13px var(--font-latin); }
+  .cert h3 { font-size: 18px; margin-top: 14px; }
+  .cert-org { font-size: 14px; color: var(--ink-3); }
+  .cert-num { margin: 10px 0; font: 700 13.5px var(--font-latin); color: var(--brand); display: grid; gap: 2px; }
+  .nw { white-space: nowrap; }
+  .cert p:last-child { font-size: 15px; color: var(--ink-2); }
+  .safety { margin-top: 24px; padding: 30px; }
+  .safety h3 { font-size: 21px; }
+  .note { margin-top: 18px; font-size: 14.5px; color: var(--ink-3); }
+
+  /* FAQ */
+  .faq-wrap { max-width: 860px; }
+  .faq-list { display: grid; gap: 12px; }
+  .faq { border: 1px solid var(--line); border-radius: 14px; background: #fff; padding: 0 22px; }
+  .faq summary { cursor: pointer; padding: 18px 0; font-weight: 800; font-size: 17.5px; list-style: none; position: relative; padding-right: 30px; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; position: absolute; right: 0; top: 14px; font-size: 24px; color: var(--brand); }
+  .faq[open] summary::after { content: '−'; }
+  .faq p { padding: 0 0 20px; color: var(--ink-2); }
+
+  @media (max-width: 1240px) {
+    .hero-checks { grid-template-columns: 1fr; }
+    .stats, .cert-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 1000px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .hero-in { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .cert-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 760px) {
+    .hero { padding: 36px 0 56px; }
+    .hero-lead { font-size: 17px; }
+    .hero-checks { grid-template-columns: 1fr; }
+    .hero-cta .btn { width: 100%; }
+    .about-grid, .tech-grid, .cert-grid { grid-template-columns: 1fr; }
+    .stat { padding: 16px; }
+    .f1 { left: 8px; top: 56px; }
+    .f2 { right: 8px; }
+    .stat-v { font-size: 26px; }
+  }
+</style>
