@@ -28,7 +28,7 @@ const cases = [...approved, ...drafts];
     {cases.length > 1 && (
       <div class="case-tabs reveal" role="tablist" aria-label={B.tabsAria}>
         {cases.map((c, i) => (
-          <button type="button" role="tab" aria-selected={i === 0 ? 'true' : 'false'} data-case={i}>{B.case} {i + 1}. {tr(c, 'title') || tr(c, 'area')}</button>
+          <button type="button" role="tab" aria-selected={i === 0 ? 'true' : 'false'} data-case={i}>{`${B.case} ${i + 1}. ${tr(c, 'title') || tr(c, 'area')}`}</button>
         ))}
       </div>
     )}
@@ -77,6 +77,9 @@ const cases = [...approved, ...drafts];
     tabs.forEach((x) => x.setAttribute('aria-selected', String(x === t)));
     document.querySelectorAll<HTMLElement>('[data-case-panel]').forEach((p) => { p.hidden = p.dataset.casePanel !== t.dataset.case; });
   }));
+  // 주소 끝이 #case-2 처럼 되어 있으면 그 사례를 바로 보여 줌 (공유·확인용)
+  const m = location.hash.match(/^#case-(\d+)$/);
+  if (m) { const t = tabs[Number(m[1]) - 1]; if (t) { t.click(); document.getElementById('cases')?.scrollIntoView(); } }
 </script>
 
 <style>
