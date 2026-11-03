@@ -218,7 +218,7 @@ export default {
     area: 'Area', sessions: 'Sessions', period: 'Time between photos', ampoule: 'Ampoule', mode: 'Mode',
     careSuffix: ' care',
     draftNote: 'Under review. Published only after the original files, retouching, photo details and consent are confirmed.',
-    note: 'Actual care photos published with consent, without retouching. Results vary depending on skin condition and care conditions.',
+    note: 'Actual care photos published with consent. Results vary depending on skin condition and care conditions.',
     shot: 'Taken',
   },
 

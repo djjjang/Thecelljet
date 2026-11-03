@@ -216,7 +216,30 @@ export const accessories = [
 //   mode: 'FACE & NECK · 5단계',          // 모드·강도 (선택)
 //   consent: true,                        // 본인 사진 게재 동의서 받음
 // },
-export const beforeAfter = [];
+export const beforeAfter = [
+  // 2026-11-03 공개 (카이 결정: 대표님 게재 동의 받음 — 동의서 사본은 나중에 받기). 눈 가림 요청 → 눈 모자이크
+  // 아직 못 받은 것: 얼굴 촬영일·횟수·간격·앰플, 두피 앰플, 보정 여부 → 받으면 아래 칸만 채우면 됨
+  {
+    area: '얼굴', area_en: 'Face', area_zh: '面部',
+    title: '얼굴 피부결 · 톤 관리', title_en: 'Face: Skin Texture & Tone Care', title_zh: '面部肤质 · 肤色护理',
+    before: '/images/ba/face-before.webp', after: '/images/ba/face-after.webp',
+    mode: 'FACE & NECK',
+    consent: true, labeled: false,
+  },
+  {
+    area: '두피', area_en: 'Scalp', area_zh: '头皮',
+    title: '두피 관리', title_en: 'Scalp Care', title_zh: '头皮护理',
+    before: '/images/ba/scalp-before.webp', after: '/images/ba/scalp-after.webp',
+    mode: 'SCALP',
+    sessions: '10회 (주 1회)', sessions_en: '10 sessions (once a week)', sessions_zh: '10次（每周1次）',
+    period: '2026-08-04 ~ 2026-10-22',
+    shotDate: '2026-08-04 · 2026-10-22',
+    caution: '두피 · 모발 컨디션 관리 사례이며, 탈모의 치료 · 예방 효과를 뜻하지 않습니다. 전 · 후 촬영 조명과 각도에 차이가 있습니다.',
+    caution_en: 'This is a scalp and hair condition care case and does not indicate treatment or prevention of hair loss. Lighting and angle differ between the before and after photos.',
+    caution_zh: '本案例为头皮及头发状态护理，不代表治疗或预防脱发的效果。护理前后拍摄的光线和角度有所不同。',
+    consent: true, labeled: false,
+  },
+];
 
 // 사용 후기. ⚠️ consent: true + 이름 표시 방식 + 작성일이 모두 있어야 화면에 나온다 (없으면 칸 자체가 숨겨짐)
 // 받는 방법: 02_고객사/더셀젯/더셀젯_후기·관리가이드_요청서 (거래처 원장님·관리사 대상, 의사 추천 후기는 받지 않음)
