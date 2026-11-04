@@ -8,6 +8,7 @@ const p = prefix(lang);
 const quickHref = { kakao: site.kakaoChat, sms: site.sms, email: `mailto:${site.email}` };
 const [beforePrivacy, afterPrivacy] = F.agreeDetail.split('{privacy}');
 // 화면 스크립트용 문장
+const endpoint = site.formEndpoint || (site.formEmail ? `https://formsubmit.co/ajax/${site.formEmail}` : '');
 const msgs = { errAgree: F.errAgree, errReq: F.errReq, notReady: F.notReady, fail: F.fail, submit: F.submit, sending: F.sending, locale: F.dateLocale, thanks: `${p}/thanks`, lang };
 ---
 <section class="section lead" id="contact">
@@ -25,7 +26,7 @@ const msgs = { errAgree: F.errAgree, errReq: F.errReq, notReady: F.notReady, fai
       </div>
     </div>
 
-    <form class="card lead-form" data-endpoint={site.formEndpoint} data-i18n={JSON.stringify(msgs)} novalidate>
+    <form class="card lead-form" data-endpoint={endpoint} data-i18n={JSON.stringify(msgs)} novalidate>
       <div class="row2">
         <label>{F.shop} <b>*</b>
           <input name="shop" required autocomplete="organization" placeholder={F.shopPh} />
@@ -102,6 +103,16 @@ const msgs = { errAgree: F.errAgree, errReq: F.errReq, notReady: F.notReady, fai
       data.set('submitted_at', new Date().toLocaleString('ko-KR'));
 
       const endpoint = form.dataset.endpoint;
+      // 메일로 받을 때는 항목 이름을 한국어로 바꿔서 보냄 (메일에 그대로 표로 찍힘)
+      let body: URLSearchParams = data;
+      if (endpoint?.includes('formsubmit.co')) {
+        const labels: Record<string, string> = { shop: '샵·클리닉', name: '성함', phone: '연락처', region: '지역', type: '업종', interest: '관심 항목', message: '문의 내용', agree_marketing: '마케팅 수신 동의', page: '신청 페이지', lang: '언어', submitted_at: '신청 시각' };
+        body = new URLSearchParams();
+        body.set('_subject', `[더셀젯 상담 신청] ${data.get('shop')} / ${data.get('name')}`);
+        body.set('_template', 'table');
+        body.set('_captcha', 'false');
+        Object.entries(labels).forEach(([k, v]) => body.set(v, data.get(k) || ''));
+      }
       if (!endpoint) {
         msg.textContent = L.notReady;
         msg.classList.add('err');
@@ -110,7 +121,7 @@ const msgs = { errAgree: F.errAgree, errReq: F.errReq, notReady: F.notReady, fai
       btn.disabled = true;
       btn.textContent = L.sending;
       try {
-        await fetch(endpoint, { method: 'POST', mode: 'no-cors', body: data });
+        await fetch(endpoint, { method: 'POST', mode: 'no-cors', body });
         location.href = L.thanks;
       } catch {
         btn.disabled = false;

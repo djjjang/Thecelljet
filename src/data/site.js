@@ -21,6 +21,8 @@ export const site = {
   googleVerification: 'CqDGLSCOlYhhkPwLYp1nUvhaD13Mc6iW-3p-4xY7J54',
   // 구글 앱스 스크립트 웹 앱 주소 (docs/문의폼-연결방법.md 참고). 비어 있으면 폼이 "전화 주세요" 안내를 띄운다.
   formEndpoint: '',
+  // 2026-11-04: 상담 신청을 네이버 메일로 받기 (FormSubmit 무료 서비스). 첫 신청 때 이 메일로 '활성화' 메일이 오고, 눌러야 그다음부터 받음
+  formEmail: 'eyeme333@naver.com',
 };
 
 export const nav = [
