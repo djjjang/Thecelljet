@@ -227,7 +227,7 @@ export const beforeAfter = [
     consent: true, labeled: false,
   },
   {
-    // 2026-11-05 공개 (카이: 관리자는 이수미 대표, 관리 받은 분 게재 동의 받음). 사진에 BEFORE/AFTER 글자가 박혀 있음
+    // 2026-11-05 공개 (카이: 관리자는 이수미 대표, 관리 받은 분 게재 동의 받음)
     // 사진 위에 덧붙여 있던 허리둘레 숫자(75.3 / 67.5) 글자만 지움 (2026-11-05 카이 결정). 몸·줄자는 손대지 않음
     // ⚠️ '다이어트' 대신 '복부 바디 관리'로 표기. 체중·체지방 감소처럼 읽히는 문구는 쓰지 않기 (미용기기)
     area: '복부', area_en: 'Abdomen', area_zh: '腹部',
@@ -237,7 +237,7 @@ export const beforeAfter = [
     caution: '관리 전 · 후 허리둘레를 줄자로 잰 사례로, 측정 위치 · 자세 · 시점에 따라 수치가 달라질 수 있으며 체중 · 체지방 감소 효과를 뜻하지 않습니다.',
     caution_en: 'Waist measurements were taken with a tape measure before and after care. Figures can vary with measuring position, posture and timing, and do not indicate weight or body-fat reduction.',
     caution_zh: '本案例为护理前后用卷尺测量腰围，数值会因测量位置、姿势及时间而有所不同，不代表体重或体脂减少的效果。',
-    consent: true, labeled: true,
+    consent: true, labeled: false, // 2026-11-05 사진 오른쪽의 Before/After 글자를 잘라 내고 사이트 표시(왼쪽 BEFORE · 오른쪽 AFTER)로 바꿈
   },
   {
     area: '두피', area_en: 'Scalp', area_zh: '头皮',
