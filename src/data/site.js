@@ -20,9 +20,10 @@ export const site = {
   naverVerification: 'ab99e58a809e48e8fccf8915daccfb7ce70cae73',
   googleVerification: 'CqDGLSCOlYhhkPwLYp1nUvhaD13Mc6iW-3p-4xY7J54',
   // 구글 앱스 스크립트 웹 앱 주소 (docs/문의폼-연결방법.md 참고). 비어 있으면 폼이 "전화 주세요" 안내를 띄운다.
-  formEndpoint: '',
-  // 2026-11-04: 상담 신청을 네이버 메일로 받기 (FormSubmit 무료 서비스). 첫 신청 때 이 메일로 '활성화' 메일이 오고, 눌러야 그다음부터 받음
-  formEmail: 'eyeme333@naver.com',
+  // 2026-11-05 연결: 스크립트는 카이(djjjang) 계정 「더셀젯 상담신청 접수」, 시트는 대표님 드라이브 「더셀젯 상담신청 (사이트)」, 알림 메일 cuenter333·eyeme333
+  formEndpoint: 'https://script.google.com/macros/s/AKfycbwo9n0FsLN9DDSsJiB2vIDb6qlXF2K_g-erosQsyWedvguJEuMDXCXYh9imGBEn3sB1fg/exec',
+  // 예비용: formEndpoint가 비어 있을 때만 FormSubmit으로 이 메일에 보냄 (2026-11-04 서버 장애로 구글 시트 방식으로 돌아감)
+  formEmail: '',
 };
 
 export const nav = [
