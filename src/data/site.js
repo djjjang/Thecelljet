@@ -6,7 +6,7 @@ export const site = {
   url: 'https://thecelljet.com',
   phone: '010-7781-6533',
   email: 'cuenter333@gmail.com',
-  address: '경기도 성남시 중원구 둔촌대로80번길 3-10, 212호',
+  address: '경기도 성남시 중원구 제일로 43, 502호(성남동, 세종빌딩)', // 2026-11-05 법인 주소 변경
   company: '(주)채움엔터프라이즈', // 브랜드는 더셀젯, 수미뷰티는 이수미 대표 퍼스널 브랜드
   ceo: '이수미',
   bizNumber: '455-87-03095',

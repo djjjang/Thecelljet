@@ -51,7 +51,7 @@ export default {
     company: 'Company', ceo: 'CEO', biz: 'Business Reg. No.', tel: 'Phone', email: 'Email', kakao: 'KakaoTalk channel', mfr: 'Manufacturer',
     privacy: 'Privacy Policy',
     companyName: 'Chaeum Enterprise Co., Ltd.', ceoName: 'Sumi Lee', // 카이 확인 2026-10-24
-    address: 'Room 212, 3-10 Dunchon-daero 80beon-gil, Jungwon-gu, Seongnam-si, Gyeonggi-do, Republic of Korea',
+    address: 'Room 502, Sejong Building, 43 Jeil-ro, Jungwon-gu, Seongnam-si, Gyeonggi-do, Republic of Korea',
     manufacturer: 'I LASER LAB (Republic of Korea)',
   },
 

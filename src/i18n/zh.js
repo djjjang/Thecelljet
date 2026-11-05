@@ -51,7 +51,7 @@ export default {
     company: '公司', ceo: '代表', biz: '营业执照号（韩国）', tel: '电话', email: '邮箱', kakao: 'KakaoTalk 频道', mfr: '制造商',
     privacy: '隐私政策',
     companyName: 'Chaeum Enterprise Co., Ltd.', ceoName: 'Sumi Lee', // 중문 표기 없음 → 영문 표기 사용 (카이 확인 2026-10-24)
-    address: '韩国 京畿道 城南市 中院区 遁村大路80号街 3-10, 212号',
+    address: '韩国 京畿道 城南市 中院区 第一路 43, 502号（城南洞, 世宗大厦）',
     manufacturer: 'I LASER LAB（韩国）',
   },
 
