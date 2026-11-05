@@ -232,7 +232,7 @@ export const beforeAfter = [
     // ⚠️ '다이어트' 대신 '복부 바디 관리'로 표기. 체중·체지방 감소처럼 읽히는 문구는 쓰지 않기 (미용기기)
     area: '복부', area_en: 'Abdomen', area_zh: '腹部',
     title: '복부 바디 관리', title_en: 'Abdomen: Body Care', title_zh: '腹部身体护理',
-    before: '/images/ba/body-before.webp', after: '/images/ba/body-after.webp',
+    before: '/images/ba/abdomen-before.webp', after: '/images/ba/abdomen-after.webp',
     mode: 'BODY',
     caution: '관리 전 · 후 허리둘레를 줄자로 잰 사례로, 측정 위치 · 자세 · 시점에 따라 수치가 달라질 수 있으며 체중 · 체지방 감소 효과를 뜻하지 않습니다.',
     caution_en: 'Waist measurements were taken with a tape measure before and after care. Figures can vary with measuring position, posture and timing, and do not indicate weight or body-fat reduction.',
