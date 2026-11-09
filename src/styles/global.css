@@ -101,3 +101,47 @@ p, li, dd, summary { text-wrap: pretty; }
 }
 /* 영어: 단어 단위 줄바꿈 */
 :lang(en) body, body:lang(en) { word-break: normal; }
+
+/* ---------- 관리 노트 (블로그, 2026-11-09) ---------- */
+.blog-hd { padding-bottom: 0; text-align: center; }
+.blog-hd .section-lead { margin: 14px auto 0; max-width: 640px; }
+.blog-body { padding-top: 40px; }
+.post-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.post-list a { display: flex; flex-direction: column; gap: 8px; height: 100%; padding: 24px; text-decoration: none; color: var(--ink); transition: border-color .2s, transform .2s; }
+.post-list a:hover { border-color: var(--accent); transform: translateY(-2px); }
+.post-list strong { font-size: 19px; line-height: 1.45; }
+.post-desc { color: var(--ink-2); font-size: 15.5px; line-height: 1.7; }
+.post-list time { margin-top: auto; padding-top: 6px; font-size: 14px; color: var(--ink-3); }
+.post-cat { margin: 0; font-size: 14px; font-weight: 800; color: var(--brand); }
+.check { display: inline-block; margin-left: 6px; padding: 0 8px; border-radius: 99px; background: #fff7ed; border: 1px dashed #f97316; color: #c2410c; font-size: 12px; font-weight: 700; line-height: 1.8; vertical-align: middle; }
+.art-wrap { max-width: 780px; padding-top: 40px; padding-bottom: 72px; }
+.back { display: inline-block; margin-bottom: 20px; font-size: 15px; font-weight: 700; text-decoration: none; }
+.art-title { margin-top: 8px; font-size: 28px; line-height: 1.45; }
+.art-meta { margin-top: 14px; padding-bottom: 20px; border-bottom: 2px solid var(--line); color: var(--ink-3); font-size: 15px; }
+.art { padding: 28px 0 8px; font-size: 17.5px; }
+.art p { margin: 0 0 18px; line-height: 1.9; }
+.art h2 { margin: 48px 0 16px; font-size: 23px; }
+.art h3 { margin: 32px 0 12px; font-size: 19px; }
+.art ul, .art ol { margin: 0 0 18px; padding-left: 22px; }
+.art li { margin: 6px 0; line-height: 1.8; }
+.art hr { border: 0; border-top: 1px solid var(--line); margin: 40px 0; }
+.art table { width: 100%; border-collapse: collapse; margin: 0 0 18px; font-size: 16px; border-top: 2px solid var(--ink); }
+.art th, .art td { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.art thead th { background: var(--bg-soft); }
+.art .callout { margin: 0 0 32px; padding: 20px 22px; border-left: 4px solid var(--brand); border-radius: 0 12px 12px 0; background: var(--brand-soft); }
+.art .callout p:first-child { margin-bottom: 8px; font-weight: 800; }
+.art .callout ul { margin: 0; }
+.art-box { margin-top: 40px; padding: 28px 24px; border-radius: var(--radius); background: var(--navy); color: #e2e8f0; }
+.art-box-title { margin-bottom: 8px; font-size: 21px; font-weight: 800; color: #fff; }
+.art-btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.art-box .btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.35); }
+.art-box .note { margin-top: 16px; font-size: 13.5px; color: #94a3b8; }
+.pager { display: grid; margin-top: 36px; border-top: 2px solid var(--line); }
+.pager a { display: flex; flex-direction: column; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--line); font-weight: 700; line-height: 1.5; text-decoration: none; color: var(--ink); }
+.pager a:hover { color: var(--brand); }
+.pager span { font-size: 13.5px; font-weight: 600; color: var(--ink-3); }
+@media (min-width: 761px) {
+  .art-title { font-size: 34px; }
+  .pager { grid-template-columns: 1fr 1fr; column-gap: 32px; }
+  .pager .next { text-align: right; }
+}

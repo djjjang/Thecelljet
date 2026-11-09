@@ -1,0 +1,35 @@
+---
+// 관리 노트 목록 (한국어 전용). 공개 규칙은 src/data/blog.js
+import Base from '../../layouts/Base.astro';
+import { getPosts, formatDate, isoDate } from '../../data/blog.js';
+
+const posts = await getPosts();
+const description = '피부관리실·클리닉 원장님을 위한 더셀젯 관리 노트. 장비 도입 전 따져 볼 것, 앰플 고르는 법, 재방문을 늘리는 관리 순서와 고객 응대를 쉽게 정리합니다.';
+---
+<Base title="관리 노트" description={description} path="/blog" koOnly noindex={posts.length === 0}>
+  <section class="section blog-hd">
+    <div class="wrap">
+      <span class="eyebrow">관리 노트</span>
+      <h1 class="section-title">원장님을 위한<br class="pc" /> 니들프리 관리 노트</h1>
+      <p class="section-lead">장비 도입, 앰플 선택, 관리 순서, 고객 응대까지<br class="pc" /> 현장에서 자주 받는 질문을 정리했습니다.</p>
+    </div>
+  </section>
+
+  <section class="section blog-body">
+    <div class="wrap">
+      {posts.length === 0 && <p class="section-lead">첫 글을 준비하고 있습니다.</p>}
+      <ul class="post-list">
+        {posts.map((p) => (
+          <li>
+            <a href={`/blog/${p.id}`} class="card">
+              <span class="post-cat">{p.data.category}{!p.data.approved && <span class="check">대표님 확인 전</span>}</span>
+              <strong>{p.data.title}</strong>
+              <span class="post-desc">{p.data.description}</span>
+              <time datetime={isoDate(p.data.date)}>{formatDate(p.data.date)}</time>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>

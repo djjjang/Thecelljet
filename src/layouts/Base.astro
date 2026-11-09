@@ -7,6 +7,7 @@ import { site } from '../data/site.js';
 import { beforeAfter, reviews, careGuide } from '../data/content.js';
 import { getT, langs, prefix, dicts } from '../i18n/index.js';
 import FloatingContact from '../components/FloatingContact.astro';
+import { getPosts } from '../data/blog.js';
 
 const {
   title,
@@ -16,11 +17,13 @@ const {
   ogImage = '/images/og-celljet.jpg',
   lang = 'ko',
   path = '/', // 언어 앞부분을 뺀 주소 (예: '/', '/privacy')
+  ogType = 'website',
+  koOnly = false, // 한국어로만 있는 페이지(관리 노트). 다른 언어 주소를 알리지 않고, 언어 버튼은 그 언어 첫 화면으로
 } = Astro.props;
 const t = getT(lang);
 const p = prefix(lang);
 const home = p || '/';
-const pathFor = (l) => (prefix(l) + (path === '/' ? '' : path)) || '/';
+const pathFor = (l) => (koOnly && l !== 'ko' ? prefix(l) || '/' : (prefix(l) + (path === '/' ? '' : path)) || '/');
 const urlFor = (l) => new URL(pathFor(l), site.url).href;
 
 // 전후 사례가 있을 때만 메뉴에 '관리 사례' 표시
@@ -37,6 +40,8 @@ const nav = [
   ...baseNav.slice(3, 5),
   ...(hasReviews ? [{ label: t.navReviews, href: `${p}/#reviews` }] : []),
   ...baseNav.slice(5),
+  // 관리 노트: 한국어판에만, 공개된 글이 있을 때만
+  ...(lang === 'ko' && (await getPosts()).length ? [{ label: t.navBlog, href: '/blog' }] : []),
 ];
 
 const fullTitle = title ? `${title}${t.meta.titleSuffix}` : t.meta.defaultTitle;
@@ -72,12 +77,12 @@ const f = t.footer;
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
-  {!noindex && langs.map((l) => <link rel="alternate" hreflang={dicts[l].hreflang} href={urlFor(l)} />)}
-  {!noindex && <link rel="alternate" hreflang="x-default" href={urlFor('ko')} />}
+  {!noindex && !koOnly && langs.map((l) => <link rel="alternate" hreflang={dicts[l].hreflang} href={urlFor(l)} />)}
+  {!noindex && !koOnly && <link rel="alternate" hreflang="x-default" href={urlFor('ko')} />}
   <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
   <meta name="naver-site-verification" content={site.naverVerification} />
   <meta name="google-site-verification" content={site.googleVerification} />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content={ogType} />
   <meta property="og:site_name" content={t.meta.siteName} />
   <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
@@ -86,7 +91,7 @@ const f = t.footer;
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content={t.ogLocale} />
-  {langs.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={dicts[l].ogLocale} />)}
+  {!koOnly && langs.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={dicts[l].ogLocale} />)}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#006a61" />
   <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
