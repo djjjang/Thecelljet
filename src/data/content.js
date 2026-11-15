@@ -222,7 +222,7 @@ export const beforeAfter = [
   {
     area: '얼굴', area_en: 'Face', area_zh: '面部',
     title: '얼굴 피부결 · 톤 관리', title_en: 'Face: Skin Texture & Tone Care', title_zh: '面部肤质 · 肤色护理',
-    before: '/images/ba/face-before.webp', after: '/images/ba/face-after.webp',
+    before: '/images/ba/face2-before.webp', after: '/images/ba/face2-after.webp', ratio: '3 / 4',
     mode: 'FACE & NECK',
     consent: true, labeled: false,
   },
