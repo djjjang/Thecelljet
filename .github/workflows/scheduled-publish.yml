@@ -4,7 +4,10 @@
 name: 예약 발행
 on:
   schedule:
-    - cron: '0 21 * * *' # UTC 21시 = 한국 6시 (GitHub 사정으로 몇십 분 늦을 수 있음)
+    # GitHub 정각 예약은 몇 시간씩 밀려서(서래 11-10 경험) 정각을 피해 하루 3번. 이미 공개됐으면 아무것도 안 함
+    - cron: '17 20 * * *' # 한국 5:17
+    - cron: '47 21 * * *' # 한국 6:47
+    - cron: '23 23 * * *' # 한국 8:23
   workflow_dispatch: {}
 permissions:
   contents: write
