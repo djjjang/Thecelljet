@@ -36,7 +36,7 @@ export default {
   navReviews: '사용 후기',
   navGuide: '관리 가이드',
   navCases: '관리 사례',
-  navBlog: '관리 노트',
+  navBlog: '뷰티&헬스',
   cta: '시연 · 도입 상담',
   homeAria: '더셀젯 홈',
   menuAria: '주요 메뉴',

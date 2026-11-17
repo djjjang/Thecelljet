@@ -11,7 +11,7 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-<title>더셀젯 THE CELLJET 관리 노트</title>
+<title>더셀젯 THE CELLJET 뷰티&amp;헬스</title>
 <link>${site.url}/blog</link>
 <description>피부관리실·클리닉 원장님을 위한 니들프리 관리 노트</description>
 <language>ko</language>

@@ -31,7 +31,7 @@ const schema = [{
 ---
 <Base title={d.title} description={d.description} path={`/blog/${post.id}`} koOnly ogType="article" schema={schema}>
   <article class="wrap art-wrap">
-    <a href="/blog" class="back">← 관리 노트 목록</a>
+    <a href="/blog" class="back">← 뷰티&amp;헬스 목록</a>
     <p class="post-cat">{d.category}{!d.approved && <span class="check">대표님 확인 전</span>}</p>
     <h1 class="art-title">{d.title}</h1>
     <p class="art-meta">더셀젯 THE CELLJET · <time datetime={isoDate(d.date)}>{formatDate(d.date)}</time></p>
