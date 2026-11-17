@@ -106,6 +106,23 @@ const schema = [
     </div>
   </section>
 
+  <!-- 한국 연구·개발·제조 -->
+  <section class="section" id="korea">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">{t.korea.eyebrow}</span>
+        <h2 class="section-title">{t.korea.title}</h2>
+        <p class="section-lead" set:html={t.korea.lead} />
+      </div>
+      <div class="kr-table card reveal" role="table">
+        <div class="kr-row kr-head" role="row">{t.korea.head.map((h, i) => <span role="columnheader" class={i === 2 ? 'kr-us' : ''}>{h}</span>)}</div>
+        {t.korea.rows.map(([k, a, b]) => (
+          <div class="kr-row" role="row"><b role="rowheader">{k}</b><span role="cell" class="kr-air">{a || '—'}</span><span role="cell" class="kr-us">{b}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- 핵심 기술 -->
   <section class="section" id="technology">
     <div class="wrap">
@@ -136,6 +153,27 @@ const schema = [
   <CareGuide lang={lang} />
 
   <Lineup lang={lang} />
+
+  <!-- 사용 교육 -->
+  <section class="section soft" id="training">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">{t.training.eyebrow}</span>
+        <h2 class="section-title">{t.training.title}</h2>
+        <p class="section-lead" set:html={t.training.lead} />
+      </div>
+      <div class="about-grid">
+        {t.training.items.map(([title, desc], i) => (
+          <div class="card about-card reveal">
+            <span class="tr-num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{title}</h3>
+            <p>{desc}</p>
+          </div>
+        ))}
+      </div>
+      <p class="tr-note">{t.training.note}</p>
+    </div>
+  </section>
 
   <!-- 안전 · 인증 -->
   <section class="section" id="certs">
@@ -241,6 +279,21 @@ const schema = [
   .about-card { padding: 28px; }
   .about-card h3 { font-size: 20px; margin-bottom: 10px; }
   .about-card p { color: var(--ink-2); }
+  .kr-table { max-width: 960px; margin: 0 auto; padding: 8px 0; overflow: hidden; }
+  .kr-row { display: grid; grid-template-columns: 1fr 1.3fr 1.5fr; gap: 12px; padding: 14px 24px; border-top: 1px solid var(--line); align-items: center; }
+  .kr-row:first-child { border-top: 0; }
+  .kr-head { font-weight: 800; font-size: 14px; color: var(--ink-3); }
+  .kr-row b { font-weight: 800; }
+  .kr-air { color: var(--ink-3); }
+  .kr-row .kr-us { color: var(--brand); font-weight: 800; }
+  .kr-head .kr-us { color: var(--brand); }
+  .tr-num { display: inline-block; font: 800 14px var(--font-latin); color: var(--brand); background: var(--brand-soft); padding: 4px 10px; border-radius: 999px; margin-bottom: 10px; }
+  .tr-note { margin-top: 18px; text-align: center; color: var(--ink-3); font-size: 14.5px; }
+  @media (max-width: 700px) {
+    .kr-row { grid-template-columns: 1fr 1fr; padding: 12px 16px; font-size: 14.5px; }
+    .kr-row > :first-child { grid-column: 1 / -1; }
+    .kr-head > :first-child { display: none; }
+  }
 
   /* 기술 */
   .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }

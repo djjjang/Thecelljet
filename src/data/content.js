@@ -82,16 +82,16 @@ export const components = [
 
 // 아톤플러스 앰플: 제품명·용량만 사실로 표기. 관리 목적은 순한 표현으로 (효능 주장 금지)
 export const ampoules = [
-  { code: 'CS', name: 'Clear Skin Solution', vol: '5ml × 6 vial', care: '맑은 피부톤 케어', color: '#5B6472' },
-  { code: 'FS', name: 'Firming & Elasticity Solution', vol: '2ml × 6 vial', care: '탄력 케어', color: '#B08A2E' },
-  { code: 'HS', name: 'Hair Strengthening Solution', vol: '2ml × 6 vial', care: '두피 · 모발 케어', color: '#1E2A5E' },
-  { code: 'LS', name: 'Lifting & Firming Solution', vol: '5ml × 6 vial', care: '바디 탄력 케어', color: '#1F6FC5' },
-  { code: 'MS', name: 'Moisturizing Glow Solution', vol: '3ml × 6 vial', care: '보습 · 윤기 케어', color: '#D9622B' },
-  { code: 'RS', name: 'Relief Solution', vol: '5ml × 6 vial', care: '민감 피부 진정 케어', color: '#C62A35' },
+  { code: 'CS', name: 'Clear Skin Solution', vol: '5ml × 6 vial', care: '맑은 피부톤 케어', color: '#5B6472', use: '얼굴 · 목', point: '알부틴 · 글루타치온 · 나이아신아마이드를 담아, 칙칙해 보이는 피부톤을 맑고 균일하게 가꿔 줍니다.' },
+  { code: 'FS', name: 'Firming & Elasticity Solution', vol: '2ml × 6 vial', care: '탄력 케어', color: '#B08A2E', point: '탄력이 떨어져 보이는 피부를 탄탄하고 매끄럽게 가꾸는 탄력 케어 앰플입니다.' },
+  { code: 'HS', name: 'Hair Strengthening Solution', vol: '2ml × 6 vial', care: '두피 · 모발 케어', color: '#1E2A5E', use: '두피 (두피 모드)', point: '가수분해 콜라겐 · 알란토인을 담아, 건조한 두피를 촉촉하게 정돈하고 모발에 윤기를 더해 줍니다.' },
+  { code: 'LS', name: 'Lifting & Firming Solution', vol: '5ml × 6 vial', care: '바디 탄력 케어', color: '#1F6FC5', use: '바디 · 얼굴', point: '헥사펩타이드-8 · 브로멜라인 · 카르니틴을 담아, 탄력이 떨어져 보이는 피부를 탄탄하게 가꿔 줍니다.' },
+  { code: 'MS', name: 'Moisturizing Glow Solution', vol: '3ml × 6 vial', care: '보습 · 윤기 케어', color: '#D9622B', point: '건조한 피부에 수분을 채워 촉촉하고 윤기 있게 가꾸는 보습 케어 앰플입니다.' },
+  { code: 'RS', name: 'Relief Solution', vol: '5ml × 6 vial', care: '민감 피부 진정 케어', color: '#C62A35', use: '얼굴 · 목', point: '병풀 · 모과 · 작약 추출물을 담아, 건조하고 예민해진 피부를 편안하게 진정시켜 줍니다.' },
 ];
 
 export const safety = [
-  '교육받은 전문가만 사용하는 전문가용 미용기기입니다.',
+  '교육받은 전문가만 사용하는 전문가용 미용기기입니다. 도입 시 사용 교육을 반드시 받으신 뒤 사용해 주세요.',
   '눈 주위·눈꺼풀 등 민감한 부위에는 사용하지 않으며, 얼굴 관리 시 보호 안경을 착용합니다.',
   '핸드피스 온도가 약 70℃에 이르면 자동으로 작동을 멈춥니다. 10~20분 쉬면 다시 사용할 수 있습니다.',
   '핸드피스 누적 100만 샷에 가까워지면 교체 안내가 표시됩니다.',
@@ -132,7 +132,7 @@ export const certs = [
 export const faqs = [
   {
     q: '더셀젯은 어떤 기기인가요?',
-    a: '더셀젯(THE CELLJET)은 바늘 없이 솔레노이드 전자기 제트 방식으로 화장품 앰플을 피부에 전달하는 전문가용 미용기기(Cosmetic Delivery System)입니다. 국내 제조사 아이레이저랩(I LASER LAB)이 만듭니다.',
+    a: '더셀젯(THE CELLJET)은 바늘 없이 솔레노이드 전자기 제트 방식으로 화장품 앰플을 피부에 전달하는 전문가용 미용기기(Cosmetic Delivery System)입니다. 국내 제조사 아이레이저랩(I LASER LAB)이 한국에서 연구 · 개발하고 제조합니다.',
   },
   {
     q: '의료기기인가요?',
@@ -140,7 +140,7 @@ export const faqs = [
   },
   {
     q: '어디에서, 누가 사용하나요?',
-    a: '피부관리실, 에스테틱 센터, 클리닉 관리실 등에서 교육을 받은 전문가가 사용합니다. 도입하시면 사용 교육도 함께 안내해 드립니다.',
+    a: '피부관리실, 에스테틱 센터, 클리닉 관리실 등에서 교육을 받은 전문가가 사용합니다. 압력으로 앰플을 전달하는 기기라 올바르고 효율적으로 쓰려면 사용 교육이 꼭 필요하며, 도입하시면 사용 교육을 함께 진행합니다.',
   },
   {
     q: '어떤 부위에 사용할 수 있나요?',

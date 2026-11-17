@@ -56,7 +56,7 @@ export default {
   },
 
   hero: {
-    badges: ['KC registered · 3 patents', 'Made in Korea · I LASER LAB'],
+    badges: ['KC registered · 3 patents', 'Researched, developed & made in Korea'],
     h1a: 'THE CELLJET', h1hl: 'Needle-free', h1b: 'ampoule delivery',
     lead: 'A solenoid-driven electromagnetic jet spreads 0.5 cc of ampoule evenly onto the skin.<br class="pc" /> A <strong>professional cosmetic device</strong> for skin care salons and clinics.',
     checks: ['Dual pulse minimizes splatter and waste', 'Steady pressure to the last drop (full-shot)', '4 modes: Face & Neck · Scalp · Body · Special', 'Vibration and blue LED touch control on the handpiece'],
@@ -77,7 +77,20 @@ export default {
     cards: [
       ['Needle-free delivery', 'A solenoid (electromagnet) creates an instant pressure of about 20–25 MPa, spraying the ampoule through a nozzle of about 130–150 µm.'],
       ['Built for professionals', 'Area-specific modes, 9 intensity levels, saved settings and usage logs help you care for every client under the same conditions.'],
-      ['Made in Korea · 1-year warranty', 'Manufactured in Korea by I LASER LAB. Main parts are covered free of charge for 1 year from purchase.'],
+      ['Researched, developed & made in Korea', 'Researched, developed and manufactured in Korea by I LASER LAB. Main parts are covered free of charge for 1 year from purchase.'],
+    ],
+  },
+
+  korea: {
+    eyebrow: 'Made in Korea',
+    title: 'Researched, developed and made in Korea',
+    lead: 'Instead of an air-pressure gun, THE CELLJET builds pressure with an electromagnet (solenoid) — a method researched and developed in Korea.<br class="pc" /> Backed by 3 patents and manufactured in Korea by I LASER LAB.',
+    head: ['', 'Air-pressure type', 'THE CELLJET electromagnetic type'],
+    rows: [
+      ['Pressure source', 'Compressed air', 'Solenoid-driven electromagnetic jet'],
+      ['Pressure consistency', 'Pressure may vary during use', 'Consistent pressure to the end of the 0.5 cc cartridge'],
+      ['Ampoule loss', 'Splashing and run-off during spraying', 'Dual pulse reduces splashing and loss'],
+      ['Fine control', '', '4 modes × 9 levels, up to 5 shots per second'],
     ],
   },
 
@@ -147,10 +160,19 @@ export default {
     ampMore: 'and more (see product label for the full list)',
     ampNote: 'All ATON PLUS ampoules contain PDRN (Sodium DNA). Please check the product label for full ingredients and directions.',
     accNote: '※ The syringe, adapter and syringe cap are also compatible with standard products. Consumables such as cartridges, ampoules and cables are not covered by the warranty.',
+    ampPoint: 'Care point', ampUse: 'Main areas',
+    ampHowTitle: 'How to use the ampoules',
+    ampHow: [
+      ['Consult', 'Listen to what the client cares about most and set the care goal.'],
+      ['Choose', 'Pick the ATON PLUS ampoule that fits the goal and the area.'],
+      ['Mode · level', 'Choose the mode for the area, start at a low level and raise it while checking the response.'],
+      ['Finish', 'Check the skin after care and finish with moisturizing and soothing.'],
+    ],
+    ampHowNote: 'Mode and level settings for each ampoule are covered in detail in the user training. Ampoules are cosmetics and are not intended to prevent or treat any disease.',
     specTitle: 'THE CELLJET Full Specifications', close: 'Close',
     specSrc: 'Source: Manufacturer user manual (SUMI THE CELLJET Cosmetic Delivery System User Manual)',
   },
-  ampoules: ko.ampoules.map((a) => ({ ...a, care: { CS: 'Clear skin-tone care', FS: 'Firmness care', HS: 'Scalp & hair care', LS: 'Body firmness care', MS: 'Moisture & glow care', RS: 'Soothing care for sensitive skin' }[a.code] })),
+  ampoules: ko.ampoules.map((a) => ({ ...a, use: { CS: 'Face · neck', HS: 'Scalp (Scalp mode)', LS: 'Body · face', RS: 'Face · neck' }[a.code], point: { CS: 'With arbutin, glutathione and niacinamide, it helps dull-looking skin look clearer and more even.', FS: 'A firmness care ampoule that helps skin look firmer and smoother.', HS: 'With hydrolyzed collagen and allantoin, it moisturizes a dry scalp and adds shine to hair.', LS: 'With acetyl hexapeptide-8, bromelain and carnitine, it helps skin look firmer.', MS: 'A moisture care ampoule that hydrates dry skin for a dewy glow.', RS: 'With centella, chaenomeles and peony extracts, it soothes dry, sensitive skin.' }[a.code], care: { CS: 'Clear skin-tone care', FS: 'Firmness care', HS: 'Scalp & hair care', LS: 'Body firmness care', MS: 'Moisture & glow care', RS: 'Soothing care for sensitive skin' }[a.code] })),
   ampouleIngredients,
   accessories: [
     { ...ko.accessories[0], name: 'Syringe (0.5 cc)', desc: '0.5 cc cartridge that holds the ampoule' },
@@ -181,6 +203,18 @@ export default {
     ['Warranty', '12 months from purchase (excluding consumables)'],
   ],
 
+  training: {
+    eyebrow: 'Training',
+    title: 'THE CELLJET is used after training',
+    lead: 'As a professional device that delivers ampoules with pressure, user training is essential to use it correctly and efficiently.<br class="pc" /> User training is provided with every installation.',
+    items: [
+      ['Modes · levels by area', 'Learn when and how to use the Face & Neck, Scalp, Body and Special modes, and how to raise the level.'],
+      ['Choosing ampoules', 'Learn to set the care goal through consultation and choose the right ATON PLUS ampoule.'],
+      ['Safety · hygiene', 'Learn areas to avoid, protective eyewear, overheat stop, cartridge replacement and hygiene.'],
+    ],
+    note: 'Training schedule and format will be explained during consultation.',
+  },
+
   certTitle: 'Safety, Certifications & Patents',
   certs: [
     { ...ko.certs[0], title: 'KC registered', org: 'Electrical safety · EMC (Korea)', desc: 'Meets electrical safety and electromagnetic compatibility requirements under K 60335-1 / K 60335-2-23.' },
@@ -190,7 +224,7 @@ export default {
   ],
   safetyTitle: 'For safe use',
   safety: [
-    'A professional cosmetic device to be used only by trained professionals.',
+    'A professional cosmetic device to be used only by trained professionals. Please complete the user training before use.',
     'Do not use around the eyes or eyelids. Wear protective eyewear during facial care.',
     'The handpiece stops automatically at about 70°C and can be used again after 10–20 minutes of rest.',
     'A replacement notice appears as the handpiece approaches 1,000,000 shots.',
@@ -200,9 +234,9 @@ export default {
 
   faqTitle: 'Frequently Asked Questions',
   faqs: [
-    { q: 'What is THE CELLJET?', a: 'THE CELLJET is a professional cosmetic device (Cosmetic Delivery System) that delivers cosmetic ampoules onto the skin without needles, using a solenoid-driven electromagnetic jet. It is made in Korea by I LASER LAB.' },
+    { q: 'What is THE CELLJET?', a: 'THE CELLJET is a professional cosmetic device (Cosmetic Delivery System) that delivers cosmetic ampoules onto the skin without needles, using a solenoid-driven electromagnetic jet. It is researched, developed and manufactured in Korea by I LASER LAB.' },
     { q: 'Is it a medical device?', a: 'No. THE CELLJET is a cosmetic device and is not intended to diagnose or treat any disease. It is KC registered (electrical safety, EMC) and meets CE (LVD, EMC) requirements.' },
-    { q: 'Who uses it, and where?', a: 'Trained professionals use it in skin care salons, aesthetic centers and clinic care rooms. Training is provided with the device.' },
+    { q: 'Who uses it, and where?', a: 'Trained professionals use it in skin care salons, aesthetic centers and clinic care rooms. As it delivers ampoules with pressure, user training is essential to use it correctly and efficiently, and training is provided with every installation.' },
     { q: 'Which areas can it be used on?', a: 'There are 4 modes — Face & Neck, Scalp, Body and Special (for high-performance ampoules) — each with 9 intensity levels. It is not used around the eyes or eyelids.' },
     { q: 'Which ampoules does it use?', a: 'There are 6 dedicated ATON PLUS ampoules (CS, FS, HS, LS, MS, RS). It uses a 0.5 cc syringe, adapter and cap, which are also compatible with standard products.' },
     { q: 'What about warranty and service?', a: 'Main parts such as electronics, the power unit and the solenoid are covered free of charge for 1 year from purchase. Consumables such as cartridges, ampoules and cables are excluded, and the warranty applies only to products from authorized channels. The handpiece lasts about 1,000,000 shots.' },
