@@ -34,7 +34,7 @@ const schema = [{
     <a href="/blog" class="back">← 뷰티&amp;헬스 목록</a>
     <p class="post-cat">{d.category}{!d.approved && <span class="check">대표님 확인 전</span>}</p>
     <h1 class="art-title">{d.title}</h1>
-    <p class="art-meta">더셀젯 THE CELLJET · <time datetime={isoDate(d.date)}>{formatDate(d.date)}</time></p>
+    <p class="art-meta">더셀젯 THE CELLJET · {d.approved ? <time datetime={isoDate(d.date)}>{formatDate(d.date)}</time> : <span>발행일은 확인 후 정해집니다</span>}</p>
 
     <div class="art">
       <Content />
