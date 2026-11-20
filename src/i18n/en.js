@@ -225,7 +225,7 @@ export default {
   safetyTitle: 'For safe use',
   safety: [
     'A professional cosmetic device to be used only by trained professionals. Please complete the user training before use.',
-    'Do not use around the eyes or eyelids. Wear protective eyewear during facial care.',
+    'Do not use on the eyelids or close to the eyeball. Both client and practitioner wear protective eyewear during facial care.',
     'The handpiece stops automatically at about 70°C and can be used again after 10–20 minutes of rest.',
     'A replacement notice appears as the handpiece approaches 1,000,000 shots.',
     '1-year free warranty from purchase (excluding consumables; authorized products only).',
@@ -237,7 +237,7 @@ export default {
     { q: 'What is THE CELLJET?', a: 'THE CELLJET is a professional cosmetic device (Cosmetic Delivery System) that delivers cosmetic ampoules onto the skin without needles, using a solenoid-driven electromagnetic jet. It is researched, developed and manufactured in Korea by I LASER LAB.' },
     { q: 'Is it a medical device?', a: 'No. THE CELLJET is a cosmetic device and is not intended to diagnose or treat any disease. It is KC registered (electrical safety, EMC) and meets CE (LVD, EMC) requirements.' },
     { q: 'Who uses it, and where?', a: 'Trained professionals use it in skin care salons, aesthetic centers and clinic care rooms. As it delivers ampoules with pressure, user training is essential to use it correctly and efficiently, and training is provided with every installation.' },
-    { q: 'Which areas can it be used on?', a: 'There are 4 modes — Face & Neck, Scalp, Body and Special (for high-performance ampoules) — each with 9 intensity levels. It is not used around the eyes or eyelids.' },
+    { q: 'Which areas can it be used on?', a: 'There are 4 modes — Face & Neck, Scalp, Body and Special (for high-performance ampoules) — each with 9 intensity levels. It is not used on the eyelids or close to the eyeball.' },
     { q: 'Which ampoules does it use?', a: 'There are 6 dedicated ATON PLUS ampoules (CS, FS, HS, LS, MS, RS). It uses a 0.5 cc syringe, adapter and cap, which are also compatible with standard products.' },
     { q: 'What about warranty and service?', a: 'Main parts such as electronics, the power unit and the solenoid are covered free of charge for 1 year from purchase. Consumables such as cartridges, ampoules and cables are excluded, and the warranty applies only to products from authorized channels. The handpiece lasts about 1,000,000 shots.' },
     { q: 'Can I see the device and get a consultation?', a: `Yes. Contact us by email (cuenter333@gmail.com), phone (${phone}), KakaoTalk channel "THE CELLJET", or the form below. We will arrange a demo and consultation.` },
@@ -301,10 +301,11 @@ export default {
   },
   guide: {
     eyebrow: 'Care Guide', title: 'Care guide by area',
-    lead: 'Recommended mode, intensity, ampoule and steps for each area.',
+    lead: 'Skin thickness differs by area, so each area has its own mode and intensity levels.',
     mode: 'Mode', intensity: 'Intensity', hz: 'Shots/sec', ampoule: 'Ampoule', time: 'Time', steps: 'Steps', caution: 'Caution',
     source: 'Source',
-    note: '※ General guidance only. Settings for each client should be decided by a trained professional.',
+    note: '※ Reference levels from the manufacturer. Start low and adjust to each client’s skin; final settings are confirmed in the user training.',
+    levels: 'Level by area', manual: 'Download user manual (PDF, Korean)',
   },
   thanks: {
     title: 'Inquiry received', desc: 'Your THE CELLJET inquiry has been received.',

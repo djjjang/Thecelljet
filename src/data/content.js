@@ -92,7 +92,7 @@ export const ampoules = [
 
 export const safety = [
   '교육받은 전문가만 사용하는 전문가용 미용기기입니다. 도입 시 사용 교육을 반드시 받으신 뒤 사용해 주세요.',
-  '눈 주위·눈꺼풀 등 민감한 부위에는 사용하지 않으며, 얼굴 관리 시 보호 안경을 착용합니다.',
+  '눈꺼풀 위와 안구 가까이에는 사용하지 않으며, 얼굴 관리 시 고객과 관리자 모두 보호 안경을 착용합니다.',
   '핸드피스 온도가 약 70℃에 이르면 자동으로 작동을 멈춥니다. 10~20분 쉬면 다시 사용할 수 있습니다.',
   '핸드피스 누적 100만 샷에 가까워지면 교체 안내가 표시됩니다.',
   '구입일로부터 1년간 무상 보증 (소모품 제외, 정식 유통 제품에 한함).',
@@ -144,7 +144,7 @@ export const faqs = [
   },
   {
     q: '어떤 부위에 사용할 수 있나요?',
-    a: '얼굴·목, 두피, 바디, 스페셜(고기능 앰플용) 4가지 모드가 있습니다. 모드마다 강도를 9단계로 조절할 수 있습니다. 단, 눈 주위와 눈꺼풀 같은 민감한 부위에는 사용하지 않습니다.',
+    a: '얼굴·목, 두피, 바디, 스페셜(고기능 앰플용) 4가지 모드가 있습니다. 모드마다 강도를 9단계로 조절할 수 있습니다. 단, 눈꺼풀 위와 안구 가까이에는 사용하지 않습니다.',
   },
   {
     q: '어떤 앰플을 사용하나요?',
@@ -284,4 +284,36 @@ export const reviews = [];
 //   source: '제조사 교육 자료 (2026-11)',
 //   confirmed: true,
 // },
-export const careGuide = [];
+// 2026-11-20 채움: 대표님이 준 제조사 제품 소개서(「더셀젯 비침습 인젝터」 p.3)의 모드별 단계·부위 기준
+// ⚠️ 소개서의 '통증·다이어트·림프절 순환' 표현은 미용기기 기준에 맞게 바꿈. 눈가·눈밑은 '눈꺼풀·안구 제외'를 붙임 (대표님 확인 필요)
+const SRC = '제조사 제품 소개서 (2026-11)';
+export const careGuide = [
+  {
+    area: '얼굴 · 목', area_en: 'Face & Neck', area_zh: '面部 · 颈部', mode: 'FACE & NECK',
+    levels: [['1~3단계', '이마 · 미간 · 눈가 · 눈밑 (눈꺼풀 위와 안구 가까이는 제외)'], ['4~6단계', '중안면 · 코 · 콧등 · 입가 · 턱라인'], ['7~9단계', '목 · 턱 아래']],
+    levels_en: [['Level 1–3', 'Forehead, glabella, eye area, under-eye (never on the eyelids or close to the eyeball)'], ['Level 4–6', 'Mid-face, nose, nasal bridge, mouth corners, jawline'], ['Level 7–9', 'Neck, under the chin']],
+    levels_zh: [['1~3 档', '额头 · 眉间 · 眼周 · 眼下（眼睑及眼球附近除外）'], ['4~6 档', '面中部 · 鼻部 · 鼻梁 · 嘴角 · 下颌线'], ['7~9 档', '颈部 · 下巴下方']],
+    source: SRC, source_en: 'Manufacturer product brochure (2026-11)', source_zh: '制造商产品介绍资料（2026-11）', confirmed: true,
+  },
+  {
+    area: '두피', area_en: 'Scalp', area_zh: '头皮', mode: 'SCALP',
+    levels: [['1~3단계', '헤어라인 · 옆머리(측두부) · 앞머리(전두부)'], ['4~6단계', '뒷머리(후두부) · 정수리'], ['7~9단계', '목덜미']],
+    levels_en: [['Level 1–3', 'Hairline, sides (temporal), front (frontal)'], ['Level 4–6', 'Back of the head (occipital), crown'], ['Level 7–9', 'Nape of the neck']],
+    levels_zh: [['1~3 档', '发际线 · 两侧（颞部）· 前额（额部）'], ['4~6 档', '后脑（枕部）· 头顶'], ['7~9 档', '后颈']],
+    source: SRC, source_en: 'Manufacturer product brochure (2026-11)', source_zh: '制造商产品介绍资料（2026-11）', confirmed: true,
+  },
+  {
+    area: '바디', area_en: 'Body', area_zh: '身体', mode: 'BODY',
+    levels: [['1~3단계', '림프 라인을 따라 가볍게 하는 순환 케어'], ['4~6단계', '팔뚝 · 등 · 허벅지 등 부분 바디 관리'], ['7~9단계', '복부 바디 관리']],
+    levels_en: [['Level 1–3', 'Gentle circulation care along the lymph lines'], ['Level 4–6', 'Targeted body care: upper arms, back, thighs'], ['Level 7–9', 'Abdomen body care']],
+    levels_zh: [['1~3 档', '沿淋巴线轻柔的循环护理'], ['4~6 档', '上臂 · 背部 · 大腿等局部身体护理'], ['7~9 档', '腹部身体护理']],
+    source: SRC, source_en: 'Manufacturer product brochure (2026-11)', source_zh: '制造商产品介绍资料（2026-11）', confirmed: true,
+  },
+  {
+    area: 'Y존 등 민감 부위', area_en: 'Y-zone & sensitive areas', area_zh: 'Y区等敏感部位', mode: 'SPECIAL',
+    levels: [['1~3단계', '외음부 주변 피부'], ['4~6단계', 'Y존(서혜부)'], ['7~9단계', '골반 · 엉덩이 아래']],
+    levels_en: [['Level 1–3', 'Skin around the vulva'], ['Level 4–6', 'Y-zone (groin)'], ['Level 7–9', 'Pelvis, under the buttocks']],
+    levels_zh: [['1~3 档', '外阴周围皮肤'], ['4~6 档', 'Y区（腹股沟）'], ['7~9 档', '骨盆 · 臀下']],
+    source: SRC, source_en: 'Manufacturer product brochure (2026-11)', source_zh: '制造商产品介绍资料（2026-11）', confirmed: true,
+  },
+];

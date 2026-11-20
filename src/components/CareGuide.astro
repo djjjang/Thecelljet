@@ -30,6 +30,12 @@ const list = careGuide.filter((g) => g.confirmed === true && g.area && g.mode &&
             {g.ampoule && <div><dt>{G.ampoule}</dt><dd>{g.ampoule}</dd></div>}
             {g.time && <div><dt>{G.time}</dt><dd>{tr(g, 'time')}</dd></div>}
           </dl>
+          {tr(g, 'levels')?.length > 0 && (
+            <>
+              <p class="cg-sub">{G.levels}</p>
+              <ul class="cg-levels">{tr(g, 'levels').map(([lv, txt]) => <li><b>{lv}</b><span>{txt}</span></li>)}</ul>
+            </>
+          )}
           {tr(g, 'steps')?.length > 0 && (
             <>
               <p class="cg-sub">{G.steps}</p>
@@ -37,17 +43,19 @@ const list = careGuide.filter((g) => g.confirmed === true && g.area && g.mode &&
             </>
           )}
           {g.caution && <p class="cg-caution"><b>{G.caution}</b> {tr(g, 'caution')}</p>}
-          <p class="cg-src">{G.source}: {g.source}</p>
+          <p class="cg-src">{G.source}: {tr(g, 'source')}</p>
         </article>
       ))}
     </div>
     <p class="cg-note">{G.note}</p>
+    <p class="cg-dl-wrap"><a class="btn btn-ghost" href="/manual/thecelljet-manual-ko.pdf" target="_blank" rel="noopener" download>{G.manual} ↓</a></p>
   </div>
 </section>
 )}
 
 <style>
-  .cg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .cg-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 760px) { .cg-grid { grid-template-columns: 1fr; } }
   .cg { padding: 26px; display: flex; flex-direction: column; }
   .cg-mode { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--navy); color: #7ff0e2; font: 800 11.5px var(--font-latin); letter-spacing: .08em; }
   .cg-head h3 { font-size: 21px; margin-top: 10px; }
@@ -59,5 +67,9 @@ const list = careGuide.filter((g) => g.confirmed === true && g.area && g.mode &&
   .cg-steps { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 4px; color: var(--ink-2); font-size: 15px; }
   .cg-caution { margin-top: 14px; padding: 10px 12px; border-radius: 10px; background: #fff7ed; color: #9a3412; font-size: 14px; }
   .cg-src { margin-top: auto; padding-top: 14px; font-size: 12.5px; color: var(--ink-3); }
+  .cg-levels { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
+  .cg-levels li { display: grid; grid-template-columns: 74px 1fr; gap: 10px; padding: 9px 12px; border-radius: 10px; background: var(--bg-soft); border: 1px solid var(--line); font-size: 14.5px; line-height: 1.5; }
+  .cg-levels b { color: var(--brand); font-weight: 800; font-size: 13.5px; }
+  .cg-dl-wrap { margin-top: 18px; text-align: center; }
   .cg-note { margin-top: 18px; text-align: center; font-size: 14px; color: var(--ink-3); }
 </style>
